@@ -1,0 +1,20 @@
+﻿//##Path must be changed!##
+openModel("C:/ptw_git/thermalsystemscontrollib/ThermalSystemsControlLib/package.mo");
+
+//Set correct working directory to prevent generating temporary simulation files in repository
+cd("C:\Users\F.Borst\Documents\Dymola\WorkingDirectory");
+
+//Set environment variable to library
+Modelica.Utilities.System.setEnvironmentVariable("env_tscl","C:/ptw_git/thermalsystemscontrollib/ThermalSystemsControlLib",false);
+
+//Disable storing as one file for version management
+Advanced.DefaultStoreAsOneFile = false;
+
+//Disable code export to prevent using source code license when not needed
+Advanced.EnableCodeExport = false;
+
+//Enable auto deleting of directories to prevent .bak-mo files
+Advanced.AutoDeleteDirectories = true;
+
+//Set maximum line length to prevent white space changes in git repository
+Advanced.MaxLineLength=500;
