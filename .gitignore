@@ -1,0 +1,5 @@
+*.txt
+*.c
+*.mat
+*.exe
+!ThermalSystemsControlLib/Resources/Data_Pumps/*.mat

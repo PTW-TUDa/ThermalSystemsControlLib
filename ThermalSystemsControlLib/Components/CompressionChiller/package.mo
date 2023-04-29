@@ -1,0 +1,4 @@
+within ThermalSystemsControlLib.Components;
+package CompressionChiller
+  extends ThermalSystemsControlLib.BaseClasses.Icons.CompressionChiller_Icon_Package;
+end CompressionChiller;
