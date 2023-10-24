@@ -1,7 +1,7 @@
 within ThermalSystemsControlLib.UsersGuide;
 model Acknowledgements "Acknowledgments"
     extends ThermalSystemsControlLib.BaseClasses.Icons.Information_Icon;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+ annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p><b>Acknowledgments</b></p>

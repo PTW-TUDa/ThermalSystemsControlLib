@@ -29,9 +29,9 @@ model Pump
         rotation=90,
         origin={-50,-120})));
   Modelica.Blocks.Math.Add add(k2=-1) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={38,-60})));
+        origin={50,-50})));
   Modelica.Fluid.Sensors.Temperature temperature(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 equation
   connect(pump_Physical.port_b, port_b) annotation (Line(points={{80,10},{80,100},{100,100}}, color={0,127,255}));
@@ -39,17 +39,17 @@ equation
   connect(controlPump.nControlMode, selectLocalControlMode.nControlMode) annotation (Line(points={{-22,-59},{-40,-59},{-40,-70},{-59,-70}}, color={255,127,0}));
   connect(selectSetPoint.fSetPoint, controlPump.fSetPoint) annotation (Line(points={{-59,30},{-40,30},{-40,-50},{-22,-50}}, color={0,0,127}));
   connect(selectControlMode.bSetStatusOn, controlPump.bSetStatusOn) annotation (Line(points={{-59,70},{-22,70},{-22,-41}}, color={255,0,255}));
-  connect(controlPump.fSetPointInternal, pump_Physical.fSetPoint) annotation (Line(points={{1,-50},{40,-50},{40,12},{70,12}},
+  connect(controlPump.fSetPointInternal, pump_Physical.fSetPoint) annotation (Line(points={{1,-50},{20,-50},{20,12},{70,12}},
                                                                                                                             color={0,0,127}));
   connect(bStatusOn, bStatusOn) annotation (Line(points={{-50,110},{-50,110}}, color={255,0,255}));
   connect(pump_Physical.port_a, port_a) annotation (Line(points={{80,-10},{80,-100},{100,-100}}, color={0,127,255}));
-  connect(controlPump.fThermalPowerExternal, fThermalPowerExternal) annotation (Line(points={{-10,-62},{-10,-80},{50,-80},{50,-120}},        color={0,0,127}));
+  connect(controlPump.fThermalPowerExternal, fThermalPowerExternal) annotation (Line(points={{-10,-62},{-10,-72},{50,-72},{50,-120}},        color={0,0,127}));
   connect(pump_Physical.bStatusOn, bStatusOn) annotation (Line(points={{81,8},{76,8},{76,80},{-50,80},{-50,110}}, color={255,0,255}));
   connect(controlPump.fTemperatureExternal, fTemperatureExternal) annotation (Line(points={{-15,-62},{-15,-80},{-50,-80},{-50,-120}}, color={0,0,127}));
-  connect(add.y, controlPump.fTemperatureDifference) annotation (Line(points={{27,-60},{20,-60},{20,-62},{-5,-62}}, color={0,0,127}));
-  connect(add.u2, fTemperatureExternal) annotation (Line(points={{50,-54},{10,-54},{10,-72},{-15,-72},{-15,-80},{-50,-80},{-50,-120}}, color={0,0,127}));
+  connect(add.y, controlPump.fTemperatureDifference) annotation (Line(points={{39,-50},{20,-50},{20,-62},{-5,-62}}, color={0,0,127}));
+  connect(add.u2, fTemperatureExternal) annotation (Line(points={{62,-56},{62,-80},{-50,-80},{-50,-120}},                              color={0,0,127}));
   connect(temperature.port, port_a) annotation (Line(points={{70,-40},{80,-40},{80,-100},{100,-100}}, color={0,127,255}));
-  connect(temperature.T, add.u1) annotation (Line(points={{63,-30},{60,-30},{60,-66},{50,-66}}, color={0,0,127}));
+  connect(temperature.T, add.u1) annotation (Line(points={{63,-30},{60,-30},{60,-44},{62,-44}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Pressure building pump including control method.</p>
