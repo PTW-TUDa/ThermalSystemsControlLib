@@ -19,11 +19,11 @@ model Ambient
     freqHz=1/(24*3600),
     offset=278.15) annotation (Placement(transformation(extent={{100,0},{80,20}})));
 equation
-  connect(localState.ambientState1, ambientState) annotation (Line(points={{-79,90},{-60,90},{-60,0},{-110,0}}, color={0,0,0}));
 
   ambientState.bRain = bRain.y;
   ambientState.fOutsideTemperature = fOutsideTemperature.y;
-  ambientState.fOutsideTemperature_Mean =mean.y;
+  ambientState.fOutsideTemperature_Mean = mean.y;
   connect(fOutsideTemperature.y, mean.u) annotation (Line(points={{79,10},{22,10}}, color={0,0,127}));
+  connect(ambientState, localState.ambientState1) annotation (Line(points={{-110,0},{-79,0},{-79,90}}, color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Ambient;

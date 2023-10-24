@@ -23,11 +23,13 @@ model TwoWayValve_Physical
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.RealOutput fOperatingPoint annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Modelica.Blocks.Interfaces.RealOutput fOperatingPoint annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax=1, uMin=deviceData.leakageOpening) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,80})));
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=deviceData.u_min) annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  Modelica.Blocks.Interfaces.BooleanOutput bStatusOn "Connector of Boolean output signal" annotation (Placement(transformation(extent={{100,70},{120,90}})));
 equation
   connect(port_a1, valveLinear.port_a) annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(firstOrder.y, valveLinear.opening) annotation (Line(points={{-1.9984e-15,39},{-1.9984e-15,20},{0,20},{0,8}},
@@ -35,7 +37,9 @@ equation
   connect(valveLinear.port_b, port_b) annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(firstOrder.u, limiter.y) annotation (Line(points={{2.22045e-15,62},{0,62},{-1.9984e-15,69}}, color={0,0,127}));
   connect(limiter.u, fSetPoint) annotation (Line(points={{2.22045e-15,92},{2.22045e-15,106},{0,106},{0,120}}, color={0,0,127}));
-  connect(firstOrder.y, fOperatingPoint) annotation (Line(points={{0,39},{0,20},{60,20},{60,60},{110,60}}, color={0,0,127}));
+  connect(firstOrder.y, fOperatingPoint) annotation (Line(points={{0,39},{0,20},{60,20},{60,40},{110,40}}, color={0,0,127}));
+  connect(greaterEqualThreshold.y,bStatusOn)  annotation (Line(points={{81,80},{110,80}}, color={255,0,255}));
+  connect(greaterEqualThreshold.u, fOperatingPoint) annotation (Line(points={{58,80},{40,80},{40,20},{60,20},{60,40},{110,40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

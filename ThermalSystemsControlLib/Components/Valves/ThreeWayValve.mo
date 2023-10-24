@@ -9,7 +9,8 @@ model ThreeWayValve
   parameter Real yMin=0   "Lower limit of controller output" annotation(Dialog(group="Controller limitations"));
   replaceable parameter ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.ThreeWayValveProperties deviceData constrainedby ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.ThreeWayValveProperties annotation (choicesAllMatching=true);
 
-  PhysicalModels.ThreeWayValve_Physical      threeWayValve_Physical(deviceData=deviceData)
+  PhysicalModels.ThreeWayValve_Physical      threeWayValve_Physical(redeclare package Medium = Medium,
+                                                                    deviceData=deviceData)
                                                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

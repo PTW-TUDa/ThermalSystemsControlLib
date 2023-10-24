@@ -10,7 +10,8 @@ model Pump
   parameter Real yMax=1   "Upper limit of controller output" annotation(Dialog(group="Controller limitations"));
   parameter Real yMin=0   "Lower limit of controller output" annotation(Dialog(group="Controller limitations"));
 
-  PhysicalModels.Pump_Physical                 pump_Physical(pumpType=pumpType)              annotation (Placement(transformation(
+  PhysicalModels.Pump_Physical                 pump_Physical(redeclare package Medium = Medium,
+                                                             pumpType=pumpType)              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,0})));
@@ -21,8 +22,17 @@ model Pump
   Modelica.Blocks.Interfaces.RealInput fThermalPowerExternal annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={0,-120})));
+        origin={50,-120})));
 
+  Modelica.Blocks.Interfaces.RealInput fTemperatureExternal annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-50,-120})));
+  Modelica.Blocks.Math.Add add(k2=-1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={38,-60})));
+  Modelica.Fluid.Sensors.Temperature temperature(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 equation
   connect(pump_Physical.port_b, port_b) annotation (Line(points={{80,10},{80,100},{100,100}}, color={0,127,255}));
   connect(pump_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{81,4},{0,4},{0,0},{-70,0},{-70,18}},           color={0,0,127}));
@@ -33,8 +43,13 @@ equation
                                                                                                                             color={0,0,127}));
   connect(bStatusOn, bStatusOn) annotation (Line(points={{-50,110},{-50,110}}, color={255,0,255}));
   connect(pump_Physical.port_a, port_a) annotation (Line(points={{80,-10},{80,-100},{100,-100}}, color={0,127,255}));
-  connect(controlPump.fThermalPowerExternal, fThermalPowerExternal) annotation (Line(points={{-10,-62},{-10,-80},{0,-80},{0,-120},{0,-120}}, color={0,0,127}));
+  connect(controlPump.fThermalPowerExternal, fThermalPowerExternal) annotation (Line(points={{-10,-62},{-10,-80},{50,-80},{50,-120}},        color={0,0,127}));
   connect(pump_Physical.bStatusOn, bStatusOn) annotation (Line(points={{81,8},{76,8},{76,80},{-50,80},{-50,110}}, color={255,0,255}));
+  connect(controlPump.fTemperatureExternal, fTemperatureExternal) annotation (Line(points={{-15,-62},{-15,-80},{-50,-80},{-50,-120}}, color={0,0,127}));
+  connect(add.y, controlPump.fTemperatureDifference) annotation (Line(points={{27,-60},{20,-60},{20,-62},{-5,-62}}, color={0,0,127}));
+  connect(add.u2, fTemperatureExternal) annotation (Line(points={{50,-54},{10,-54},{10,-72},{-15,-72},{-15,-80},{-50,-80},{-50,-120}}, color={0,0,127}));
+  connect(temperature.port, port_a) annotation (Line(points={{70,-40},{80,-40},{80,-100},{100,-100}}, color={0,127,255}));
+  connect(temperature.T, add.u1) annotation (Line(points={{63,-30},{60,-30},{60,-66},{50,-66}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Pressure building pump including control method.</p>

@@ -3,6 +3,7 @@ ActuatorContinuous
 ActuatorContinuous_LocalControlMode
 SystemContinuous
 SystemContinuous_LocalControlMode
+SystemContinuous_Storage
 Interfaces
 Methods
 Tests

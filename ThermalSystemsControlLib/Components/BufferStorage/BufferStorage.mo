@@ -6,8 +6,7 @@ model BufferStorage
   parameter Integer n_Seg = 2 "Number of volume segments";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start "Start value of temperature";
 
-  output Interfaces.BufferStorageState localState annotation (Placement(transformation(extent={{-10,100},{10,120}})));
-  PhysicalModels.BufferStorage_Physical bufferStorage_Physical(
+  PhysicalModels.BufferStorage_Physical BufferStorage(
     redeclare package Medium = Medium,
     V=V,
     n_Seg=n_Seg,
@@ -15,10 +14,16 @@ model BufferStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,10})));
+  Interfaces.bufferStorageState_FMUConnector localState annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-30,10})));
+  Interfaces.BufferStorageState localStorageState annotation (Placement(transformation(extent={{-10,100},{10,120}})));
 equation
-  connect(bufferStorage_Physical.port_a, port_a) annotation (Line(points={{80,0},{80,-100},{100,-100}}, color={0,127,255}));
-  connect(bufferStorage_Physical.port_b, port_b) annotation (Line(points={{80,20},{80,100},{100,100}}, color={0,127,255}));
-  connect(bufferStorage_Physical.localState, localState) annotation (Line(points={{69,10},{0,10},{0,110}}, color={0,0,0}));
+  connect(BufferStorage.port_a, port_a) annotation (Line(points={{80,0},{80,-100},{100,-100}}, color={0,127,255}));
+  connect(BufferStorage.port_b, port_b) annotation (Line(points={{80,20},{80,100},{100,100}}, color={0,127,255}));
+  connect(BufferStorage.localState, localState.localState1) annotation (Line(points={{69,10},{-19,10}}, color={0,0,0}));
+  connect(BufferStorage.localState, localStorageState) annotation (Line(points={{69,10},{0,10},{0,110}}, color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Simple buffer storage model using one-diemensional finite volume discretization.</p>

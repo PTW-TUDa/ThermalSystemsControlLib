@@ -47,7 +47,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  BaseClasses.Utilities.ZeroLimiter zeroLimiter(u_min=u_min)
+  BaseClasses.Utilities.ZeroLimiter zeroLimiter(u_min=u_min, u_0=0)
                                                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

@@ -5,5 +5,6 @@ connector heatMeterState
   Real fTemperatureDifference;
   Real fVolumeFlowRate;
   Real fHeatFlowRate;
+  Real fHeatEnergy;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end heatMeterState;

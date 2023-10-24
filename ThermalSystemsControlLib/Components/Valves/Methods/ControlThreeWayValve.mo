@@ -33,8 +33,8 @@ model ControlThreeWayValve
   Modelica.Blocks.Continuous.LimPID PID_ThermalPower(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=k,
-    yMax=yMax,
-    yMin=yMin,
+    yMax=1,
+    yMin=0,
     initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(

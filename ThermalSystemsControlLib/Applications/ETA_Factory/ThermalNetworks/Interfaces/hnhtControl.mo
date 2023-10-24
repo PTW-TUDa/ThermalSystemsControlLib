@@ -7,6 +7,6 @@ connector hnhtControl
     Boolean bSetStatusOn_CondensingBoiler;
     Boolean bSetStatusOn_StaticHeating;
     Boolean bSetStatusOn_VSIStorage;
-    Integer nControlMode_VSIStorage;
+    Boolean bLoading_VSIStorage;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end hnhtControl;

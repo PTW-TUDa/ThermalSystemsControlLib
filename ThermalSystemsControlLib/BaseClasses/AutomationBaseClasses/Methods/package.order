@@ -2,3 +2,4 @@ SelectControlMode
 SelectSetPoint
 SystemFlowControl
 SelectLocalControlMode
+SelectLocalControlModeBoolean

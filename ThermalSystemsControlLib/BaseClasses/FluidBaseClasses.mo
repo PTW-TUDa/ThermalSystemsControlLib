@@ -198,14 +198,11 @@ package FluidBaseClasses
     Modelica.Blocks.Interfaces.RealInput T_in(final unit="K") "instream temperature" annotation (Placement(transformation(extent={{-120,-60},{-100,-40}},
                                                                                                                                      rotation=0),
           iconTransformation(extent={{-120,-60},{-100,-40}})));
-    Modelica.Blocks.Interfaces.BooleanOutput bStatusOn annotation (Placement(transformation(extent={{100,40},{120,60}}), iconTransformation(extent={{100,40},{120,60}})));
   equation
   if T_in < T_inMin or T_in > T_inMax then
       fSetPointInternal = 0;
-      bStatusOn = false;
   else
       fSetPointInternal = fSetPoint;
-      bStatusOn = true;
   end if;
     annotation (Icon(graphics={ Rectangle(extent={{-100,100},{100,-100}},      lineColor=
                 {0,0,255},                                                                              pattern=
@@ -226,10 +223,10 @@ package FluidBaseClasses
   model ConditionCheck_TwoTemperatures "Checks two temperatures"
 
     //## PARAMETERS ##
-    parameter Modelica.SIunits.Temperature T2_min = 273.15+10 "Minimal T2";
-    parameter Modelica.SIunits.Temperature T2_max = 273.15+80 "Maximal T2";
-    parameter Modelica.SIunits.Temperature T1_min = 273.15+10 "Minimal T1";
-    parameter Modelica.SIunits.Temperature T1_max = 273.15+80 "Maximal T1";
+    parameter Modelica.SIunits.Temperature T2_min "Minimal T2";
+    parameter Modelica.SIunits.Temperature T2_max "Maximal T2";
+    parameter Modelica.SIunits.Temperature T1_min "Minimal T1";
+    parameter Modelica.SIunits.Temperature T1_max "Maximal T1";
 
     //## COMPONENTS ##
 
@@ -237,14 +234,11 @@ package FluidBaseClasses
     Modelica.Blocks.Interfaces.RealOutput fSetPointInternal "resulting operating point" annotation (Placement(transformation(extent={{100,-60},{120,-40}}), iconTransformation(extent={{100,-60},{120,-40}})));
     Modelica.Blocks.Interfaces.RealInput T2(final unit="K") "instream temperature" annotation (Placement(transformation(extent={{-120,-60},{-100,-40}}, rotation=0), iconTransformation(extent={{-120,-60},{-100,-40}})));
     Modelica.Blocks.Interfaces.RealInput T1(final unit="K") annotation (Placement(transformation(extent={{-120,40},{-100,60}}, rotation=0), iconTransformation(extent={{-120,40},{-100,60}})));
-    Modelica.Blocks.Interfaces.BooleanOutput bStatusOn annotation (Placement(transformation(extent={{100,40},{120,60}}), iconTransformation(extent={{100,40},{120,60}})));
   equation
     if T2 < T2_min or T2 > T2_max or T1 < T1_min or T1 > T1_max then
       fSetPointInternal = 0;
-      bStatusOn = true;
   else
       fSetPointInternal = fSetPoint;
-      bStatusOn = false;
   end if;
     annotation (Icon(graphics={ Rectangle(extent={{-100,100},{100,-100}},      lineColor=
                 {0,0,255},                                                                              pattern=

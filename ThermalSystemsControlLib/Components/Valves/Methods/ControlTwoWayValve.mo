@@ -17,8 +17,8 @@ model ControlTwoWayValve
   Modelica.Blocks.Continuous.LimPID PID_ThermalPower(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=k,
-    yMax=yMax,
-    yMin=yMin,
+    yMax=1,
+    yMin=0,
     initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
@@ -30,8 +30,20 @@ model ControlTwoWayValve
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-50})));
+  Modelica.Blocks.Continuous.LimPID PID_Heating(
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    k=k,
+    yMax=yMax,
+    yMin=yMin,
+    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+  Modelica.Blocks.Interfaces.RealInput fTemperatureExternal annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-50,-120})));
 equation
-  if nControlMode == 3 then
+  if nControlMode == 1 then
+    switch.u1 = PID_Heating.y;
+  elseif nControlMode == 3 then
     switch.u1 = PID_ThermalPower.y;
   else
     switch.u1 = fSetPoint;
@@ -47,6 +59,8 @@ equation
                                                                                                 color={0,0,127}));
   connect(bSetStatusOn, switch.u2) annotation (Line(points={{-120,90},{40,90},{40,0},{58,0}}, color={255,0,255}));
   connect(fSetPoint, abs1.u) annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));
+  connect(PID_Heating.u_m, fTemperatureExternal) annotation (Line(points={{0,38},{0,30},{-50,30},{-50,-120}}, color={0,0,127}));
+  connect(PID_Heating.u_s, fSetPoint) annotation (Line(points={{-12,50},{-120,50},{-120,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Control method for two way valves.</p>

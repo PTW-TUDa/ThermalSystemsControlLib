@@ -1,5 +1,6 @@
 SetTemperatures
 ControlHNHT
-ControlHNHT_VSI
 ControlHnhtHnltLinkage
 ControlHnlt
+ControlHnltCnLinkage
+ControlCN

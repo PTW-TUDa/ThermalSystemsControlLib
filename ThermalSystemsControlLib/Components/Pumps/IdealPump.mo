@@ -17,7 +17,11 @@ model IdealPump
   Modelica.Blocks.Interfaces.RealInput fThermalPowerExternal(start=0) annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={0,-120})));
+        origin={50,-120})));
+  Modelica.Blocks.Interfaces.RealInput fTemperatureExternal annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-50,-120})));
 equation
   connect(idealPump_Physical.port_b, port_b) annotation (Line(points={{80,10},{80,100},{100,100}}, color={0,127,255}));
   connect(idealPump_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{81,4},{0,4},{0,0},{-70,0},{-70,18}},           color={0,0,127}));
@@ -27,8 +31,9 @@ equation
   connect(controlPump.fSetPointInternal, idealPump_Physical.fSetPoint) annotation (Line(points={{1,-50},{40,-50},{40,12},{70,12}},                   color={0,0,127}));
   connect(bStatusOn, bStatusOn) annotation (Line(points={{-50,110},{-50,110}}, color={255,0,255}));
   connect(idealPump_Physical.port_a, port_a) annotation (Line(points={{80,-10},{80,-100},{100,-100}}, color={0,127,255}));
-  connect(controlPump.fThermalPowerExternal, fThermalPowerExternal) annotation (Line(points={{-10,-62},{-10,-80},{0,-80},{0,-120}}, color={0,0,127}));
+  connect(controlPump.fThermalPowerExternal, fThermalPowerExternal) annotation (Line(points={{-5,-62},{-5,-80},{50,-80},{50,-120}}, color={0,0,127}));
   connect(idealPump_Physical.bStatusOn, bStatusOn) annotation (Line(points={{81,8},{81,80},{-50,80},{-50,110}},  color={255,0,255}));
+  connect(controlPump.fTemperatureExternal, fTemperatureExternal) annotation (Line(points={{-15,-62},{-15,-80},{-50,-80},{-50,-120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Ideal mass-flow building pump including control method.</p>

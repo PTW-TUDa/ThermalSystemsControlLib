@@ -30,6 +30,7 @@ model HeatMeter_Physical
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-10})));
+  Modelica.Blocks.Continuous.Integrator integrator(initType=Modelica.Blocks.Types.Init.InitialState) annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
 equation
     cp = Medium.specificHeatCapacityCp(state_port);
 
@@ -38,7 +39,10 @@ equation
     sensorState.fTemperatureDifference =fFeedTemperature - T_Return.T;
     sensorState.fHeatFlowRate =massFlowRate.m_flow*cp*(fFeedTemperature - T_Return.T);
     sensorState.fVolumeFlowRate = volumeFlowRate.V_flow;
+    sensorState.fHeatEnergy = integrator.y;
     fHeatFlowRate = sensorState.fHeatFlowRate;
+
+    integrator.u = sensorState.fHeatFlowRate;
 
   connect(massFlowRate.port_a, port_a) annotation (Line(points={{-4.44089e-16,-80},{-4.44089e-16,-100},{100,-100}},
                                                                                               color={0,127,255}));

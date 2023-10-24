@@ -6,7 +6,8 @@ model CHP_Physical
 
   replaceable parameter ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPowerProperties deviceData constrainedby ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPowerProperties annotation (__Dymola_choicesAllMatching=true);
 
-  Modelica.Blocks.Tables.CombiTable2D Tableefficency_P_th(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=deviceData.f_effPth)
+  Modelica.Blocks.Tables.CombiTable2D Tableefficency_P_th(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=deviceData.f_effPth,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   ThermalSystemsControlLib.BaseClasses.Utilities.ZeroLimiter zeroLimiter1(u_min=deviceData.u_min, u_0=0) annotation (Placement(transformation(
@@ -17,8 +18,8 @@ model CHP_Physical
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(final alpha=0)
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={70,-50})));
+        rotation=0,
+        origin={50,-90})));
 
   Modelica.Blocks.Math.Gain gain_P_el_nom(k=-deviceData.P_el_nom)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -33,7 +34,9 @@ model CHP_Physical
         rotation=270,
         origin={0,50})));
   Modelica.Blocks.Math.Gain gain_P_gs_nom2(k=deviceData.P_gs_nom)
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={70,-70})));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     T=deviceData.riseTime,
@@ -79,14 +82,12 @@ model CHP_Physical
         rotation=270,
         origin={0,-10})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=deviceData.u_min) annotation (Placement(transformation(extent={{30,-6},{50,14}})));
-  Modelica.Blocks.Logical.And and1 annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  Modelica.Blocks.Math.Product product1 annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
 
   connect(zeroLimiter1.y, conditionCheck.fSetPoint) annotation (Line(points={{-2.22045e-15,69},{5,69},{5,61}}, color={0,0,127}));
-  connect(prePow.port, volume.heatPort) annotation (Line(points={{80,-50},{80,-90},{10,-90}},
-                                                                                     color={191,0,0}));
-  connect(prePow.Q_flow, gain_P_gs_nom2.y) annotation (Line(points={{60,-50},{41,-50}},              color={0,0,127}));
-  connect(Tableefficency_P_th.y, gain_P_gs_nom2.u) annotation (Line(points={{-19,-50},{18,-50}},color={0,0,127}));
+  connect(prePow.port, volume.heatPort) annotation (Line(points={{40,-90},{10,-90}}, color={191,0,0}));
+  connect(prePow.Q_flow, gain_P_gs_nom2.y) annotation (Line(points={{60,-90},{70,-90},{70,-81}},     color={0,0,127}));
   connect(port_a, temperature.port_a) annotation (Line(points={{-100,0},{-100,-100},{-80,-100}},
                                                                                               color={0,127,255}));
   connect(temperature.port_b, volume.ports[1]) annotation (Line(points={{-60,-100},{2,-100}},
@@ -105,10 +106,11 @@ equation
   connect(firstOrder.y, limiter.u) annotation (Line(points={{-1.9984e-15,9},{2.22045e-15,9},{2.22045e-15,2}}, color={0,0,127}));
   connect(limiter.y, Tableefficency_P_th.u1) annotation (Line(points={{0,-21},{0,-44},{-42,-44}}, color={0,0,127}));
   connect(fOperatingPoint, limiter.y) annotation (Line(points={{110,40},{80,40},{80,-20},{0,-20},{0,-21}}, color={0,0,127}));
-  connect(and1.u1, conditionCheck.bStatusOn) annotation (Line(points={{58,80},{40,80},{40,34},{5,34},{5,39}}, color={255,0,255}));
   connect(greaterEqualThreshold.u, firstOrder.y) annotation (Line(points={{28,4},{0,4},{0,9}}, color={0,0,127}));
-  connect(greaterEqualThreshold.y, and1.u2) annotation (Line(points={{51,4},{54,4},{54,72},{58,72}}, color={255,0,255}));
-  connect(and1.y, bStatusOn) annotation (Line(points={{81,80},{110,80}}, color={255,0,255}));
+  connect(product1.u2, Tableefficency_P_th.y) annotation (Line(points={{18,-56},{0,-56},{0,-50},{-19,-50}}, color={0,0,127}));
+  connect(product1.u1, Tableefficency_P_th.u1) annotation (Line(points={{18,-44},{-42,-44}}, color={0,0,127}));
+  connect(product1.y, gain_P_gs_nom2.u) annotation (Line(points={{41,-50},{70,-50},{70,-58}}, color={0,0,127}));
+  connect(greaterEqualThreshold.y, bStatusOn) annotation (Line(points={{51,4},{60,4},{60,80},{110,80}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1),
         graphics={
         Line(points={{-176,98}}, color={255,255,255}),

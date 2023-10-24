@@ -9,11 +9,11 @@ model thermalNetworkState_FMUConnector
 
   thermalNetworkState thermalNetworkState1 annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 equation
-  fUpperTemperature = thermalNetworkState1.fUpperTemperature;
-  fMidTemperature = thermalNetworkState1.fMidTemperature;
-  fLowerTemperature = thermalNetworkState1.fLowerTemperature;
-  fUpperTemperature_ActiveStorage = thermalNetworkState1.fUpperTemperature_ActiveStorage;
-  fLowerTemperature_ActiveStorage = thermalNetworkState1.fLowerTemperature_ActiveStorage;
+  fUpperTemperature = thermalNetworkState1.fUpperTemperature-273.15;
+  fMidTemperature = thermalNetworkState1.fMidTemperature-273.15;
+  fLowerTemperature = thermalNetworkState1.fLowerTemperature-273.15;
+  fUpperTemperature_ActiveStorage = thermalNetworkState1.fUpperTemperature_ActiveStorage-273.15;
+  fLowerTemperature_ActiveStorage = thermalNetworkState1.fLowerTemperature_ActiveStorage-273.15;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end thermalNetworkState_FMUConnector;

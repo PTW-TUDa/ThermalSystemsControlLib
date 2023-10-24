@@ -32,7 +32,8 @@ model ThreeWayValve_Physical "Simple three way valve consisting of two linear va
     m_flow_nominal=deviceData.m_flow_nominal)   annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-70})));
-  Modelica.Blocks.Sources.Constant const(k=1) annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  Modelica.Blocks.Sources.Constant const(k=1 + deviceData.leakageOpening)
+                                              annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Modelica.Blocks.Interfaces.RealInput fSetPoint annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
