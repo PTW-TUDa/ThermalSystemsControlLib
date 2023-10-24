@@ -1,3 +1,0 @@
-within ThermalSystemsControlLib.Applications.HD_UseCase.Thermalnetworks;
-package Optimization
-end Optimization;

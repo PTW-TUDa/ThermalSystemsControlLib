@@ -7,7 +7,5 @@ Pumps
 CombinedHeatPower
 GasBoiler
 CompressionChiller
-AbsorptionChiller
 DryCooler
-HybridCooler
 Consumer
