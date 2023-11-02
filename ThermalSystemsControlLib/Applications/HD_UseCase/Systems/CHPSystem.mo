@@ -2,7 +2,7 @@ within ThermalSystemsControlLib.Applications.HD_UseCase.Systems;
 model CHPSystem
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=3));
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
-  Components.CombinedHeatPower.CHP CHP(
+  Components.CombinedHeatPower.CHP_Type1 CHP(
     redeclare package Medium = Medium,
     k=0.1,
     yMax=1,
