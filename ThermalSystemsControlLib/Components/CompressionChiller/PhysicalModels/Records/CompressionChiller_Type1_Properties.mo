@@ -1,5 +1,5 @@
 within ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records;
-record CompressionChillerProperties "Basic parameter record for compression chiller models"
+record CompressionChiller_Type1_Properties "Basic parameter record for compression chiller models"
     extends ThermalSystemsControlLib.BaseClasses.Icons.Record_Icon;
   parameter SI.Power P_el_nom "Maximum electric power defined as nominal electric power";
   parameter SI.Power P_th_cool_nom "Maximum thermal cooling power defined as nominal thermal cooling power";
@@ -17,4 +17,4 @@ record CompressionChillerProperties "Basic parameter record for compression chil
   parameter SI.Volume V_int_cool "Internal Cool Mixing Volume";
   parameter SI.Volume V_int_heat "Internal Heat Mixing Volume";
   parameter SI.Time riseTime "Rise time of the filter (time to reach 99.6 % of the nominal operating point)";
-end CompressionChillerProperties;
+end CompressionChiller_Type1_Properties;
