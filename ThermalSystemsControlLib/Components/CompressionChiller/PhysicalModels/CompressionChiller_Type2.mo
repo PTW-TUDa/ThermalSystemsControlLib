@@ -133,22 +133,34 @@ model CompressionChiller_Type2
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,70})));
-  Modelica.Blocks.Math.Product P_el annotation (Placement(transformation(
+  Modelica.Blocks.Math.Product P_el_cooling annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-110,-50})));
-  Modelica.Blocks.Math.Product P_el1 annotation (Placement(transformation(
+        origin={-154,-50})));
+  Modelica.Blocks.Math.Product P_el_heating annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={110,-50})));
+        origin={154,-50})));
+  Modelica.Blocks.Math.Add add1
+                               annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={0,-20})));
+  Modelica.Blocks.Logical.Switch switch3 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-80,-80})));
+  Modelica.Blocks.Logical.Switch switch4 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={20,-80})));
 equation
   port_a.h_outflow = Medium.h_default;
   port_a1.h_outflow = Medium.h_default;
 
   T_a_in = Medium.temperature_phX(port_a.p, inStream(port_a.h_outflow), Medium.X_default);
   T_a1_in = Medium.temperature_phX(port_a1.p, inStream(port_a1.h_outflow), Medium.X_default);
-  T_b_out = if heating.y then max(fTargetTemperatureHeating, T_a_in + 5) else T_a_in + 5;
-  T_b1_out = if heating.y then T_a1_in - 5 else min(fTargetTemperatureCooling, T_a1_in - 5);
+  T_b_out = if heating.y then max(fTargetTemperatureHeating, T_a_in + deviceData.min_dT) else T_a_in + deviceData.min_dT;
+  T_b1_out = if heating.y then T_a1_in - deviceData.min_dT else min(fTargetTemperatureCooling, T_a1_in - deviceData.min_dT);
 
   port_b.h_outflow = Medium.specificEnthalpy_pTX(port_b.p, T_b_out, Medium.X_default);
   port_b1.h_outflow = Medium.specificEnthalpy_pTX(port_b1.p, T_b1_out, Medium.X_default);
@@ -156,12 +168,10 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
   port_a1.m_flow + port_b1.m_flow = 0;
 
-  port_b.m_flow * (port_b.h_outflow - inStream(port_a.h_outflow)) = if heating.y then firstOrder1.y else 0;
+  - port_b.m_flow * (port_b.h_outflow - inStream(port_a.h_outflow)) = if heating.y then firstOrder1.y else firstOrder.y + P_el_cooling.y;
+  port_b1.m_flow * (port_b1.h_outflow - inStream(port_a1.h_outflow)) = if heating.y then firstOrder1.y - P_el_heating.y else firstOrder.y;
 
 
-
-
-  connect(port_a,port_a)  annotation (Line(points={{-100,0},{-100,0}},                   color={0,127,255}));
   connect(Table_f_PelMax1.y, gain_P_el_nom2.u) annotation (Line(points={{-81,80},{-84.8,80}}, color={0,0,127}));
   connect(Table_f_PthMax1.y, gain_P_th_nom1.u) annotation (Line(points={{-81,40},{-84.8,40}}, color={0,0,127}));
   connect(greaterEqualThreshold.y, bStatusOn) annotation (Line(points={{81,80},{110,80}}, color={255,0,255}));
@@ -195,8 +205,20 @@ equation
   connect(add.y, division1.u2) annotation (Line(points={{-131,60},{-150,60},{-150,26},{44,26},{44,22}}, color={0,0,127}));
   connect(P_th_heat.u1, division1.u2) annotation (Line(points={{86,-38},{86,26},{44,26},{44,22}}, color={0,0,127}));
   connect(heating.u, fSetPoint) annotation (Line(points={{0,82},{0,120}}, color={0,0,127}));
-  connect(P_el.u1, cooling_Setpoint1.y) annotation (Line(points={{-104,-38},{-104,-34},{-50,-34},{-50,-31}}, color={0,0,127}));
-  connect(gain_P_th_nom1.y, P_el.u2) annotation (Line(points={{-98.6,40},{-116,40},{-116,-38}}, color={0,0,127}));
+  connect(gain_P_el_nom2.y, P_el_cooling.u2) annotation (Line(points={{-98.6,80},{-160,80},{-160,-38}},                     color={0,0,127}));
+  connect(P_el_heating.u1, P_el_cooling.u2) annotation (Line(points={{160,-38},{160,10},{-160,10},{-160,-38}}, color={0,0,127}));
+  connect(division.y, add1.u1) annotation (Line(points={{-50,-1},{-6,-1},{-6,-8}}, color={0,0,127}));
+  connect(division1.y, add1.u2) annotation (Line(points={{50,-1},{6,-1},{6,-8}}, color={0,0,127}));
+  connect(add1.y, fOperatingPoint) annotation (Line(points={{0,-31},{0,40},{110,40}}, color={0,0,127}));
+  connect(greaterEqualThreshold.u, fOperatingPoint) annotation (Line(points={{58,80},{40,80},{40,40},{110,40}}, color={0,0,127}));
+  connect(switch3.u2, greaterEqualThreshold1.y) annotation (Line(points={{-80,-68},{-80,-64},{-50,-64},{-50,-61}}, color={255,0,255}));
+  connect(switch3.u1, cooling_Setpoint1.y) annotation (Line(points={{-72,-68},{-72,-34},{-50,-34},{-50,-31}}, color={0,0,127}));
+  connect(switch3.u3, const.y) annotation (Line(points={{-88,-68},{-88,-61},{-80,-61}}, color={0,0,127}));
+  connect(switch4.u2, greaterEqualThreshold2.y) annotation (Line(points={{20,-68},{20,-64},{50,-64},{50,-61}}, color={255,0,255}));
+  connect(switch4.u1, heating_Setpoint1.y) annotation (Line(points={{28,-68},{28,-34},{50,-34},{50,-31}}, color={0,0,127}));
+  connect(switch4.u3, const1.y) annotation (Line(points={{12,-68},{12,-61},{20,-61}}, color={0,0,127}));
+  connect(switch3.y, P_el_cooling.u1) annotation (Line(points={{-80,-91},{-100,-91},{-100,-38},{-148,-38}}, color={0,0,127}));
+  connect(switch4.y, P_el_heating.u2) annotation (Line(points={{20,-91},{100,-91},{100,-38},{148,-38}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1)),
     Documentation(info="<html>
 <p>This model is based on the approach by <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a> </p>

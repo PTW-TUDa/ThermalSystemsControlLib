@@ -10,4 +10,5 @@ record CompressionChiller_Type2_Properties "Basic parameter record for compressi
   parameter Real u_min "Minimum operation point" annotation (Dialog(group="Operating Conditions"));
 
   parameter SI.Time riseTime "Rise time of the filter (time to reach 99.6 % of the nominal operating point)";
+  parameter SI.TemperatureDifference min_dT "Minimum temperature difference at condenser and evaporator";
 end CompressionChiller_Type2_Properties;
