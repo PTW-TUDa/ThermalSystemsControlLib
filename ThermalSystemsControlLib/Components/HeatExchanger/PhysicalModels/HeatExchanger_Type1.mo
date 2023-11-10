@@ -1,9 +1,9 @@
 within ThermalSystemsControlLib.Components.HeatExchanger.PhysicalModels;
-model HeatExchanger_Physical
+model HeatExchanger_Type1
   extends ThermalSystemsControlLib.BaseClasses.Icons.HeatExchanger_Icon;
-  replaceable package Medium1 = Modelica.Media.Air.SimpleAir constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
+  replaceable package Medium1 = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   replaceable package Medium2 = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
-  replaceable parameter ThermalSystemsControlLib.Components.HeatExchanger.PhysicalModels.Records.HeatExchangerProperties deviceData constrainedby ThermalSystemsControlLib.Components.HeatExchanger.PhysicalModels.Records.HeatExchangerProperties annotation (choicesAllMatching=true);
+  replaceable parameter ThermalSystemsControlLib.Components.HeatExchanger.PhysicalModels.Records.HeatExchanger_Type1_Properties deviceData constrainedby ThermalSystemsControlLib.Components.HeatExchanger.PhysicalModels.Records.HeatExchanger_Type1_Properties annotation (choicesAllMatching=true);
 
   Modelica.SIunits.Efficiency eps;
   Modelica.SIunits.Efficiency NTU;
@@ -100,4 +100,4 @@ equation
     Documentation(info="<html>
 <p>Counterflow heat exchanger model using NTU equations.</p>
 </html>"));
-end HeatExchanger_Physical;
+end HeatExchanger_Type1;
