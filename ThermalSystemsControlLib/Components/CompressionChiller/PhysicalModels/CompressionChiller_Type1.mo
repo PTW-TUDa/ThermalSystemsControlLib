@@ -1,9 +1,9 @@
 within ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels;
-model CompressionChiller_Physical
+model CompressionChiller_Type1
   extends ThermalSystemsControlLib.BaseClasses.Icons.CompressionChiller_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   replaceable package Medium1 = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
-  replaceable parameter ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChillerProperties deviceData constrainedby ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChillerProperties annotation (choicesAllMatching=true);
+  replaceable parameter ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Type1_Properties deviceData constrainedby ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Type1_Properties annotation (choicesAllMatching=true);
 
   //## COMPONENTS ##
 
@@ -86,13 +86,6 @@ model CompressionChiller_Physical
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,90})));
-  Modelica.Blocks.Tables.CombiTable2D Table_f_PelMax1(
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    table=deviceData.f_PelMax,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-50,60})));
   Modelica.Blocks.Tables.CombiTable2D Table_f_PthMax1(
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     table=deviceData.f_PthMax,
@@ -108,6 +101,13 @@ model CompressionChiller_Physical
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=270,
         origin={-90,50})));
+  Modelica.Blocks.Tables.CombiTable2D Table_f_PelMax1(
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    table=deviceData.f_PelMax,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-50,60})));
   Modelica.Blocks.Math.Gain gain_P_th_nom1(k=deviceData.P_th_cool_nom)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=180,
@@ -167,4 +167,4 @@ equation
 <p>The compression chiller calculates the thermal power based on its partload characteristics, the operating point and the temperature depending efficiency. </p>
 </html>"),
     experiment(StopTime=30, __Dymola_Algorithm="Dassl"));
-end CompressionChiller_Physical;
+end CompressionChiller_Type1;
