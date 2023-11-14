@@ -7,7 +7,7 @@ model OuterCapillaryTubeMatsSystem
                               annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Components.Pumps.Pump PU600(redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47, pumpType=5)
                               annotation (Placement(transformation(extent={{40,40},{60,20}})));
-  Components.HeatExchanger.PhysicalModels.HeatExchanger_Physical HeatExchanger6(
+  Components.HeatExchanger.PhysicalModels.HeatExchanger_Type1    HeatExchanger6(
     redeclare replaceable package Medium1 = Modelica.Media.Incompressible.Examples.Glycol47,
     redeclare package Medium2 = Medium,
     redeclare Records.PWT6_SWEP_30kW deviceData)                                                                                                                               annotation (Placement(transformation(

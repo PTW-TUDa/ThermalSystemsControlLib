@@ -9,7 +9,7 @@ model InnerCapillaryTubeMatsSystem
   Components.Pumps.Pump PU500(redeclare package Medium = Medium,
                               pumpType=10)
                               annotation (Placement(transformation(extent={{40,40},{60,20}})));
-  Components.HeatExchanger.PhysicalModels.HeatExchanger_Physical HeatExchanger3(
+  Components.HeatExchanger.PhysicalModels.HeatExchanger_Type1    HeatExchanger3(
     redeclare replaceable package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     redeclare Records.PWT3_SWEP_40kW deviceData)                                                                                                                               annotation (Placement(transformation(

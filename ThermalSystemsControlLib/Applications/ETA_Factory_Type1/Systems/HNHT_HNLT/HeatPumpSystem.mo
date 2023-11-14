@@ -4,7 +4,7 @@ model HeatPumpSystem
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidFourPort_CounterFlow;
   extends ThermalSystemsControlLib.BaseClasses.Icons.CompressionChiller_Icon;
   Components.Pumps.Pump PU_int(pumpType=1) annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
-  Components.HeatExchanger.PhysicalModels.HeatExchanger_Physical hex(
+  Components.HeatExchanger.PhysicalModels.HeatExchanger_Type1    hex(
     redeclare replaceable package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     redeclare Records.PWT_WP_Reflex_Longtherm_RMB_14_30 deviceData) annotation (Placement(transformation(

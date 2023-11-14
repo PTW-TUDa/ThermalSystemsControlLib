@@ -6,10 +6,10 @@ model HeatExchanger1System
   Components.Pumps.Pump PU215(k=0.265)
                               annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Components.Pumps.Pump PU315 annotation (Placement(transformation(extent={{40,40},{60,20}})));
-  Components.HeatExchanger.PhysicalModels.HeatExchanger_Physical HeatExchanger1(
+  Components.HeatExchanger.PhysicalModels.HeatExchanger_Type1    HeatExchanger1(
     redeclare replaceable package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,                                        redeclare ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Records.PWT1_SWEP_50kW
-                                                                                                                                                                   deviceData) annotation (Placement(transformation(
+    redeclare package Medium2 = Medium2,
+    redeclare Records.PWT1_SWEP_50kW deviceData)                                                                                                                               annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={70,0})));
