@@ -8,8 +8,8 @@ model CompressionChiller
   parameter Real k=1   "Gain of controller" annotation(Dialog(group="Controller limitations"));
   parameter Real yMax=1   "Upper limit of controller output" annotation(Dialog(group="Controller limitations"));
   parameter Real yMin=0   "Lower limit of controller output" annotation(Dialog(group="Controller limitations"));
-  replaceable parameter ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChillerProperties deviceData constrainedby ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChillerProperties annotation (choicesAllMatching=true);
-  PhysicalModels.CompressionChiller_Physical compressionChiller_Physical(redeclare package Medium = Medium,
+  replaceable parameter ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Type1_Properties deviceData constrainedby ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Type1_Properties annotation (choicesAllMatching=true);
+  PhysicalModels.CompressionChiller_Type1    compressionChiller_Physical(redeclare package Medium = Medium,
     redeclare package Medium1 = Medium1,                                                                    deviceData=deviceData)
                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
