@@ -49,9 +49,9 @@ model InnerCapillaryTubeMatsSystem
   Components.Consumer.PhysicalModels.Room_Heating InnerCapillaryTubeMats(
     redeclare package Medium = Medium,
     V_int=0.2,
-    C_Air=4440,
+    C_Air=4400000,
     R_Building=0.002,
-    R_Heater=0.0001)                 annotation (Placement(transformation(
+    R_Heater=0.001)                  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-10,-50})));

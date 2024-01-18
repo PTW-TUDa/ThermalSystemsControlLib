@@ -37,7 +37,7 @@ model UnderfloorHeatingSystem
   Components.Consumer.PhysicalModels.Room_Heating UnderFloorHeating(
     redeclare package Medium = Medium,
     V_int=0.1,
-    C_Air=2400,
+    C_Air=2400000,
     R_Building=0.003,
     R_Heater=0.0001)
                     annotation (Placement(transformation(
