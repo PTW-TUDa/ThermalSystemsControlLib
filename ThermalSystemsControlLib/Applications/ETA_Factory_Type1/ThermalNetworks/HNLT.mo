@@ -57,8 +57,6 @@ model HNLT
         origin={30,-50})));
   Systems.HNLT.CompressorSystem CompressorSystem annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Systems.HNLT.HVFAStorageSystem HVFASystem(T_start=T_start_ActiveStorage) annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a_HNHT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater)                                     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_HNHT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater)                                     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Components.Pipes.PhysicalModels.Pipe pipe4(
     length=4,
     diameter=0.05,
@@ -182,8 +180,6 @@ equation
   connect(InnerCapillaryTubeMats.port_a, pipe2.port_b) annotation (Line(points={{40,10},{40,60}}, color={0,127,255}));
   connect(OuterCapillaryTubeMats.port_a, pipe11.port_b) annotation (Line(points={{80,10},{80,60}}, color={0,127,255}));
   connect(OuterCapillaryTubeMats.port_b, pipe12.port_a) annotation (Line(points={{80,-10},{80,-60}}, color={0,127,255}));
-  connect(port_b_HNHT_Consumer, BufferStorage.port_b) annotation (Line(points={{-100,60},{0,60},{0,10}}, color={0,127,255}));
-  connect(port_a_HNHT_Consumer, BufferStorage.port_a) annotation (Line(points={{-100,-60},{0,-60},{0,-10}}, color={0,127,255}));
   connect(port_b_HNHT_Producer, BufferStorage.port_a) annotation (Line(points={{-100,-100},{0,-100},{0,-10}}, color={0,127,255}));
   connect(port_a_HNHT_Producer, BufferStorage.port_b) annotation (Line(points={{-100,100},{0,100},{0,10}}, color={0,127,255}));
   connect(UnderfloorHeatingSystem.port_b, pipe1.port_a) annotation (Line(points={{120,-10},{120,-60}}, color={0,127,255}));

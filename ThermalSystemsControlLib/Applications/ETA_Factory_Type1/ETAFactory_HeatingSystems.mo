@@ -18,11 +18,7 @@ equation
   connect(Ambient.ambientState, HNHT.ambientState) annotation (Line(points={{10,-39},{10,-20},{-77,-20},{-77,-1}},                     color={0,0,0}));
   connect(Strategy.ambientState, HNHT.ambientState) annotation (Line(points={{10,81},{10,80},{-100,80},{-100,-20},{-77,-20},{-77,-1}}));
   connect(HNLT.ambientState, HNHT.ambientState) annotation (Line(points={{10,-1},{10,-20},{-77,-20},{-77,-1}}));
-  connect(HNHT.port_a_HNLT_Producer, HNHT_HNLT.port_b_HNHT_Producer) annotation (Line(points={{-62,20},{-40,20}}, color={0,127,255}));
-  connect(HNHT_HNLT.port_a_Producer, HNHT.port_b_HNLT_Producer) annotation (Line(points={{-40,0},{-62,0}}, color={0,127,255}));
   connect(HNLT.port_a_HNHT_Producer, HNHT_HNLT.port_b_HNLT_Producer) annotation (Line(points={{0,20},{-20,20}}, color={0,127,255}));
-  connect(HNHT_HNLT.port_a_HNLT_Consumer, HNLT.port_b_HNHT_Consumer) annotation (Line(points={{-20,16},{0,16}}, color={0,127,255}));
-  connect(HNLT.port_a_HNHT_Consumer, HNHT_HNLT.port_b_HNLT_Consumer) annotation (Line(points={{0,4},{-20,4}}, color={0,127,255}));
   connect(HNHT_HNLT.port_a_HNLT_Producer, HNLT.port_b_HNHT_Producer) annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
   connect(HNLT_CN.port_a_CN_Producer,CN. port_b_HNLT_Producer) annotation (Line(points={{60,16},{80,16}}, color={0,127,255}));
   connect(CN.port_a_HNLT_Producer,HNLT_CN. port_b_CN_Producer) annotation (Line(points={{80,4},{60,4}}, color={0,127,255}));

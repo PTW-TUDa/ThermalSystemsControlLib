@@ -154,8 +154,6 @@ model HNHT
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,-68})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT_Producer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater)                                     annotation (Placement(transformation(extent={{90,90},{110,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT_Producer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=[0.0,0.0; 172800,-15e3; 259200,0.0], smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)                             annotation (Placement(transformation(extent={{86,2},{96,12}})));
   Modelica.Blocks.Tables.CombiTable1D combiTable1D(table=[-10,-7; 15,0]) annotation (Placement(transformation(extent={{44,2},{54,12}})));
@@ -224,8 +222,6 @@ equation
                                                                                                        color={0,127,255}));
   connect(VSIStorageSystem.port_b2, pipe16.port_a) annotation (Line(points={{20,60},{46,60},{46,-58},{50,-58}}, color={0,127,255}));
   connect(VSIStorageSystem.port_a2, pipe15.port_b) annotation (Line(points={{20,80},{52,80}}, color={0,127,255}));
-  connect(port_b_HNLT_Producer, BufferStorage.port_a) annotation (Line(points={{100,-100},{30,-100},{30,-20},{40,-20},{40,-10}}, color={0,127,255}));
-  connect(port_a_HNLT_Producer, BufferStorage.port_b) annotation (Line(points={{100,100},{30,100},{30,20},{40,20},{40,10}}, color={0,127,255}));
   connect(StaticHeatingSystem.fHeatFlowRate, combiTable1D.y[1]) annotation (Line(points={{58,7},{54.5,7},{54.5,7}}, color={0,0,127}));
   connect(StaticHeatingSystem.port_a, pipe8.port_b) annotation (Line(points={{80,10},{80,20}}, color={0,127,255}));
   connect(StaticHeatingSystem.port_b, pipe9.port_a) annotation (Line(points={{80,-10},{80,-20}}, color={0,127,255}));

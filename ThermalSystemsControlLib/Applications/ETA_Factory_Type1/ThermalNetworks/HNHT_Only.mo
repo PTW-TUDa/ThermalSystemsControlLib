@@ -1,12 +1,12 @@
-within ThermalSystemsControlLib.Applications.ETA_Factory_Type1_HNHT.ThermalNetworks;
-model HNHT
+within ThermalSystemsControlLib.Applications.ETA_Factory_Type1.ThermalNetworks;
+model HNHT_Only
   extends ThermalSystemsControlLib.BaseClasses.Icons.Systems_Icon;
   parameter SI.Temperature T_start=328.15 "Start value of buffer storage temperature";
   parameter SI.Temperature T_start_ActiveStorage=293.15 "Start value of active storage temperature";
-  ThermalSystemsControlLib.Applications.ETA_Factory_Type1_HNHT.Systems.HNHT.CHP1System CHP1System annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  ThermalSystemsControlLib.Applications.ETA_Factory_Type1_HNHT.Systems.HNHT.CondensingBoilerSystem CondensingBoilerSystem annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  ThermalSystemsControlLib.Applications.ETA_Factory_Type1_HNHT.Systems.HNHT.CHP2System CHP2System annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  ThermalSystemsControlLib.Applications.ETA_Factory_Type1_HNHT.Systems.HNHT.StaticHeatingSystem StaticHeatingSystem annotation (Placement(transformation(extent={{60,10},{80,-10}})));
+  ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Systems.HNHT.CHP1System CHP1System annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Systems.HNHT.CondensingBoilerSystem CondensingBoilerSystem annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Systems.HNHT.CHP2System CHP2System annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Systems.HNHT.StaticHeatingSystem StaticHeatingSystem annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Components.BufferStorage.BufferStorage BufferStorage(n_Seg=6, T_start=T_start)
                                                                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -18,7 +18,7 @@ model HNHT
     redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
     p=200000,
     nPorts=1) annotation (Placement(transformation(extent={{180,-40},{160,-20}})));
-  input Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
+  input Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
   Interfaces.thermalNetworkState_FMUConnector localState annotation (Placement(transformation(extent={{80,80},{100,100}})));
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
                                      T_start=T_start)  annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -154,7 +154,8 @@ model HNHT
         origin={60,-68})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=[0.0,0.0; 172800,-15e3; 259200,0.0], smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)                             annotation (Placement(transformation(extent={{86,2},{96,12}})));
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table=[-10,-7; 15,0]) annotation (Placement(transformation(extent={{44,2},{54,12}})));
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table=[-10 + 273.15,-7e3; 15 + 273.15,0], extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+                                                                         annotation (Placement(transformation(extent={{44,2},{54,12}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold annotation (Placement(transformation(extent={{104,-12},{110,-6}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable1(
     table=[0.0,0.0; 172000,-15e3; 260000,0.0],
@@ -230,4 +231,4 @@ equation
   connect(pipe16.port_b, BufferStorage.port_a) annotation (Line(points={{70,-58},{70,-48},{40,-48},{40,-10}}, color={0,127,255}));
   connect(pipe15.port_a, BufferStorage.port_b) annotation (Line(points={{72,80},{72,50},{40,50},{40,10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end HNHT;
+end HNHT_Only;

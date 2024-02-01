@@ -3,7 +3,7 @@ model StaticHeatingSystem
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=2));
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   extends ThermalSystemsControlLib.BaseClasses.Icons.Consumer_Icon;
-  Components.Valves.ThreeWayValve RV350(k=0.01,  redeclare ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Records.Belimo_R2032_S2_ThreeWay
+  Components.Valves.ThreeWayValve RV350(         redeclare ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Records.Belimo_R2032_S2_ThreeWay
                                                                                                                                               deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Components.Pumps.Pump PU350 annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Components.Pipes.PhysicalModels.PressureDrop pressureDrop(
@@ -24,7 +24,7 @@ model StaticHeatingSystem
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   Components.Consumer.PhysicalModels.Consumer_Physical consumer_Physical(redeclare package Medium = Medium,
     V_int=0.1,
-    riseTime=900)                                                                                           annotation (Placement(transformation(
+    riseTime=1800)                                                                                          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={80,0})));

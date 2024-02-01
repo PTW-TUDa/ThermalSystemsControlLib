@@ -10,20 +10,17 @@ model Ambient
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,-50})));
-  Modelica.Blocks.Math.RectifiedMean mean(f=1/(6*3600), x0=273.15) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={10,10})));
   Modelica.Blocks.Sources.Sine fOutsideTemperature(
     amplitude=10,
     freqHz=1/(24*3600),
     offset=278.15) annotation (Placement(transformation(extent={{100,0},{80,20}})));
+  Modelica.Blocks.Math.ContinuousMean mean(t_eps=6*3600) annotation (Placement(transformation(extent={{20,0},{0,20}})));
 equation
 
   ambientState.bRain = bRain.y;
   ambientState.fOutsideTemperature = fOutsideTemperature.y;
   ambientState.fOutsideTemperature_Mean = mean.y;
-  connect(fOutsideTemperature.y, mean.u) annotation (Line(points={{79,10},{22,10}}, color={0,0,127}));
   connect(ambientState, localState.ambientState1) annotation (Line(points={{-110,0},{-79,0},{-79,90}}, color={0,0,0}));
+  connect(fOutsideTemperature.y, mean.u) annotation (Line(points={{79,10},{22,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Ambient;
