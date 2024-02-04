@@ -14,7 +14,6 @@ model ControlHNHT
                                                                                    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   BaseClasses.Utilities.OnOffController_VariableBandwith Controller_CHP1_UpperTemperature annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   BaseClasses.Utilities.OnOffController_VariableBandwith Controller_CHP2_UpperTemperature annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Modelica.Blocks.Logical.OnOffController Controller_StaticHeating(bandwidth=4) annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
 
   input ThermalNetworks.Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Logical.OnOffController Controller_CHP_Prioritization(bandwidth=4) annotation (Placement(transformation(extent={{-20,18},{0,38}})));
@@ -85,9 +84,7 @@ equation
   hnhtControl.bSetStatusOn_CondensingBoiler = Controller_CondensingBoiler.y;
 
   //static heating control
-  Controller_StaticHeating.u = ambientState.fOutsideTemperature_Mean;
-  Controller_StaticHeating.reference = 273.15+15;
-  hnhtControl.bSetStatusOn_StaticHeating = Controller_StaticHeating.y;
+  hnhtControl.bSetStatusOn_StaticHeating = true;
 
   //vsi storage control
   Controller_Buffer_VSI_Unloading.u = hnhtState.fMidTemperature;
