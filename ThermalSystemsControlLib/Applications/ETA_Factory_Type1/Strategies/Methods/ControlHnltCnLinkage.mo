@@ -29,5 +29,17 @@ equation
   Controller_HeatPump_CN_Permission.reference = cnState.fMidTemperature;
   Controller_HeatPump_CN_Permission.u = strategyState.fTargetTemperature_CN-fOffset_TargetTemperature_HeatPump_Permission;
   hnltCnLinkageControl.bSetStatusOn_HeatPump = Controller_HeatPump_CN.y and Controller_HeatPump_CN_Permission.y;
+
+  //heating systems
+  hnltCnLinkageControl.fTargetTemperature_ProductionHall = strategyState.fTargetTemperature_ProductionHall;
+
+  // heating mode from october until april
+  if time>10368000 and time<23587200 then
+    hnltCnLinkageControl.bHeatingMode = false;
+  else
+    hnltCnLinkageControl.bHeatingMode = true;
+  end if;
+
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ControlHnltCnLinkage;

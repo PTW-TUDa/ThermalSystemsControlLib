@@ -33,6 +33,11 @@ equation
   connect(Strategy.cnControl,CN. controlAutomatic) annotation (Line(points={{24,59},{96,59},{96,21},{95,21}}, color={0,0,0}));
   connect(HNLT.port_a_CN_Producer,HNLT_CN. port_b_HNLT_Producer) annotation (Line(points={{20,20},{40,20}}, color={0,127,255}));
   connect(HNLT.port_b_CN_Producer,HNLT_CN. port_a_HNLT_Producer) annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
+  connect(HNLT.port_b_CN_Consumer, HNLT_CN.port_a_HNLT_Consumer) annotation (Line(points={{20,16},{40,16}}, color={0,127,255}));
+  connect(HNLT_CN.port_b_HNLT_Consumer, HNLT.port_a_CN_Consumer) annotation (Line(points={{40,4},{20,4}}, color={0,127,255}));
+  connect(HNLT_CN.port_b_CN_Consumer, CN.port_a_HNLT_Consumer) annotation (Line(points={{60,20},{80,20}}, color={0,127,255}));
+  connect(HNLT_CN.port_a_CN_Consumer, CN.port_b_HNLT_Consumer) annotation (Line(points={{60,0},{70,0},{70,0.2},{80,0.2}}, color={0,127,255}));
+  connect(HNLT_CN.ambientState, HNHT.ambientState) annotation (Line(points={{50,-1},{50,-20},{-77,-20},{-77,-1}}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=604800,

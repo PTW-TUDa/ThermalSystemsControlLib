@@ -20,41 +20,8 @@ model HNLT
   Interfaces.thermalNetworkState_FMUConnector localState annotation (Placement(transformation(extent={{-80,80},{-100,100}})));
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
                                      T_start=T_start)  annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Systems.HNLT.UnderfloorHeatingSystem UnderfloorHeatingSystem annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={110,0})));
   input Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
   Interfaces.hnltControl controlAutomatic annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Components.Pipes.PhysicalModels.Pipe pipe8(
-    length=5,
-    diameter=0.05,
-    n_Bending=0) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={110,50})));
-  Components.Pipes.PhysicalModels.Pipe pipe1(
-    length=5,
-    diameter=0.05,
-    n_Bending=0) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={110,-50})));
-  Systems.HNLT.InnerCapillaryTubeMatsSystem InnerCapillaryTubeMats annotation (Placement(transformation(extent={{20,10},{40,-10}})));
-  Components.Pipes.PhysicalModels.Pipe pipe2(
-    length=7,
-    diameter=0.05,
-    n_Bending=6) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={30,50})));
-  Components.Pipes.PhysicalModels.Pipe pipe3(
-    length=7,
-    diameter=0.05,
-    n_Bending=6) annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={30,-50})));
   Systems.HNLT.CompressorSystem CompressorSystem annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Systems.HNLT.HVFAStorageSystem HVFASystem(T_start=T_start_ActiveStorage) annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Components.Pipes.PhysicalModels.Pipe pipe4(
@@ -126,6 +93,8 @@ model HNLT
   Modelica.Fluid.Interfaces.FluidPort_a port_a_CN_Producer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{90,90},{110,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_CN_Producer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort test_sensor(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_CN_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_CN_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{90,50},{110,70}})));
 equation
    //states
   localState1.fUpperTemperature = BufferStorage.localStorageState.fUpperTemperature;
@@ -135,12 +104,6 @@ equation
   localState1.fLowerTemperature_ActiveStorage =HVFASystem.localStorageState.fLowerTemperature;
 
   //controls
-  UnderfloorHeatingSystem.bSetStatusOnAutomatic = true;
-  UnderfloorHeatingSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  UnderfloorHeatingSystem.fSetPointAutomatic = controlAutomatic.fTargetTemperature_ProductionHall;
-  InnerCapillaryTubeMats.bSetStatusOnAutomatic = true;
-  InnerCapillaryTubeMats.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  InnerCapillaryTubeMats.fSetPointAutomatic = controlAutomatic.fTargetTemperature_ProductionHall;
   OuterCapillaryTubeMats.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_OuterCapillaryTubeMats;
   OuterCapillaryTubeMats.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
   OuterCapillaryTubeMats.fSetPointAutomatic = controlAutomatic.fFeedTemperature_Cooling;
@@ -151,8 +114,6 @@ equation
   CompressorSystem.bSetStatusOnAutomatic = true;
   CompressorSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
   CompressorSystem.fSetPointAutomatic = controlAutomatic.fFeedTemperature_Heating;
-  ambientState.fOutsideTemperature =  UnderfloorHeatingSystem.fAmbientTemperature;
-  ambientState.fOutsideTemperature = InnerCapillaryTubeMats.fAmbientTemperature;
   ambientState.fOutsideTemperature = OuterCapillaryTubeMats.fAmbientTemperature;
 
   connect(CompressorSystem.fHeatFlowRate, combiTimeTable.y[1]) annotation (Line(points={{-62,-3},{-67.7,-3}}, color={0,0,127}));
@@ -170,23 +131,17 @@ equation
   connect(pipe7.port_a, BufferStorage.port_a) annotation (Line(points={{-60,-48},{0,-48},{0,-10}}, color={0,127,255}));
   connect(pipe6.port_b, BufferStorage.port_b) annotation (Line(points={{-60,52},{0,52},{0,10}}, color={0,127,255}));
   connect(pipe10.port_b, BufferStorage.port_a) annotation (Line(points={{-40,-90},{0,-90},{0,-10}}, color={0,127,255}));
-  connect(pipe2.port_a, BufferStorage.port_b) annotation (Line(points={{20,60},{0,60},{0,10}}, color={0,127,255}));
-  connect(pipe2.port_b, pipe11.port_a) annotation (Line(points={{40,60},{60,60}}, color={0,127,255}));
-  connect(pipe11.port_b, pipe8.port_a) annotation (Line(points={{80,60},{100,60}}, color={0,127,255}));
-  connect(pipe1.port_b, pipe12.port_a) annotation (Line(points={{100,-60},{80,-60}}, color={0,127,255}));
-  connect(pipe12.port_b, pipe3.port_a) annotation (Line(points={{60,-60},{40,-60}}, color={0,127,255}));
-  connect(pipe3.port_b, BufferStorage.port_a) annotation (Line(points={{20,-60},{0,-60},{0,-10}}, color={0,127,255}));
-  connect(InnerCapillaryTubeMats.port_b, pipe3.port_a) annotation (Line(points={{40,-10},{40,-60}}, color={0,127,255}));
-  connect(InnerCapillaryTubeMats.port_a, pipe2.port_b) annotation (Line(points={{40,10},{40,60}}, color={0,127,255}));
   connect(OuterCapillaryTubeMats.port_a, pipe11.port_b) annotation (Line(points={{80,10},{80,60}}, color={0,127,255}));
   connect(OuterCapillaryTubeMats.port_b, pipe12.port_a) annotation (Line(points={{80,-10},{80,-60}}, color={0,127,255}));
   connect(port_b_HNHT_Producer, BufferStorage.port_a) annotation (Line(points={{-100,-100},{0,-100},{0,-10}}, color={0,127,255}));
   connect(port_a_HNHT_Producer, BufferStorage.port_b) annotation (Line(points={{-100,100},{0,100},{0,10}}, color={0,127,255}));
-  connect(UnderfloorHeatingSystem.port_b, pipe1.port_a) annotation (Line(points={{120,-10},{120,-60}}, color={0,127,255}));
-  connect(UnderfloorHeatingSystem.port_a, pipe8.port_b) annotation (Line(points={{120,10},{120,60}}, color={0,127,255}));
-  connect(port_a_CN_Producer, BufferStorage.port_b) annotation (Line(points={{100,100},{10,100},{10,10},{0,10}}, color={0,127,255}));
+  connect(port_a_CN_Producer, BufferStorage.port_b) annotation (Line(points={{100,100},{0,100},{0,10}},          color={0,127,255}));
   connect(boundary.ports[1], BufferStorage.port_a) annotation (Line(points={{24,-18},{4,-18},{4,-10},{0,-10}}, color={0,127,255}));
   connect(port_b_CN_Producer, test_sensor.port_b) annotation (Line(points={{100,-100},{60,-100}}, color={0,127,255}));
   connect(test_sensor.port_a, BufferStorage.port_a) annotation (Line(points={{40,-100},{10,-100},{10,-10},{0,-10}}, color={0,127,255}));
+  connect(port_b_CN_Consumer, BufferStorage.port_b) annotation (Line(points={{100,60},{100,80},{0,80},{0,10}}, color={0,127,255}));
+  connect(port_a_CN_Consumer, BufferStorage.port_a) annotation (Line(points={{100,-60},{100,-80},{0,-80},{0,-10}}, color={0,127,255}));
+  connect(pipe11.port_a, BufferStorage.port_b) annotation (Line(points={{60,60},{0,60},{0,10}}, color={0,127,255}));
+  connect(pipe12.port_b, BufferStorage.port_a) annotation (Line(points={{60,-60},{0,-60},{0,-10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNLT;

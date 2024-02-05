@@ -50,7 +50,7 @@ equation
   hnltControl.bLoading_HVFASystem = Controller_HVFA_HNLT_HVFALoadingPermission.y and Controller_Buffer_HVFA_HNLT_HVFALoading.y;
   hnltControl.bSetStatusOn_OuterCapillaryTubeMats = Controller_OuterCapillaryTubeMats.y and Controller_OuterCapillaryTubeMats_Permission.y;
 
-  hnltControl.fTargetTemperature_ProductionHall = strategyState.fTargetTemperature_ProductionHall;
+
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ControlHnlt;

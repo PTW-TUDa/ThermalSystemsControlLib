@@ -1,8 +1,9 @@
-within ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Systems.HNLT;
+within ThermalSystemsControlLib.Applications.ETA_Factory_Type1.Systems.HNLT_CN;
 model InnerCapillaryTubeMatsSystem
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=2));
-  extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   extends ThermalSystemsControlLib.BaseClasses.Icons.HeatExchanger_Icon;
+  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
   Components.Pumps.Pump PU405(redeclare package Medium = Medium,
                               pumpType=6)
                               annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
@@ -44,7 +45,7 @@ model InnerCapillaryTubeMatsSystem
                                                                annotation (Placement(transformation(extent={{26,24},{34,34}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression3(y=0) annotation (Placement(transformation(extent={{26,30},{34,40}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression4(y=0) annotation (Placement(transformation(extent={{64,-40},{72,-30}})));
-  Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{60,-80},{40,-60}})));
+  Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
   Modelica.Fluid.Sensors.Temperature temperature3(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,80},{80,100}})));
   Components.Consumer.PhysicalModels.Room_Heating InnerCapillaryTubeMats(
     redeclare package Medium = Medium,
@@ -69,14 +70,27 @@ model InnerCapillaryTubeMatsSystem
   Modelica.Fluid.Sources.FixedBoundary boundary(
     redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
     p=200000,
-    nPorts=1) annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
+    nPorts=1) annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Components.Pipes.PhysicalModels.PressureDrop pressureDrop(
     redeclare package Medium = Medium,
     dp_nominal=30000,
     m_flow_nominal=1.5)                                     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={50,-50})));
+        origin={30,-50})));
+  Components.Valves.ThreeWayValve SVHNLT_CN(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_CN(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
+  Modelica.Blocks.Sources.IntegerExpression integerExpression6(y=0) annotation (Placement(transformation(extent={{44,-140},{52,-130}})));
+  Modelica.Blocks.Sources.RealExpression realExpression4(y=1)
+                                                             annotation (Placement(transformation(extent={{44,-136},{52,-124}})));
+  Modelica.Blocks.Interfaces.BooleanInput bHeatingModeAutomatic annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
+  Components.Valves.ThreeWayValve SV1(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,140},{80,120}})));
+  Modelica.Blocks.Sources.IntegerExpression integerExpression7(y=0) annotation (Placement(transformation(extent={{42,130},{50,140}})));
+  Modelica.Blocks.Sources.RealExpression realExpression5(y=1)
+                                                             annotation (Placement(transformation(extent={{42,124},{50,136}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,90},{110,110}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT1(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,90},{70,110}})));
 equation
   connect(HeatExchanger3.port_a2,PU405. port_b) annotation (Line(points={{74,-10},{100,-10},{100,-20}}, color={0,127,255}));
   connect(HeatExchanger3.port_b2, SV_HNLT.port_a) annotation (Line(points={{74,10},{80,10},{80,20},{100,20}}, color={0,127,255}));
@@ -101,12 +115,9 @@ equation
   connect(RV500.nControlModeAutomatic, integerExpression1.y) annotation (Line(points={{38,75},{34.4,75}}, color={255,127,0}));
   connect(PU500.nControlModeAutomatic, integerExpression3.y) annotation (Line(points={{38,35},{34.4,35}}, color={255,127,0}));
   connect(PU405.nControlModeAutomatic, integerExpression4.y) annotation (Line(points={{78,-35},{72.4,-35}}, color={255,127,0}));
-  connect(temperature2.T,PU500. fTemperatureExternal) annotation (Line(points={{43,-70},{40,-70},{40,42},{45,42}}, color={0,0,127}));
+  connect(temperature2.T,PU500. fTemperatureExternal) annotation (Line(points={{23,-70},{20,-70},{20,42},{45,42}}, color={0,0,127}));
   connect(WMZ405.port_a, SV_HNLT.port_b) annotation (Line(points={{100,60},{100,40}}, color={0,127,255}));
-  connect(WMZ405.port_b, port_b) annotation (Line(points={{100,80},{100,100}}, color={0,127,255}));
   connect(WMZ405.fFeedTemperature, temperature1.T) annotation (Line(points={{102,70},{120,70},{120,-70},{83,-70}}, color={0,0,127}));
-  connect(temperature1.port, port_a) annotation (Line(points={{90,-80},{100,-80},{100,-100}}, color={0,127,255}));
-  connect(PU405.port_a, port_a) annotation (Line(points={{100,-40},{100,-100}}, color={0,127,255}));
   connect(WMZ405.fHeatFlowRate,PU405. fThermalPowerExternal) annotation (Line(points={{79,70},{95,70},{95,-42}}, color={0,0,127}));
   connect(temperature3.port, WMZ405.port_b) annotation (Line(points={{90,80},{100,80}}, color={0,127,255}));
   connect(temperature3.T,PU405. fTemperatureExternal) annotation (Line(points={{83,90},{85,90},{85,-42}}, color={0,0,127}));
@@ -123,16 +134,36 @@ equation
   connect(InnerCapillaryTubeMats.T_Room, selectSetPoint.fOperatingPoint) annotation (Line(points={{-3,-39},{-3,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(WMZ405.fHeatFlowRate, SV_HNLT.fThermalPowerExternal) annotation (Line(points={{79,70},{80,70},{80,48},{95,48},{95,18}}, color={0,0,127}));
   connect(RV500.fTemperatureExternal, PU500.fTemperatureExternal) annotation (Line(points={{45,82},{40,82},{40,42},{45,42}}, color={0,0,127}));
-  connect(SV_IFA.fThermalPowerExternal,PU405. fThermalPowerExternal) annotation (Line(points={{-15,-102},{-15,-90},{90,-90},{90,-30},{95,-30},{95,-42}}, color={0,0,127}));
+  connect(SV_IFA.fThermalPowerExternal,PU405. fThermalPowerExternal) annotation (Line(points={{-15,-102},{-15,-90},{70,-90},{70,-30},{95,-30},{95,-42}}, color={0,0,127}));
   connect(SV_HNLT.fTemperatureExternal, SV_HNLT.fThermalPowerExternal) annotation (Line(points={{85,18},{95,18}}, color={0,0,127}));
   connect(InnerCapillaryTubeMats.T_Room, SV_IFA.fTemperatureExternal) annotation (Line(points={{-3,-39},{-3,-74},{-25,-74},{-25,-102}}, color={0,0,127}));
-  connect(pressureDrop.port_b, SV_IFA.port_a) annotation (Line(points={{60,-60},{60,-100},{-10,-100}}, color={0,127,255}));
-  connect(boundary.ports[1], SV_IFA.port_a) annotation (Line(points={{40,-110},{60,-110},{60,-100},{-10,-100}}, color={0,127,255}));
-  connect(temperature2.port, SV_IFA.port_a) annotation (Line(points={{50,-80},{60,-80},{60,-100},{-10,-100}}, color={0,127,255}));
-  connect(PU500.port_b, pressureDrop.port_a) annotation (Line(points={{60,20},{60,-40}}, color={0,127,255}));
+  connect(pressureDrop.port_b, SV_IFA.port_a) annotation (Line(points={{40,-60},{40,-100},{-10,-100}}, color={0,127,255}));
+  connect(boundary.ports[1], SV_IFA.port_a) annotation (Line(points={{20,-110},{40,-110},{40,-100},{-10,-100}}, color={0,127,255}));
+  connect(temperature2.port, SV_IFA.port_a) annotation (Line(points={{30,-80},{40,-80},{40,-100},{-10,-100}}, color={0,127,255}));
+  connect(PU500.port_b, pressureDrop.port_a) annotation (Line(points={{60,20},{60,-40},{40,-40}},
+                                                                                         color={0,127,255}));
   connect(pipe2.port_b, RV500.port_a1) annotation (Line(points={{10,70},{60,70}}, color={0,127,255}));
   connect(InnerCapillaryTubeMats.port_b, pipe2.port_a) annotation (Line(points={{-10,-40},{-10,50},{10,50}}, color={0,127,255}));
   connect(HeatExchanger3.port_a1, pipe2.port_a) annotation (Line(points={{66,10},{66,90},{-10,90},{-10,50},{10,50}}, color={0,127,255}));
   connect(RV500.port_a,HeatExchanger3. port_b1) annotation (Line(points={{60,80},{70,80},{70,-10},{66,-10}}, color={0,127,255}));
+  connect(temperature1.port, PU405.port_a) annotation (Line(points={{90,-80},{100,-80},{100,-40}}, color={0,127,255}));
+  connect(SVHNLT_CN.port_a, port_a_HNLT) annotation (Line(points={{80,-140},{100,-140},{100,-100}}, color={0,127,255}));
+  connect(port_a_CN, SVHNLT_CN.port_a1) annotation (Line(points={{60,-100},{60,-130},{80,-130}}, color={0,127,255}));
+  connect(SVHNLT_CN.port_b, PU405.port_a) annotation (Line(points={{80,-120},{80,-80},{100,-80},{100,-40}}, color={0,127,255}));
+  connect(SVHNLT_CN.fThermalPowerExternal, temperature1.T) annotation (Line(points={{75.2,-142},{120,-142},{120,-70},{83,-70}}, color={0,0,127}));
+  connect(SVHNLT_CN.fTemperatureExternal, temperature1.T) annotation (Line(points={{65,-142},{120,-142},{120,-70},{83,-70}}, color={0,0,127}));
+  connect(integerExpression6.y, SVHNLT_CN.nControlModeAutomatic) annotation (Line(points={{52.4,-135},{54.2,-135},{54.2,-135},{58,-135}}, color={255,127,0}));
+  connect(realExpression4.y, SVHNLT_CN.fSetPointAutomatic) annotation (Line(points={{52.4,-130},{56,-130},{56,-129},{58,-129}}, color={0,0,127}));
+  connect(SVHNLT_CN.bAlgorithmPermission, RV500.bAlgorithmPermission) annotation (Line(points={{58,-125},{20,-125},{20,65},{38,65}}, color={255,0,255}));
+  connect(SVHNLT_CN.bSetStatusOnAutomatic, bHeatingModeAutomatic) annotation (Line(points={{58,-121},{-80,-121},{-80,-90},{-120,-90}}, color={255,0,255}));
+  connect(SV1.nControlModeAutomatic,integerExpression7. y) annotation (Line(points={{58,135},{58,136},{50.4,136},{50.4,135}}, color={255,127,0}));
+  connect(SV1.fSetPointAutomatic,realExpression5. y) annotation (Line(points={{58,129},{54,129},{54,130},{50.4,130}}, color={0,0,127}));
+  connect(SV1.port_a,port_b_HNLT)  annotation (Line(points={{80,140},{100,140},{100,100}}, color={0,127,255}));
+  connect(SV1.port_a1,port_b_HNLT1)  annotation (Line(points={{80,130},{60,130},{60,100}}, color={0,127,255}));
+  connect(SV1.port_b, WMZ405.port_b) annotation (Line(points={{80,120},{80,80},{100,80}}, color={0,127,255}));
+  connect(SV1.fThermalPowerExternal, temperature3.T) annotation (Line(points={{75.2,142},{76,142},{76,160},{83,160},{83,90}}, color={0,0,127}));
+  connect(SV1.fTemperatureExternal, temperature3.T) annotation (Line(points={{65,142},{66,142},{66,160},{83,160},{83,90}}, color={0,0,127}));
+  connect(SV1.bAlgorithmPermission, RV500.bAlgorithmPermission) annotation (Line(points={{58,125},{20,125},{20,65},{38,65}}, color={255,0,255}));
+  connect(SV1.bSetStatusOnAutomatic, bHeatingModeAutomatic) annotation (Line(points={{58,121},{4,121},{4,-121},{-80,-121},{-80,-90},{-120,-90}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end InnerCapillaryTubeMatsSystem;

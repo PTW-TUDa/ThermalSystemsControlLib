@@ -98,6 +98,8 @@ model CN
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable1(
     table=[0.0,0.0; 172000,7e3; 260000,0.0],                                                      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)                             annotation (Placement(transformation(extent={{46,4},{56,14}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{-110,-108},{-90,-88}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
 equation
    //states
   localState1.fUpperTemperature =BufferStorage.localStorageState.fUpperTemperature;
@@ -141,5 +143,7 @@ equation
   connect(port_a_HNLT_Producer, BufferStorage.port_a) annotation (Line(points={{-100,-60},{0,-60},{0,-10}}, color={0,127,255}));
   connect(greaterThreshold.u, combiTimeTable1.y[1]) annotation (Line(points={{63,9},{56.5,9},{56.5,9}}, color={0,0,127}));
   connect(boundary.ports[1], BufferStorage.port_a) annotation (Line(points={{30,-20},{30,-10},{0,-10}}, color={0,127,255}));
+  connect(port_b_HNLT_Consumer, BufferStorage.port_a) annotation (Line(points={{-100,-98},{0,-98},{0,-10}}, color={0,127,255}));
+  connect(port_a_HNLT_Consumer, BufferStorage.port_b) annotation (Line(points={{-100,100},{0,100},{0,10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CN;
