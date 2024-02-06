@@ -37,7 +37,7 @@ model UnderfloorHeatingSystem
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={110,60})));
-  Modelica.Blocks.Sources.IntegerExpression integerExpression5(y=1) annotation (Placement(transformation(extent={{26,-10},{34,0}})));
+  Modelica.Blocks.Sources.IntegerExpression integerExpression5(y=0) annotation (Placement(transformation(extent={{44,-40},{52,-30}})));
   Components.Valves.ThreeWayValve SV423(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_CN(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
@@ -51,15 +51,28 @@ model UnderfloorHeatingSystem
                                                              annotation (Placement(transformation(extent={{42,124},{50,136}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,90},{110,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT1(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  Components.Consumer.PhysicalModels.Consumer_Physical consumer_Physical(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Components.Consumer.PhysicalModels.Room_Heating InnerCapillaryTubeMats(
     redeclare package Medium = Medium,
-    V_int=0.2,
-    riseTime=1800)                                                                                          annotation (Placement(transformation(
+    V_int=0.1,
+    C_Air=2400000,
+    R_Building=0.003,
+    R_Heater=0.0001)                 annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={80,30})));
-  Modelica.Blocks.Interfaces.RealInput fHeatFlowRate annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+  Components.Valves.TwoWayValve SV(
+    k=0.01,
+    yMin=0.001,
+    redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,-6},{80,14}})));
 equation
+   if bHeatingModeAutomatic == true then
+     RV425.nControlModeAutomatic = 1;
+     SV.nControlModeAutomatic = 1;
+   else
+     RV425.nControlModeAutomatic = 2;
+     SV.nControlModeAutomatic = 2;
+   end if;
   connect(bAlgorithmPermission,PU425. bAlgorithmPermission) annotation (Line(points={{-120,50},{20,50},{20,-25},{58,-25}},
                                                                                                                          color={255,0,255}));
   connect(RV425.bAlgorithmPermission,PU425. bAlgorithmPermission) annotation (Line(points={{58,-55},{20,-55},{20,-25},{58,-25}},
@@ -72,12 +85,10 @@ equation
   connect(PU425.bStatusOn, systemFlowControl.bStatusOn_Components[2]) annotation (Line(points={{65,-19},{65,100},{-30,100},{-30,81}},color={255,0,255}));
   connect(fAmbientTemperature, combiTable1D.u[1]) annotation (Line(points={{-120,-60},{-100,-60},{-100,-70},{-82,-70}}, color={0,0,127}));
   connect(RV425.fSetPointAutomatic, combiTable1D.y[1]) annotation (Line(points={{58,-59},{14,-59},{14,-70},{-59,-70}}, color={0,0,127}));
-  connect(PU425.nControlModeAutomatic,RV425. nControlModeAutomatic) annotation (Line(points={{58,-35},{44,-35},{44,-65},{58,-65}},                                 color={255,127,0}));
   connect(WMZ425.fHeatFlowRate,RV425. fThermalPowerExternal) annotation (Line(points={{59,90},{75.2,90},{75.2,-72}},   color={0,0,127}));
   connect(WMZ425.fHeatFlowRate,PU425. fThermalPowerExternal) annotation (Line(points={{59,90},{75,90},{75,-42}},  color={0,0,127}));
   connect(RV425.bStatusOn, systemFlowControl.bStatusOn_Components[1]) annotation (Line(points={{65,-49},{65,100},{-30,100},{-30,81}}, color={255,0,255}));
   connect(bStatusOn,PU425. bStatusOn) annotation (Line(points={{-50,110},{-50,100},{65,100},{65,-19}},color={255,0,255}));
-  connect(selectSetPoint.fSetPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{-59,30},{0,30},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(pressureDrop.port_b, pipe2.port_a) annotation (Line(points={{80,70},{100,70}}, color={0,127,255}));
   connect(PU425.port_a, RV425.port_b) annotation (Line(points={{80,-40},{80,-50}},color={0,127,255}));
   connect(temperature1.port, RV425.port_b) annotation (Line(points={{90,-50},{80,-50}}, color={0,127,255}));
@@ -86,7 +97,6 @@ equation
   connect(temperature.port_b, RV425.port_a) annotation (Line(points={{80,-80},{80,-70}}, color={0,127,255}));
   connect(WMZ425.fFeedTemperature, temperature.T) annotation (Line(points={{82,90},{96,90},{96,-90},{91,-90}}, color={0,0,127}));
   connect(PU425.fTemperatureExternal, PU425.fThermalPowerExternal) annotation (Line(points={{65,-42},{75,-42}},               color={0,0,127}));
-  connect(integerExpression5.y, RV425.nControlModeAutomatic) annotation (Line(points={{34.4,-5},{44,-5},{44,-65},{58,-65}}, color={255,127,0}));
   connect(temperature.port_a, SV423.port_b) annotation (Line(points={{80,-100},{80,-120}}, color={0,127,255}));
   connect(SV423.port_a, port_a_HNLT) annotation (Line(points={{80,-140},{100,-140},{100,-100}}, color={0,127,255}));
   connect(port_a_CN, SV423.port_a1) annotation (Line(points={{60,-100},{60,-130},{80,-130}}, color={0,127,255}));
@@ -105,8 +115,17 @@ equation
   connect(SV1.fTemperatureExternal, temperature.T) annotation (Line(points={{65,142},{66,142},{66,134},{96,134},{96,-90},{91,-90}}, color={0,0,127}));
   connect(SV1.bAlgorithmPermission, PU425.bAlgorithmPermission) annotation (Line(points={{58,125},{20,125},{20,-25},{58,-25}}, color={255,0,255}));
   connect(SV1.bSetStatusOnAutomatic, bHeatingModeAutomatic) annotation (Line(points={{58,121},{34,121},{34,120},{10,120},{10,-90},{-120,-90}}, color={255,0,255}));
-  connect(consumer_Physical.port_b, pressureDrop.port_a) annotation (Line(points={{80,40},{80,50},{80,50}}, color={0,127,255}));
-  connect(fHeatFlowRate, consumer_Physical.Q_flow) annotation (Line(points={{-120,-30},{-20,-30},{-20,24},{60,24},{60,30},{68,30}}, color={0,0,127}));
-  connect(PU425.port_b, consumer_Physical.port_a) annotation (Line(points={{80,-20},{80,20}}, color={0,127,255}));
+  connect(prescribedTemperature.T, fAmbientTemperature) annotation (Line(points={{-82,-30},{-100,-30},{-100,-60},{-120,-60}}, color={0,0,127}));
+  connect(InnerCapillaryTubeMats.port_b, pressureDrop.port_a) annotation (Line(points={{80,40},{80,50}}, color={0,127,255}));
+  connect(InnerCapillaryTubeMats.port_ambient, prescribedTemperature.port) annotation (Line(points={{69.4,30},{-10,30},{-10,-30},{-60,-30}}, color={191,0,0}));
+  connect(InnerCapillaryTubeMats.T_Room, selectSetPoint.fOperatingPoint) annotation (Line(points={{87,41},{87,40},{0,40},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(InnerCapillaryTubeMats.port_a, SV.port_b) annotation (Line(points={{80,20},{80,14}}, color={0,127,255}));
+  connect(SV.port_a, PU425.port_b) annotation (Line(points={{80,-6},{80,-20}}, color={0,127,255}));
+  connect(selectSetPoint.fSetPoint, SV.fSetPointAutomatic) annotation (Line(points={{-59,30},{-20,30},{-20,5},{58,5}}, color={0,0,127}));
+  connect(SV.bAlgorithmPermission, PU425.bAlgorithmPermission) annotation (Line(points={{58,9},{20,9},{20,-25},{58,-25}}, color={255,0,255}));
+  connect(SV.bSetStatusOnAutomatic, systemFlowControl.bSetStatusOn_Components[1]) annotation (Line(points={{58,13},{40,13},{40,70},{-19,70}}, color={255,0,255}));
+  connect(SV.fThermalPowerExternal, RV425.fThermalPowerExternal) annotation (Line(points={{75,-8},{75.2,-8},{75.2,-72}}, color={0,0,127}));
+  connect(integerExpression5.y, PU425.nControlModeAutomatic) annotation (Line(points={{52.4,-35},{58,-35}}, color={255,127,0}));
+  connect(SV.fTemperatureExternal, selectSetPoint.fOperatingPoint) annotation (Line(points={{65,-8},{70,-8},{70,40},{0,40},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end UnderfloorHeatingSystem;

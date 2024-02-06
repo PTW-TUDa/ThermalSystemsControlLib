@@ -85,6 +85,7 @@ equation
 
   //static heating control
   hnhtControl.bSetStatusOn_StaticHeating = true;
+  hnhtControl.fTargetTemperature_ProductionHall = strategyState.fTargetTemperature_ProductionHall;
 
   //vsi storage control
   Controller_Buffer_VSI_Unloading.u = hnhtState.fMidTemperature;
