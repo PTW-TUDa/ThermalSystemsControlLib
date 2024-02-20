@@ -1,6 +1,4 @@
-IdealConsumer_Physical
-Consumer_Physical
-Room_Heating
+Consumer_ReturnTemperatureControlled
+Consumer_VariableMassFlow
+Consumer_InherentHeatCapacity
 OuterCapillaryTubeMats
-DemandRegressionModel
-Test_Room_Heating

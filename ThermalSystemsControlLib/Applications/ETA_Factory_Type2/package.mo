@@ -1,4 +1,0 @@
-within ThermalSystemsControlLib.Applications;
-package ETA_Factory_Type2
-  extends ThermalSystemsControlLib.BaseClasses.Icons.Applications_Icon_Package;
-end ETA_Factory_Type2;

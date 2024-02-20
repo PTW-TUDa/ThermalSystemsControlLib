@@ -8,15 +8,18 @@ model CompressionChiller
   parameter Real k=1   "Gain of controller" annotation(Dialog(group="Controller limitations"));
   parameter Real yMax=1   "Upper limit of controller output" annotation(Dialog(group="Controller limitations"));
   parameter Real yMin=0   "Lower limit of controller output" annotation(Dialog(group="Controller limitations"));
-  replaceable parameter ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Type1_Properties deviceData constrainedby ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Type1_Properties annotation (choicesAllMatching=true);
-  PhysicalModels.CompressionChiller_Type1    compressionChiller_Physical(redeclare package Medium = Medium,
-    redeclare package Medium1 = Medium1,                                                                    deviceData=deviceData)
-                                                                         annotation (Placement(transformation(
+  replaceable parameter ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Properties deviceData constrainedby ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Properties annotation (choicesAllMatching=true);
+  PhysicalModels.CompressionChiller compressionChiller_Physical(
+    redeclare package Medium = Medium,
+    redeclare package Medium1 = Medium1,
+    deviceData=deviceData) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,0})));
-  Methods.ControlChiller          controlChiller
-                                                annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+  Methods.ControlChiller          controlChiller(
+    k=k,
+    yMax=yMax,
+    yMin=yMin)                                  annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package Medium = Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

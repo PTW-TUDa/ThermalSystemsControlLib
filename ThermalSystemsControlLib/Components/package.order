@@ -1,4 +1,3 @@
-PhysicalComponentTypes
 Pipes
 Valves
 BufferStorage
@@ -8,7 +7,5 @@ Pumps
 CombinedHeatPower
 GasBoiler
 CompressionChiller
-AbsorptionChiller
 DryCooler
-HybridCooler
 Consumer

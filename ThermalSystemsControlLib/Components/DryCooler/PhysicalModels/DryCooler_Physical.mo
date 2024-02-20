@@ -30,11 +30,6 @@ model DryCooler_Physical
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,50})));
-  Pumps.PhysicalModels.IdealPump_Physical idealPump_Physical(redeclare package Medium = Modelica.Media.Air.SimpleAir, deviceData=deviceData.deviceData_Ventilation)
-                                                             annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={30,30})));
   Modelica.Fluid.Sources.Boundary_pT boundary1(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
     use_T_in=false,

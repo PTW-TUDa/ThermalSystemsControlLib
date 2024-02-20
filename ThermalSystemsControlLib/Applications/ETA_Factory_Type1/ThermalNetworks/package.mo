@@ -1,4 +1,0 @@
-within ThermalSystemsControlLib.Applications.ETA_Factory_Type1;
-package ThermalNetworks
-  extends ThermalSystemsControlLib.BaseClasses.Icons.Systems_Icon_Package;
-end ThermalNetworks;
