@@ -4,7 +4,7 @@ model ControlHnhtHnltLinkage
       parameter Real fOffset_TargetTemperature_HeatExchanger1 = 2;
   input ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.Interfaces.thermalNetworkState hnhtState annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   input Interfaces.BaseStrategyState strategyState annotation (Placement(transformation(extent={{-10,100},{10,120}})));
-  Modelica.Blocks.Logical.OnOffController Controller_HeatExchanger1_HNLT(bandwidth=8) annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+  Modelica.Blocks.Logical.OnOffController Controller_HeatExchanger1_HNLT(bandwidth=8) annotation (Placement(transformation(extent={{-8,20},{12,40}})));
 
   input ThermalNetworks.Interfaces.thermalNetworkState hnltState annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   ThermalNetworks.Interfaces.hnhtHnltLinkageControl hnhtHnltLinkageControl annotation (Placement(transformation(extent={{-8,-120},{12,-100}})));
@@ -26,7 +26,7 @@ equation
 
   //heat exchanger 1 control
   Controller_HeatExchanger1_HNLT.u = hnltState.fMidTemperature;
-  Controller_HeatExchanger1_HNLT.reference = strategyState.fTargetTemperature_HNLT_Heating;
+  Controller_HeatExchanger1_HNLT.reference = strategyState.fTargetTemperature_HNLT_Heating - fOffset_TargetTemperature_HeatExchanger1;
   Controller_HeatExchanger1_HNHT.u = strategyState.fTargetTemperature_HNHT_Cooling;
   Controller_HeatExchanger1_HNHT.reference = hnhtState.fUpperTemperature;
   hnhtHnltLinkageControl.bSetStatusOn_HeatExchanger1 = Controller_HeatExchanger1_HNLT.y or Controller_HeatExchanger1_HNHT.y;

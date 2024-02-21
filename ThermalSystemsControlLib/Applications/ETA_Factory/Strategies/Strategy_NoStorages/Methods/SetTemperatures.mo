@@ -4,6 +4,8 @@ model SetTemperatures
   input Interfaces.localSetParametersStrategy localSetParameters annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   output Interfaces.BaseStrategyState localState annotation (Placement(transformation(extent={{100,-8},{120,12}})));
 equation
+
+  localState.bProductionModeActivated = localSetParameters.bProductionModeActivated;
   if not localSetParameters.bProductionModeActivated then
     localState.fTargetTemperature_HNHT_Heating = 273.15+50;
     localState.fTargetTemperature_HNHT_Cooling = 273.15+70;

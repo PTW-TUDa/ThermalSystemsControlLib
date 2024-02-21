@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Applications.ETA_Factory.Strategies.Strategy_NoStorages.Methods;
+﻿within ThermalSystemsControlLib.Applications.ETA_Factory.Strategies.Strategy_NoStorages.Methods;
 model ControlHnhtHnltLinkage
       extends ThermalSystemsControlLib.BaseClasses.Icons.Methods_Icon;
       parameter Real fOffset_TargetTemperature_HeatExchanger1 = 2;
@@ -37,6 +37,12 @@ equation
   Controller_HeatPump_HNHT.reference = strategyState.fTargetTemperature_HNHT_Heating+fOffset_TargetTemperature_HeatPump;
   Controller_HeatPump_HNHT_Permission.u = strategyState.fFeedTemperature_HNLT_Cooling+fOffset_TargetTemperature_HeatPump_Permission;
   Controller_HeatPump_HNHT_Permission.reference = hnltState.fMidTemperature;
-  hnhtHnltLinkageControl.bSetStatusOn_HeatPump = Controller_HeatPump_HNHT.y and Controller_HeatPump_HNHT_Permission.y;
+
+  // only use heat pump when not in production mode, because flow temperatur of heat pump is max. 65 °C
+  if strategyState.bProductionModeActivated then
+    hnhtHnltLinkageControl.bSetStatusOn_HeatPump = false;
+  else
+    hnhtHnltLinkageControl.bSetStatusOn_HeatPump = Controller_HeatPump_HNHT.y and Controller_HeatPump_HNHT_Permission.y;
+  end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ControlHnhtHnltLinkage;

@@ -15,7 +15,7 @@ model HeatExchanger1System
         origin={70,0})));
   Components.HeatMeter.HeatMeter WMZ215 annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Components.Valves.ThreeWayValve RV315(k=0.1,
-                                        redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{40,80},{60,60}})));
+    yMin=0.5,                           redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{40,80},{60,60}})));
   Components.Valves.TwoWayValve SV215(redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium2)
                                                                                      annotation (Placement(transformation(extent={{102,60},{82,80}})));
