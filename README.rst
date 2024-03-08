@@ -26,5 +26,5 @@ Please cite this project using our publication:
     Borst, Fabian; Frank, Michael Georg; Theisinger, Lukas; Weigold, Matthias (2023): ThermalSystemsControlLibrary: a modelica library for 
     developing control strategies of industrial energy systems. In: Linköping Electronic Conference Proceedings, 204, In: Proceedings of the 
     15th International Modelica Conference 2023, S. 209-216, Linköping, Modelica Association and Linköping University Electronic Press, 
-    Proceedings of the 15th International Modelica Conference 2023, Aachen, Germany, 09.10. - 11.10.2023, ISBN 978-91-8075-505-4, DOI: 10.3384/
+    Proceedings of the 15th International Modelica Conference 2023, Aachen, Germany, 09.10. - 11.10.2023, ISBN 978-91-8075-505-4  , DOI: 10.3384/
     ecp204

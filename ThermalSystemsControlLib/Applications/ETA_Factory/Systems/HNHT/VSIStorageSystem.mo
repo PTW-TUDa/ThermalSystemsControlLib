@@ -18,7 +18,8 @@ model VSIStorageSystem
   Components.HeatMeter.HeatMeter WMZ305 annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Modelica.Blocks.Logical.Not not1 annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1) annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=100)
+                                                             annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium2)
                                                                                      annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Modelica.Blocks.Logical.And and1 annotation (Placement(transformation(extent={{-20,20},{0,40}})));

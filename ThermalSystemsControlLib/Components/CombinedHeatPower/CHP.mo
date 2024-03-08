@@ -7,9 +7,8 @@ model CHP
   parameter Real k=1   "Gain of controller" annotation(Dialog(group="Controller limitations"));
   parameter Real yMax=1   "Upper limit of controller output" annotation(Dialog(group="Controller limitations"));
   parameter Real yMin=0   "Lower limit of controller output" annotation(Dialog(group="Controller limitations"));
-  replaceable parameter ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPowerProperties deviceData constrainedby ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPowerProperties annotation (choicesAllMatching=true);
-  PhysicalModels.CHP_Physical cHP_Physical(redeclare package Medium = Medium, deviceData=deviceData)
-                                           annotation (Placement(transformation(
+  replaceable parameter ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPower_Properties deviceData constrainedby ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPower_Properties annotation (choicesAllMatching=true);
+  PhysicalModels.CHP_Physical cHP_Physical(redeclare package Medium = Medium, deviceData=deviceData) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,0})));

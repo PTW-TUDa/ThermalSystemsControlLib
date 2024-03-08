@@ -5,7 +5,7 @@ model License "License"
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <h4>BSD 3-Clause License</h4>
-<p><b>Modelica Thermal Systems Control Library.</b> Copyright (c) 2023 Fabian Borst, Lukas Theisinger, Michael Georg Frank (Institute for Production Management, Technology and Machine Tools of the Technical University of Darmstadt), Andreas Mau&szlig;ner (Zentrum f&uuml;r Angewandte Energieforschung e.V.). All rights reserved.</p>
+<p><b>Modelica Thermal Systems Control Library.</b> Copyright (c) 2023 Fabian Borst, Lukas Theisinger, Michael Georg Frank (Institute for Production Management, Technology and Machine Tools of the Technical University of Darmstadt). All rights reserved.</p>
 <p>NOTICE: This Software was developed under funding from the German Federal Ministry for Economic Affairs and Climate Action (BMWK) within the research project &quot;ETA im Bestand&quot; (funding code: 03EN2048A) organized by the project management agency J&uuml;lich (PtJ).</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: </p>
 <ol>

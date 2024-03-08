@@ -1,4 +1,3 @@
-IdealConsumer_Physical
-Consumer_Physical
-Room_Heating
-OuterCapillaryTubeMats
+IdealConsumer_VariableMassFlow
+Consumer_InherentHeatCapacity
+Consumer_ThermalResistanceOnly

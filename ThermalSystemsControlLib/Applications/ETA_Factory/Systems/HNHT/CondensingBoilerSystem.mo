@@ -20,7 +20,8 @@ model CondensingBoilerSystem
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,90})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1) annotation (Placement(transformation(extent={{20,80},{40,100}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=100)
+                                                             annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression(y=1) annotation (Placement(transformation(extent={{42,-18},{52,-4}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-20},{80,0}})));

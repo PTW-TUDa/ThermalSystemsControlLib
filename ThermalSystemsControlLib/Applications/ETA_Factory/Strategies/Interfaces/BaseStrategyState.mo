@@ -1,10 +1,12 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.Strategies.Interfaces;
 connector BaseStrategyState
-    Real fTargetTemperature_HNHT;
+    Real fTargetTemperature_HNHT_Heating;
+    Real fTargetTemperature_HNHT_Cooling;
     Real fTargetTemperature_HNLT_Cooling;
     Real fTargetTemperature_HNLT_Heating;
     Real fTargetTemperature_CN;
     Real fTargetTemperature_ProductionHall;
+    Boolean bProductionModeActivated;
 
     Real aTemperatureLimits_HNHT[2];
     Real aTemperatureLimits_HNLT[2];

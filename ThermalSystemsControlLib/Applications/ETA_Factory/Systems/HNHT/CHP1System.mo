@@ -21,7 +21,8 @@ model CHP1System
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,90})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1) annotation (Placement(transformation(extent={{20,80},{40,100}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=100)
+                                                             annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression(y=1) annotation (Placement(transformation(extent={{44,-18},{52,-6}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{44,-54},{52,-40}})));

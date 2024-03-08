@@ -5,7 +5,7 @@ model ambientState_FMUConnector
   output Real fOutsideTemperature;
   output Real fOutsideTemperature_Mean;
 
-  ambientState ambientState1 annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  input ambientState ambientState1 annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 equation
   bRain = ambientState1.bRain;
   fOutsideTemperature = ambientState1.fOutsideTemperature-273.15;

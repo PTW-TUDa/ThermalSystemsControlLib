@@ -4,7 +4,7 @@ model CHP_Physical
     replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
 
-  replaceable parameter ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPowerProperties deviceData constrainedby ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPowerProperties annotation (__Dymola_choicesAllMatching=true);
+  replaceable parameter ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPower_Properties deviceData constrainedby ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPower_Properties annotation (__Dymola_choicesAllMatching=true);
 
   Modelica.Blocks.Tables.CombiTable2D Tableefficency_P_th(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=deviceData.f_effPth,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)

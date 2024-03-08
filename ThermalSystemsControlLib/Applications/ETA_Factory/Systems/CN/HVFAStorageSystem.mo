@@ -16,9 +16,10 @@ model HVFAStorageSystem
   Components.Valves.ThreeWayValve SVx06(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,90},{100,70}})));
   Components.HeatMeter.HeatMeter WMZx05 annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{60,78},{72,92}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1) annotation (Placement(transformation(extent={{60,66},{72,80}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=100)
+                                                             annotation (Placement(transformation(extent={{60,66},{72,80}})));
   Components.BufferStorage.Interfaces.BufferStorageState localStorageState annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
-  Components.HeatExchanger.PhysicalModels.HeatExchanger_Physical HeatExchanger4(
+  Components.HeatExchanger.PhysicalModels.HeatExchanger HeatExchanger4(
     redeclare replaceable package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     redeclare Records.PWT4_SWEP_115kW deviceData) annotation (Placement(transformation(
@@ -53,7 +54,7 @@ model HVFAStorageSystem
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{-6,-7},{6,7}},
         rotation=90,
         origin={154,-33})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=1)
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=100)
                                                              annotation (Placement(transformation(extent={{-6,-7},{6,7}},
         rotation=90,
         origin={146,-33})));

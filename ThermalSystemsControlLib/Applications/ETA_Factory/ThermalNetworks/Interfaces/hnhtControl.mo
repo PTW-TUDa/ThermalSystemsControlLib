@@ -1,6 +1,7 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.Interfaces;
 connector hnhtControl
     Real fFeedTemperature;
+    Real fTargetTemperature_ProductionHall;
     Boolean bAlgorithmPermission;
     Boolean bSetStatusOn_CHP1;
     Boolean bSetStatusOn_CHP2;

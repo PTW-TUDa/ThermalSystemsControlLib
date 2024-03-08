@@ -7,7 +7,7 @@ class References "References"
 <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
 <tr>
 <td><p>[BORS23]</p></td>
-<td><p>F. Borst; M. Frank; L. Theisinger; M. Weigold: <i>ThermalSystemsControlLibray: A Modelica Library for Developing Control Strategies of Industrial Energy Systems</i>, Modelica Conference 2023, Aachen, Germanay, 2023. </p></td>
+<td><p>F. Borst; M. Frank; L. Theisinger; M. Weigold: <i>ThermalSystemsControlLibray: A Modelica Library for Developing Control Strategies of Industrial Energy Systems</i>, Modelica Conference 2023, Aachen, Germanay, DOI: <a href=\"https://doi.org/10.3384/ecp204\">https://doi.org/10.3384/ecp204</a>. 2023. </p></td>
 </tr>
 <tr>
 <td><p>[FUHR22]</p></td>

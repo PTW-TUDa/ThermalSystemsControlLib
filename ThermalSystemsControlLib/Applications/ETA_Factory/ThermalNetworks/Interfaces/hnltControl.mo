@@ -2,7 +2,6 @@ within ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.Interfa
 connector hnltControl
     Real fFeedTemperature_Heating;
     Real fFeedTemperature_Cooling;
-    Real fTargetTemperature_ProductionHall;
     Boolean bAlgorithmPermission;
     Boolean bSetStatusOn_OuterCapillaryTubeMats;
     Boolean bSetStatusOn_HVFASystem;

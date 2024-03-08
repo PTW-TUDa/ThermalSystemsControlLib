@@ -1,6 +1,6 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.Records;
 record ViessmannVitocal350G
-  extends ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChillerProperties(
+  extends ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChiller_Properties(
     riseTime=120,
     V_int_heat=0.05,
     V_int_cool=0.05,

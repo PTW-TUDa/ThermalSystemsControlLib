@@ -19,12 +19,13 @@ model CentralMachineCoolingSystem
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-70})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1) annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=100)
+                                                             annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Components.Consumer.PhysicalModels.Consumer_Physical CentralMachineCooling(
+  Components.Consumer.PhysicalModels.IdealConsumer_VariableMassFlow CentralMachineCooling(
     redeclare package Medium = Medium,
-    V_int=0.05,
-    riseTime=180) annotation (Placement(transformation(
+    V_int=0.2,
+    riseTime=900) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={80,0})));

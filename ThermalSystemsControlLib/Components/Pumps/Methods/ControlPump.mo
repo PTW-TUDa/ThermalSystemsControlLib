@@ -74,7 +74,7 @@ equation
   elseif nControlMode == 6 then
     switch.u1 = PID_ThermalPower.y;
   else
-    switch.u1 = fSetPoint;
+    switch.u1 = fSetPoint*0.01;
   end if;
 
 //connections

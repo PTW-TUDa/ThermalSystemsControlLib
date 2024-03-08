@@ -20,10 +20,10 @@ model CompressorSystem
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,90})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=0.7)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=70)
                                                              annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{40,-46},{52,-28}})));
-  Components.Consumer.PhysicalModels.Consumer_Physical Compressor(
+  Components.Consumer.PhysicalModels.IdealConsumer_VariableMassFlow Compressor(
     redeclare package Medium = Medium,
     V_int=0.05,
     riseTime=300) annotation (Placement(transformation(

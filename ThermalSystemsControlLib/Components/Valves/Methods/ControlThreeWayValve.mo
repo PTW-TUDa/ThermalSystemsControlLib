@@ -35,17 +35,22 @@ model ControlThreeWayValve
     k=k,
     yMax=1,
     yMin=0,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,30})));
-  Modelica.Blocks.Math.Abs abs1 annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+  Modelica.Blocks.Math.Abs abs1 annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Math.Abs abs2 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,-80})));
+  Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(extent={{-6,-36},{6,-24}})));
+  Modelica.Blocks.Math.Gain gain1(k=1/1000) annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
         rotation=180,
-        origin={30,-70})));
+        origin={40,-56})));
 equation
   if nControlMode == 1 then
     switch.u1 = PID_Heating.y;
@@ -54,7 +59,7 @@ equation
   elseif nControlMode == 3 then
     switch.u1 = PID_ThermalPower.y;
   else
-    switch.u1 = fSetPoint;
+    switch.u1 = fSetPoint*0.01;
   end if;
 
 //connections
@@ -64,11 +69,13 @@ equation
   connect(PID_Heating.u_m, fTemperatureExternal) annotation (Line(points={{10,58},{10,40},{-50,40},{-50,-120}}, color={0,0,127}));
   connect(realExpression.y, switch.u3) annotation (Line(points={{50,19},{50,8},{58,8}}, color={0,0,127}));
   connect(switch.y, fSetPointInternal) annotation (Line(points={{81,0},{90.5,0},{90.5,0},{110,0}}, color={0,0,127}));
-  connect(PID_ThermalPower.u_s, abs1.y) annotation (Line(points={{-2,-50},{-9,-50}}, color={0,0,127}));
-  connect(abs1.u, PID_Heating.u_s) annotation (Line(points={{-32,-50},{-60,-50},{-60,70},{-2,70}}, color={0,0,127}));
-  connect(abs2.y, PID_ThermalPower.u_m) annotation (Line(points={{19,-70},{10,-70},{10,-62}}, color={0,0,127}));
-  connect(abs2.u, fThermalPowerExternal) annotation (Line(points={{42,-70},{50,-70},{50,-120}}, color={0,0,127}));
+  connect(abs1.u, PID_Heating.u_s) annotation (Line(points={{-42,-30},{-60,-30},{-60,70},{-2,70}}, color={0,0,127}));
+  connect(abs2.u, fThermalPowerExternal) annotation (Line(points={{50,-92},{50,-120}},          color={0,0,127}));
   connect(bSetStatusOn, switch.u2) annotation (Line(points={{-120,90},{40,90},{40,0},{58,0}}, color={255,0,255}));
+  connect(PID_ThermalPower.u_s, gain.y) annotation (Line(points={{18,-30},{6.6,-30}}, color={0,0,127}));
+  connect(gain.u, abs1.y) annotation (Line(points={{-7.2,-30},{-19,-30}}, color={0,0,127}));
+  connect(abs2.y, gain1.u) annotation (Line(points={{50,-69},{50,-56},{47.2,-56}}, color={0,0,127}));
+  connect(gain1.y, PID_ThermalPower.u_m) annotation (Line(points={{33.4,-56},{30,-56},{30,-42}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Control method for three way valves.</p>

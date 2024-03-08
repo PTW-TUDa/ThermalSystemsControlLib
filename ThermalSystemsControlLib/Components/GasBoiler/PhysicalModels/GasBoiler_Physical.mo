@@ -3,7 +3,7 @@ model GasBoiler_Physical
     extends ThermalSystemsControlLib.BaseClasses.Icons.CondensingBoiler_Icon;
 
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
-  replaceable parameter ThermalSystemsControlLib.Applications.ETA_Factory.Records.ViessmannVitodens200 deviceData constrainedby ThermalSystemsControlLib.Components.GasBoiler.PhysicalModels.Records.GasBoilerProperties annotation (choicesAllMatching=true);
+  replaceable parameter ThermalSystemsControlLib.Components.GasBoiler.PhysicalModels.Records.GasBoilerProperties deviceData constrainedby ThermalSystemsControlLib.Components.GasBoiler.PhysicalModels.Records.GasBoilerProperties annotation (choicesAllMatching=true);
 
   //## COMPONENTS ##
 
