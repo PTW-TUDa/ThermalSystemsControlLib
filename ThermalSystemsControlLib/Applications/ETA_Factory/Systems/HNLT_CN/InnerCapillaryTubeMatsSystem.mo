@@ -21,14 +21,12 @@ model InnerCapillaryTubeMatsSystem
                                         annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Components.Valves.ThreeWayValve RV500(
     redeclare package Medium = Medium,
-    k=0.001,
-    yMin=0.001,                         redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{40,80},{60,60}})));
+    k=0.01,                             redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{40,80},{60,60}})));
   Components.Valves.TwoWayValve SV_HNLT(redeclare package Medium = Medium,
                                         redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-80},{80,-60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{66,20},{74,30}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=0.5)
-                                                               annotation (Placement(transformation(extent={{64,-34},{72,-24}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=70) annotation (Placement(transformation(extent={{64,-34},{72,-24}})));
   Components.Pipes.PhysicalModels.Pipe pipe2(
     redeclare package Medium = Medium,
     length=1,
@@ -37,9 +35,8 @@ model InnerCapillaryTubeMatsSystem
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={20,60})));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=1)  annotation (Placement(transformation(extent={{66,28},{74,36}})));
-  Modelica.Blocks.Sources.RealExpression realExpression3(y=0.5)
-                                                               annotation (Placement(transformation(extent={{26,24},{34,34}})));
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=50) annotation (Placement(transformation(extent={{66,28},{74,36}})));
+  Modelica.Blocks.Sources.RealExpression realExpression3(y=50) annotation (Placement(transformation(extent={{26,24},{34,34}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression3(y=0) annotation (Placement(transformation(extent={{26,30},{34,40}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression4(y=0) annotation (Placement(transformation(extent={{64,-40},{72,-30}})));
   Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
@@ -47,9 +44,9 @@ model InnerCapillaryTubeMatsSystem
   Components.Consumer.PhysicalModels.Consumer_InherentHeatCapacity InnerCapillaryTubeMats(
     redeclare package Medium = Medium,
     V_int=0.2,
-    C=44000000,
-    R_MediumToComponent=0.0001,
-    R_ComponentToAmbient=0.0002)
+    C=3*44000000,
+    R_MediumToComponent=0.0005,
+    R_ComponentToAmbient=0.001)
                      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
@@ -61,8 +58,7 @@ model InnerCapillaryTubeMatsSystem
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Blocks.Interfaces.RealInput fAmbientTemperature
                                                           annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-  Components.Valves.TwoWayValve SV(
-    yMin=0.001,
+  Components.Valves.TwoWayValve SV(k=0.1,
     redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{-30,-100},{-10,-80}})));
   Modelica.Fluid.Sources.FixedBoundary boundary(
     redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
@@ -79,12 +75,12 @@ model InnerCapillaryTubeMatsSystem
   Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_CN(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression6(y=0) annotation (Placement(transformation(extent={{44,-140},{52,-130}})));
-  Modelica.Blocks.Sources.RealExpression realExpression4(y=1)
+  Modelica.Blocks.Sources.RealExpression realExpression4(y=100)
                                                              annotation (Placement(transformation(extent={{44,-136},{52,-124}})));
   Modelica.Blocks.Interfaces.BooleanInput bHeatingModeAutomatic annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
   Components.Valves.ThreeWayValve SV1(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,140},{80,120}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression7(y=0) annotation (Placement(transformation(extent={{42,130},{50,140}})));
-  Modelica.Blocks.Sources.RealExpression realExpression5(y=1)
+  Modelica.Blocks.Sources.RealExpression realExpression5(y=100)
                                                              annotation (Placement(transformation(extent={{42,124},{50,136}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,90},{110,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT1(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,90},{70,110}})));

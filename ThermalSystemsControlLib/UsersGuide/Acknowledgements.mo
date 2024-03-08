@@ -13,7 +13,6 @@ model Acknowledgements "Acknowledgments"
 <li>Fabian Borst</li>
 <li>Michael Frank</li>
 <li>Lukas Theisinger</li>
-<li>Andreas Mau&szlig;ner (Zentrum f&uuml;r angewandte Energieforschung Bayern e.V.)</li>
 </ul>
 <p><b>Noteable references</b></p>
 <ul>

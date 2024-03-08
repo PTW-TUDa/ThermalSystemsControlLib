@@ -1,5 +1,5 @@
 within ThermalSystemsControlLib.Components.Consumer.PhysicalModels;
-model OuterCapillaryTubeMats
+model Consumer_ThermalResistanceOnly
     extends ThermalSystemsControlLib.BaseClasses.Icons.Consumer_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   parameter SI.Volume V_int "Fluid volume in heater";
@@ -34,4 +34,4 @@ equation
     Documentation(info="<html>
 <p>Model for floor or wall heating according to <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a>.</p>
 </html>"));
-end OuterCapillaryTubeMats;
+end Consumer_ThermalResistanceOnly;

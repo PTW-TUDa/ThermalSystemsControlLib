@@ -22,8 +22,7 @@ model OuterCapillaryTubeMatsSystem
   Components.Valves.TwoWayValve SV235(redeclare package Medium = Medium, redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-80},{80,-60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{66,20},{74,30}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=0.7)
-                                                               annotation (Placement(transformation(extent={{64,-34},{72,-24}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=70) annotation (Placement(transformation(extent={{64,-34},{72,-24}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=2) annotation (Placement(transformation(extent={{26,70},{34,80}})));
   Components.Pipes.PhysicalModels.Pipe pipe2(
     redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47,
@@ -33,20 +32,17 @@ model OuterCapillaryTubeMatsSystem
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={50,-30})));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=0.5)
-                                                               annotation (Placement(transformation(extent={{66,28},{74,36}})));
-  Modelica.Blocks.Sources.RealExpression realExpression3(y=0.5)
-                                                               annotation (Placement(transformation(extent={{26,24},{34,34}})));
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=50) annotation (Placement(transformation(extent={{66,28},{74,36}})));
+  Modelica.Blocks.Sources.RealExpression realExpression3(y=50) annotation (Placement(transformation(extent={{26,24},{34,34}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression3(y=0) annotation (Placement(transformation(extent={{26,30},{34,40}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression4(y=0) annotation (Placement(transformation(extent={{64,-40},{72,-30}})));
   Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47)
                                                                                      annotation (Placement(transformation(extent={{60,-80},{40,-60}})));
   Modelica.Fluid.Sensors.Temperature temperature3(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,80},{80,100}})));
-  Components.Consumer.PhysicalModels.OuterCapillaryTubeMats
-                                                  OuterCapillaryTubeMats(
+  Components.Consumer.PhysicalModels.Consumer_ThermalResistanceOnly OuterCapillaryTubeMats(
     redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47,
     V_int=0.1,
-    R_Wall=0.005)                    annotation (Placement(transformation(
+    R_Wall=0.005) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-10,-30})));

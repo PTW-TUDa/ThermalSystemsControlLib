@@ -1,4 +1,3 @@
-Consumer_ReturnTemperatureControlled
-Consumer_VariableMassFlow
+IdealConsumer_VariableMassFlow
 Consumer_InherentHeatCapacity
-OuterCapillaryTubeMats
+Consumer_ThermalResistanceOnly

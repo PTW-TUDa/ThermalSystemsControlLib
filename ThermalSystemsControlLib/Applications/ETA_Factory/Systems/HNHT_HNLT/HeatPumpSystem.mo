@@ -7,8 +7,7 @@ model HeatPumpSystem
   Components.HeatMeter.HeatMeter WMZ342 annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Components.Valves.ThreeWayValve RV342(k=0.1,
                                         redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{140,80},{160,60}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=0.5)
-                                                               annotation (Placement(transformation(extent={{26,24},{34,34}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=50) annotation (Placement(transformation(extent={{26,24},{34,34}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=1) annotation (Placement(transformation(extent={{20,80},{28,90}})));
   Components.Pipes.PhysicalModels.Pipe pipe2(
     length=1,
@@ -39,8 +38,10 @@ model HeatPumpSystem
   Components.Pipes.PhysicalModels.PressureDrop pressureDrop1(dp_nominal=25000, m_flow_nominal=0.2)
                                                                                                  annotation (Placement(transformation(extent={{140,20},{160,40}})));
   Components.Pumps.Pump PU242(pumpType=2) annotation (Placement(transformation(extent={{40,40},{60,20}})));
-  Modelica.Blocks.Sources.RealExpression realExpression3(y=1)  annotation (Placement(transformation(extent={{126,-34},{134,-24}})));
-  Modelica.Blocks.Sources.RealExpression realExpression5(y=1)  annotation (Placement(transformation(extent={{124,64},{132,74}})));
+  Modelica.Blocks.Sources.RealExpression realExpression3(y=100)
+                                                               annotation (Placement(transformation(extent={{126,-34},{134,-24}})));
+  Modelica.Blocks.Sources.RealExpression realExpression5(y=100)
+                                                               annotation (Placement(transformation(extent={{124,64},{132,74}})));
   Modelica.Blocks.Sources.RealExpression realExpression6(y=293.15)
                                                                annotation (Placement(transformation(extent={{20,74},{28,84}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{126,-40},{134,-30}})));

@@ -20,7 +20,8 @@ model HeatExchanger1System
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium2)
                                                                                      annotation (Placement(transformation(extent={{102,60},{82,80}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{66,20},{74,30}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=1)  annotation (Placement(transformation(extent={{64,-34},{72,-24}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=100)
+                                                               annotation (Placement(transformation(extent={{64,-34},{72,-24}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=1) annotation (Placement(transformation(extent={{26,70},{34,80}})));
   Components.Pipes.PhysicalModels.Pipe pipe2(
     length=1,
@@ -29,8 +30,10 @@ model HeatExchanger1System
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={50,-30})));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=1)  annotation (Placement(transformation(extent={{66,28},{74,36}})));
-  Modelica.Blocks.Sources.RealExpression realExpression3(y=1)  annotation (Placement(transformation(extent={{26,24},{34,34}})));
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=100)
+                                                               annotation (Placement(transformation(extent={{66,28},{74,36}})));
+  Modelica.Blocks.Sources.RealExpression realExpression3(y=100)
+                                                               annotation (Placement(transformation(extent={{26,24},{34,34}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression3(y=0) annotation (Placement(transformation(extent={{26,30},{34,40}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression4(y=0) annotation (Placement(transformation(extent={{64,-40},{72,-30}})));
   Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium2)

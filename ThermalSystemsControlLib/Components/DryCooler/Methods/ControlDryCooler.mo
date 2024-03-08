@@ -29,7 +29,7 @@ equation
   if nControlMode == 1 then
     switch.u1 = PID_FeedTemperature.y;
   else
-    switch.u1 = fSetPoint;
+    switch.u1 = fSetPoint*0.01;
   end if;
 
 //connections

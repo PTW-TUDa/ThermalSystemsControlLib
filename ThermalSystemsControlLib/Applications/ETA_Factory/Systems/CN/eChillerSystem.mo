@@ -19,7 +19,8 @@ model eChillerSystem
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,90})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1) annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=100)
+                                                             annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Interfaces.RealInput fAmbientTemperature annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Components.Valves.TwoWayValve SV138(redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));

@@ -35,7 +35,8 @@ model HeatPumpSystem
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium1)
                                                                                      annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,66},{30,84}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1) annotation (Placement(transformation(extent={{20,80},{30,96}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=100)
+                                                             annotation (Placement(transformation(extent={{20,80},{30,96}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
 equation
   connect(temperature2.port, pressureDrop.port_b) annotation (Line(points={{110,-20},{100,-20}}, color={0,127,255}));

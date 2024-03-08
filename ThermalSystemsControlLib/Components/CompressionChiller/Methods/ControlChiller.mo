@@ -41,7 +41,7 @@ equation
   elseif nControlMode == 2 then
     switch.u1 = PID_FeedTemperature_HeatPump.y;
   else
-    switch.u1 = fSetPoint;
+    switch.u1 = fSetPoint*0.01;
   end if;
 
 //connections

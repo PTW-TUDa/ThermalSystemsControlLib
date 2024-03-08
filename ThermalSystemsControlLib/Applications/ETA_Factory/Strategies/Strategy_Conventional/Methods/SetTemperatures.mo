@@ -31,6 +31,7 @@ equation
 
   localState.fFeedTemperature_CN = localState.fTargetTemperature_CN;
   localState.fTargetTemperature_ProductionHall = 273.15+19;
+  localState.bProductionModeActivated = localSetParameters.bProductionModeActivated;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SetTemperatures;

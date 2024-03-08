@@ -1,5 +1,5 @@
 within ThermalSystemsControlLib.Components.Consumer.PhysicalModels;
-model Consumer_VariableMassFlow
+model IdealConsumer_VariableMassFlow
     extends ThermalSystemsControlLib.BaseClasses.Icons.Consumer_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
 
@@ -39,4 +39,4 @@ equation
     Documentation(info="<html>
 <p>Thermal consumer including a PT1-element.</p>
 </html>"));
-end Consumer_VariableMassFlow;
+end IdealConsumer_VariableMassFlow;
