@@ -15,7 +15,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=604800,
-      Interval=59.9999616,
+      Interval=60,
+      Tolerance=0.001,
       __Dymola_fixedstepsize=0.001,
       __Dymola_Algorithm="Cvode"),
     __Dymola_experimentFlags(Advanced(

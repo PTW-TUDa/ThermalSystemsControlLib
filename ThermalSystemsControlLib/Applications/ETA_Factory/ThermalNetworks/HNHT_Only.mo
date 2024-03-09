@@ -4,7 +4,7 @@ model HNHT_Only
   parameter SI.Temperature T_start=328.15 "Start value of buffer storage temperature";
   parameter SI.Temperature T_start_ActiveStorage=293.15 "Start value of active storage temperature";
   ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.CHP1System CHP1System annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.CondensingBoilerSystem CondensingBoilerSystem annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.CondensingBoilerSystem CondensingBoilerSystem annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.CHP2System CHP2System annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.StaticHeatingSystem StaticHeatingSystem annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Components.BufferStorage.BufferStorage BufferStorage(n_Seg=6, T_start=T_start)
@@ -22,7 +22,7 @@ model HNHT_Only
   Interfaces.thermalNetworkState_FMUConnector localState annotation (Placement(transformation(extent={{80,80},{100,100}})));
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
                                      T_start=T_start)  annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Systems.HNHT.VSIStorageSystem VSIStorageSystem(T_start=T_start_ActiveStorage) annotation (Placement(transformation(extent={{0,80},{20,60}})));
+  Systems.HNHT.VSIStorageSystem VSIStorageSystem(T_start=T_start_ActiveStorage) annotation (Placement(transformation(extent={{20,72},{40,52}})));
   Components.Pipes.PhysicalModels.Pipe pipe(
     use_HeatLoss=false,
     length=7.95,
@@ -57,36 +57,20 @@ model HNHT_Only
         origin={-30,-30})));
   Components.Pipes.PhysicalModels.Pipe pipe4(
     use_HeatLoss=false,
-    length=3,
+    length=12,
     diameter=0.05,
-    n_Bending=3) annotation (Placement(transformation(
+    n_Bending=6) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-70,30})));
   Components.Pipes.PhysicalModels.Pipe pipe5(
     use_HeatLoss=false,
-    length=3,
+    length=12,
     diameter=0.05,
-    n_Bending=3) annotation (Placement(transformation(
+    n_Bending=6) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-70,-30})));
-  Components.Pipes.PhysicalModels.Pipe pipe6(
-    use_HeatLoss=false,
-    length=8.15,
-    diameter=0.025,
-    n_Bending=4) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-130,30})));
-  Components.Pipes.PhysicalModels.Pipe pipe7(
-    use_HeatLoss=false,
-    length=8.15,
-    diameter=0.025,
-    n_Bending=4) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-130,-30})));
   Components.Pipes.PhysicalModels.Pipe pipe8(
     use_HeatLoss=false,
     length=11.15,
@@ -122,36 +106,20 @@ model HNHT_Only
         origin={130,-30})));
   Components.Pipes.PhysicalModels.Pipe pipe12(
     use_HeatLoss=false,
-    length=5.3,
+    length=12,
     diameter=0.05,
     n_Bending=3) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-30,70})));
-  Components.Pipes.PhysicalModels.Pipe pipe13(
-    use_HeatLoss=false,
-    length=5.3,
-    diameter=0.05,
-    n_Bending=3) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-30,-70})));
+        origin={-10,70})));
   Components.Pipes.PhysicalModels.Pipe pipe15(
     use_HeatLoss=false,
-    length=1.75,
+    length=12,
     diameter=0.05,
     n_Bending=3) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={62,70})));
-  Components.Pipes.PhysicalModels.Pipe pipe16(
-    use_HeatLoss=false,
-    length=1.75,
-    diameter=0.05,
-    n_Bending=3) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={60,-68})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold annotation (Placement(transformation(extent={{104,-12},{110,-6}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     table=[0,0; 900,0; 1800,0; 2700,0; 3600,0; 4500,0; 5400,0; 6300,0; 7200,0; 8100,0; 9000,0; 9900,0; 10800,0; 11700,0; 12600,0; 13500,-0.01; 14400,-15; 15300,-15; 16200,-15; 17100,-15; 18000,-15; 18900,-15; 19800,-15; 20700,-15; 21600,-15; 22500,-15; 23400,-15; 24300,-15; 25200,-10; 26100,-10; 27000,-10; 27900,-10; 28800,-10; 29700,-10; 30600,-10; 31500,-10; 32400,-10; 33300,-10; 34200,-10; 35100,-10; 36000,-10; 36900,-10; 37800,-10; 38700,-10; 39600,-10; 40500,-10; 41400,-10; 42300,-10;
@@ -211,31 +179,25 @@ equation
   connect(pipe3.port_b, CHP2System.port_a) annotation (Line(points={{-40,-20},{-40,-10}}, color={0,127,255}));
   connect(pipe4.port_b, pipe2.port_a) annotation (Line(points={{-60,20},{-40,20}}, color={0,127,255}));
   connect(pipe5.port_a, pipe3.port_b) annotation (Line(points={{-60,-20},{-40,-20}}, color={0,127,255}));
-  connect(pipe7.port_a, pipe5.port_b) annotation (Line(points={{-120,-20},{-80,-20}}, color={0,127,255}));
-  connect(pipe6.port_b, pipe4.port_a) annotation (Line(points={{-120,20},{-80,20}}, color={0,127,255}));
-  connect(CondensingBoilerSystem.port_a, pipe7.port_b) annotation (Line(points={{-140,-10},{-140,-20}}, color={0,127,255}));
-  connect(pipe6.port_a, CondensingBoilerSystem.port_b) annotation (Line(points={{-140,20},{-140,10}}, color={0,127,255}));
   connect(pipe8.port_a, BufferStorage.port_b) annotation (Line(points={{60,20},{40,20},{40,10}}, color={0,127,255}));
   connect(pipe9.port_b, BufferStorage.port_a) annotation (Line(points={{60,-20},{40,-20},{40,-10}}, color={0,127,255}));
   connect(pipe10.port_a, pipe8.port_b) annotation (Line(points={{120,20},{80,20}}, color={0,127,255}));
   connect(pipe11.port_b, pipe9.port_a) annotation (Line(points={{120,-20},{80,-20}}, color={0,127,255}));
   connect(pipe10.port_b,CentralMachineHeatingSystem. port_a) annotation (Line(points={{140,20},{140,10}}, color={0,127,255}));
   connect(CentralMachineHeatingSystem.port_b, pipe11.port_a) annotation (Line(points={{140,-10},{140,-20}}, color={0,127,255}));
-  connect(pipe12.port_a, VSIStorageSystem.port_b1) annotation (Line(points={{-20,80},{16,80}},
-                                                                                             color={0,127,255}));
-  connect(pipe12.port_b, pipe4.port_a) annotation (Line(points={{-40,80},{-100,80},{-100,20},{-80,20}}, color={0,127,255}));
-  connect(pipe13.port_a, pipe5.port_b) annotation (Line(points={{-40,-60},{-100,-60},{-100,-20},{-80,-20}}, color={0,127,255}));
-  connect(VSIStorageSystem.port_a1, pipe13.port_b) annotation (Line(points={{16,60},{16,-60},{-20,-60}},
-                                                                                                       color={0,127,255}));
-  connect(VSIStorageSystem.port_b2, pipe16.port_a) annotation (Line(points={{20,60},{46,60},{46,-58},{50,-58}}, color={0,127,255}));
-  connect(VSIStorageSystem.port_a2, pipe15.port_b) annotation (Line(points={{20,80},{52,80}}, color={0,127,255}));
   connect(StaticHeatingSystem.port_a, pipe8.port_b) annotation (Line(points={{80,10},{80,20}}, color={0,127,255}));
   connect(StaticHeatingSystem.port_b, pipe9.port_a) annotation (Line(points={{80,-10},{80,-20}}, color={0,127,255}));
   connect(CentralMachineHeatingSystem.bSetStatusOnAutomatic, lessThreshold.y) annotation (Line(points={{118,-9},{110.3,-9}}, color={255,0,255}));
   connect(boundary.ports[1], pipe11.port_a) annotation (Line(points={{160,-30},{150,-30},{150,-20},{140,-20}}, color={0,127,255}));
-  connect(pipe16.port_b, BufferStorage.port_a) annotation (Line(points={{70,-58},{70,-48},{40,-48},{40,-10}}, color={0,127,255}));
-  connect(pipe15.port_a, BufferStorage.port_b) annotation (Line(points={{72,80},{72,50},{40,50},{40,10}}, color={0,127,255}));
   connect(combiTimeTable.y[1], CentralMachineHeatingSystem.fHeatFlowRate) annotation (Line(points={{96.5,7},{118,7}},                       color={0,0,127}));
   connect(lessThreshold.u, CentralMachineHeatingSystem.fHeatFlowRate) annotation (Line(points={{103.4,-9},{100,-9},{100,7},{118,7}}, color={0,0,127}));
+  connect(CondensingBoilerSystem.port_a, pipe5.port_b) annotation (Line(points={{-80,-10},{-80,-20}}, color={0,127,255}));
+  connect(CondensingBoilerSystem.port_b, pipe4.port_a) annotation (Line(points={{-80,10},{-80,20}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_a2, pipe15.port_b) annotation (Line(points={{40,72},{40,80},{52,80}}, color={0,127,255}));
+  connect(pipe15.port_a, BufferStorage.port_b) annotation (Line(points={{72,80},{72,60},{50,60},{50,20},{40,20},{40,10}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_b1, pipe12.port_a) annotation (Line(points={{36,72},{36,80},{0,80}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_b2, BufferStorage.port_a) annotation (Line(points={{40,52},{46,52},{46,-10},{40,-10}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_a1, BufferStorage.port_a) annotation (Line(points={{36,52},{36,-10},{40,-10}}, color={0,127,255}));
+  connect(pipe12.port_b, BufferStorage.port_b) annotation (Line(points={{-20,80},{-20,40},{40,40},{40,10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNHT_Only;
