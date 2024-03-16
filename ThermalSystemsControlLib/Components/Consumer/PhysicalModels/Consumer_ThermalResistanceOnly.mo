@@ -22,6 +22,8 @@ model Consumer_ThermalResistanceOnly
         rotation=90,
         origin={0,-70})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_ambient annotation (Placement(transformation(extent={{-10,-116},{10,-96}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  Modelica.Blocks.Interfaces.RealOutput T_Consumer "Absolute temperature as output signal" annotation (Placement(transformation(extent={{100,60},{120,80}})));
 equation
 
    //connections
@@ -30,6 +32,8 @@ equation
   connect(volume.ports[2], port_b) annotation (Line(points={{2,0},{100,0}}, color={0,127,255}));
   connect(thermalResistor.port_a, port_ambient) annotation (Line(points={{-6.66134e-16,-80},{0,-80},{0,-106}}, color={191,0,0}));
   connect(thermalResistor.port_b, volume.heatPort) annotation (Line(points={{0,-60},{0,10},{-10,10}}, color={191,0,0}));
+  connect(temperatureSensor.port, volume.heatPort) annotation (Line(points={{40,70},{-10,70},{-10,10}}, color={191,0,0}));
+  connect(temperatureSensor.T, T_Consumer) annotation (Line(points={{60,70},{110,70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Model for floor or wall heating according to <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a>.</p>

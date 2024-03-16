@@ -3,12 +3,13 @@ model CentralMachineHeatingSystem
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=2));
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   extends ThermalSystemsControlLib.BaseClasses.Icons.Consumer_Icon;
-  Components.Pumps.Pump PU300(pumpType=1, k=0.2)
-                              annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  Components.Pumps.Pump PU300(pumpType=1,
+    k=0.1,
+    yMin=0.5)                 annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Components.Pipes.PhysicalModels.PressureDrop pressureDrop(
     redeclare package Medium = Medium,
     dp_nominal=41000,
-    m_flow_nominal=0.15) "pressure drop must be adjusted after measurement"
+    m_flow_nominal=0.7)  "pressure drop must be adjusted after measurement"
                                                             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -32,6 +33,9 @@ model CentralMachineHeatingSystem
   Modelica.Blocks.Interfaces.RealInput fHeatFlowRate annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Components.Valves.TwoWayValve SV300(redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+        rotation=180,
+        origin={29,15})));
 equation
   connect(temperature.port_b, port_b) annotation (Line(points={{80,100},{100,100}}, color={0,127,255}));
   connect(temperature.T,WMZ300. fFeedTemperature) annotation (Line(points={{91,90},{96,90},{96,-70},{82,-70}}, color={0,0,127}));
@@ -55,8 +59,9 @@ equation
   connect(integerExpression1.y, PU300.nControlModeAutomatic) annotation (Line(points={{41,-50},{58,-50},{58,-35}}, color={255,127,0}));
   connect(SV300.bStatusOn, systemFlowControl.bStatusOn_Components[1]) annotation (Line(points={{65,71},{65,100},{-30,100},{-30,81}}, color={255,0,255}));
   connect(PU300.bStatusOn, systemFlowControl.bStatusOn_Components[2]) annotation (Line(points={{65,-19},{65,42},{64,42},{64,100},{-30,100},{-30,81}}, color={255,0,255}));
-  connect(temperature.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{91,90},{0,90},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(PU300.bStatusOn, bStatusOn) annotation (Line(points={{65,-19},{65,100},{-50,100},{-50,110}}, color={255,0,255}));
   connect(SV300.fTemperatureExternal, SV300.fThermalPowerExternal) annotation (Line(points={{65,48},{75,48}}, color={0,0,127}));
+  connect(fromKelvin.Kelvin, consumer_Physical.T_Consumer) annotation (Line(points={{32.6,15},{87,15},{87,11}}, color={0,0,127}));
+  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{25.7,15},{0,15},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CentralMachineHeatingSystem;

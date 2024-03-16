@@ -29,7 +29,7 @@ model ControlPump
   Modelica.Blocks.Math.Abs abs2 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,-70})));
+        origin={0,-84})));
   Modelica.Blocks.Continuous.LimPID PID_ConstantTemperature_Heating(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=k,
@@ -61,6 +61,12 @@ model ControlPump
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-70})));
+  Modelica.Blocks.Math.Gain gain1(k=1/1000)
+                                           annotation (Placement(transformation(extent={{-32,-46},{-20,-34}})));
+  Modelica.Blocks.Math.Gain gain2(k=1/1000)
+                                           annotation (Placement(transformation(extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={0,-62})));
 equation
   if nControlMode == 1 then
     //flow is heated
@@ -80,11 +86,7 @@ equation
 //connections
   connect(realExpression.y, switch.u3) annotation (Line(points={{50,19},{50,8},{58,8}}, color={0,0,127}));
   connect(switch.y, fSetPointInternal) annotation (Line(points={{81,0},{90.5,0},{90.5,0},{110,0}}, color={0,0,127}));
-  connect(PID_ThermalPower.u_s, abs1.y) annotation (Line(points={{-12,-40},{-39,-40}},
-                                                                                     color={0,0,127}));
-  connect(abs2.y, PID_ThermalPower.u_m) annotation (Line(points={{6.66134e-16,-59},{0,-59},{0,-52}},
-                                                                                              color={0,0,127}));
-  connect(abs2.u, fThermalPowerExternal) annotation (Line(points={{-8.88178e-16,-82},{0,-82},{0,-120}}, color={0,0,127}));
+  connect(abs2.u, fThermalPowerExternal) annotation (Line(points={{-8.88178e-16,-96},{0,-96},{0,-120}}, color={0,0,127}));
   connect(bSetStatusOn, switch.u2) annotation (Line(points={{-120,90},{40,90},{40,0},{58,0}}, color={255,0,255}));
   connect(abs1.u, fSetPoint) annotation (Line(points={{-62,-40},{-80,-40},{-80,0},{-120,0}},
                                                                          color={0,0,127}));
@@ -96,6 +98,10 @@ equation
   connect(fTemperatureDifference, abs3.u) annotation (Line(points={{50,-120},{50,-82}}, color={0,0,127}));
   connect(PID_TemperatureDifference.u_s, fSetPoint) annotation (Line(points={{-12,80},{-80,80},{-80,0},{-120,0}}, color={0,0,127}));
   connect(PID_TemperatureDifference.u_m, abs3.y) annotation (Line(points={{0,68},{0,60},{32,60},{32,-40},{50,-40},{50,-59}}, color={0,0,127}));
+  connect(PID_ThermalPower.u_s, gain1.y) annotation (Line(points={{-12,-40},{-19.4,-40}}, color={0,0,127}));
+  connect(gain1.u, abs1.y) annotation (Line(points={{-33.2,-40},{-39,-40}}, color={0,0,127}));
+  connect(abs2.y, gain2.u) annotation (Line(points={{6.66134e-16,-73},{0,-73},{-4.44089e-16,-69.2}}, color={0,0,127}));
+  connect(gain2.y, PID_ThermalPower.u_m) annotation (Line(points={{3.88578e-16,-55.4},{3.88578e-16,-53.7},{0,-53.7},{0,-52}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Control method for pumps.</p>

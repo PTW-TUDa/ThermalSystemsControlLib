@@ -1,8 +1,8 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.Records;
 record Belimo_R2032_S2_ThreeWay
   extends ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.ThreeWayValveProperties(
-  dp_nominal = 400,
-  m_flow_nominal = 0.55,
+  dp_nominal = 10000,
+  m_flow_nominal = 0.89,
   riseTime = 60,
   V_int = 0.01);
   //kvs 32 -> R2032-S2

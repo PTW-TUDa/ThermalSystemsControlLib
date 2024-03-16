@@ -14,7 +14,8 @@ model VSIStorageSystem
   Components.Valves.ThreeWayValve SV306(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Components.Pumps.Pump PU306(pumpType=11) annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Components.Valves.ThreeWayValve SV305(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,70},{100,50}})));
-  Components.Valves.TwoWayValve SV307(redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+  Components.Valves.TwoWayValve SV307(k=0.1,
+                                      redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Components.HeatMeter.HeatMeter WMZ305 annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Modelica.Blocks.Logical.Not not1 annotation (Placement(transformation(extent={{40,40},{60,60}})));
@@ -31,7 +32,7 @@ model VSIStorageSystem
         origin={30,150})));
   Components.Pipes.PhysicalModels.Pipe pipe2(
     length=200,
-    diameter=0.015,
+    diameter=0.03,
     n_Bending=10)
                  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -39,6 +40,18 @@ model VSIStorageSystem
         origin={170,20})));
   Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium2)
                                                                                      annotation (Placement(transformation(extent={{120,20},{140,40}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.8) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={30,210})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=0.8) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={30,190})));
+  Modelica.Blocks.Logical.Or or2 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-10,200})));
 equation
   connect(PU306.port_a, port_a2) annotation (Line(points={{100,-100},{100,-100}}, color={0,127,255}));
   connect(port_a1, PU305.port_a) annotation (Line(points={{60,100},{80,100}}, color={0,127,255}));
@@ -77,10 +90,8 @@ equation
   connect(and2.u1, systemFlowControl.bSetStatusOn_Components[2]) annotation (Line(points={{18,110},{8,110},{8,70},{-19,70}}, color={255,0,255}));
   connect(not1.y, and2.u2) annotation (Line(points={{61,50},{60,50},{60,74},{18,74},{18,102}}, color={255,0,255}));
   connect(and2.y, PU305.bSetStatusOnAutomatic) annotation (Line(points={{41,110},{46,110},{46,80},{52,80},{52,81},{58,81}}, color={255,0,255}));
-  connect(or1.y, systemFlowControl.bStatusOn_Components[2]) annotation (Line(points={{19,150},{-30,150},{-30,81}}, color={255,0,255}));
   connect(or1.u1, PU305.bStatusOn) annotation (Line(points={{42,150},{65,150},{65,79}}, color={255,0,255}));
   connect(PU306.bStatusOn, or1.u2) annotation (Line(points={{85,-79},{85,-80},{140,-80},{140,158},{42,158}}, color={255,0,255}));
-  connect(SV307.bStatusOn, systemFlowControl.bStatusOn_Components[1]) annotation (Line(points={{85,-19},{85,-20},{-30,-20},{-30,81}}, color={255,0,255}));
   connect(PU305.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{70,79},{70,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(PU305.fThermalPowerExternal, WMZ305.fHeatFlowRate) annotation (Line(points={{75,102},{75,92},{79,92},{79,30}}, color={0,0,127}));
   connect(PU306.fThermalPowerExternal, WMZ305.fHeatFlowRate) annotation (Line(points={{95,-102},{95,-100},{79,-100},{79,30}}, color={0,0,127}));
@@ -96,6 +107,12 @@ equation
   connect(PU305.fTemperatureExternal, temperature1.T) annotation (Line(points={{65,102},{120,102},{120,-10},{117,-10}}, color={0,0,127}));
   connect(selectLocalControlModeBoolean.bLoading, SV306.bSetStatusOnAutomatic) annotation (Line(points={{-59,-70},{-22,-70},{-22,-51},{78,-51}}, color={255,0,255}));
   connect(SV307.fTemperatureExternal, SV307.fThermalPowerExternal) annotation (Line(points={{85,-42},{86,-42},{86,-30},{95,-30},{95,-42}}, color={0,0,127}));
+  connect(SV306.fOperatingPoint, greaterThreshold.u) annotation (Line(points={{90,-49},{124,-49},{124,-50},{160,-50},{160,210},{42,210}}, color={0,0,127}));
+  connect(greaterThreshold1.u, SV305.fOperatingPoint) annotation (Line(points={{42,190},{152,190},{152,49},{90,49}}, color={0,0,127}));
+  connect(or2.u2, greaterThreshold.y) annotation (Line(points={{2,208},{10,208},{10,210},{19,210}}, color={255,0,255}));
+  connect(or2.u1, greaterThreshold1.y) annotation (Line(points={{2,200},{14,200},{14,190},{19,190}}, color={255,0,255}));
+  connect(or2.y, systemFlowControl.bStatusOn_Components[1]) annotation (Line(points={{-21,200},{-30,200},{-30,81}}, color={255,0,255}));
+  connect(or1.y, systemFlowControl.bStatusOn_Components[2]) annotation (Line(points={{19,150},{-30,150},{-30,81}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, grid={2,2})),
                                                                  Diagram(coordinateSystem(preserveAspectRatio=false, grid={2,2}),
                                                                                                                       graphics={Text(

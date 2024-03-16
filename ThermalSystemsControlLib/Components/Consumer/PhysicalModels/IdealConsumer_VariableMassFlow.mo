@@ -29,12 +29,16 @@ model IdealConsumer_VariableMassFlow
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-70})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Modelica.Blocks.Interfaces.RealOutput T_Consumer "Absolute temperature as output signal" annotation (Placement(transformation(extent={{100,60},{120,80}})));
 equation
   connect(volume.ports[1], port_a) annotation (Line(points={{-2,0},{-50,0},{-50,0},{-100,0}}, color={0,127,255}));
   connect(volume.ports[2], port_b) annotation (Line(points={{2,0},{100,0}}, color={0,127,255}));
   connect(prescribedHeatFlow.port, volume.heatPort) annotation (Line(points={{6.66134e-16,-20},{-10,-20},{-10,10}}, color={191,0,0}));
   connect(Q_flow, firstOrder.u) annotation (Line(points={{0,-120},{0,-101},{-6.66134e-16,-101},{-6.66134e-16,-82}}, color={0,0,127}));
   connect(firstOrder.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{7.21645e-16,-59},{7.21645e-16,-49.5},{0,-49.5},{0,-40}}, color={0,0,127}));
+  connect(temperatureSensor.port, volume.heatPort) annotation (Line(points={{20,70},{-10,70},{-10,10}}, color={191,0,0}));
+  connect(temperatureSensor.T, T_Consumer) annotation (Line(points={{40,70},{110,70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Thermal consumer including a PT1-element.</p>

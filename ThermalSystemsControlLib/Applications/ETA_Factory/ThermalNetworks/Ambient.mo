@@ -5,7 +5,7 @@ model Ambient
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-90,90})));
-  output Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Math.ContinuousMean mean(t_eps=6*3600) annotation (Placement(transformation(extent={{20,0},{0,20}})));
   Modelica.Blocks.Sources.CombiTimeTable
                                       combiTimeTable2(

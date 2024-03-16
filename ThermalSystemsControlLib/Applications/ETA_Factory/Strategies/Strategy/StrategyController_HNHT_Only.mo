@@ -2,8 +2,7 @@ within ThermalSystemsControlLib.Applications.ETA_Factory.Strategies.Strategy;
 model StrategyController_HNHT_Only
   extends ThermalSystemsControlLib.BaseClasses.Icons.Automation_Icon;
   Methods.ControlHNHT controlHNHT annotation (Placement(transformation(extent={{18,-60},{-2,-40}})));
-  Interfaces.localSetParametersStrategy_FMUConnector localSetParameters(bProductionModeActivated=true)
-                                                                        annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+  Interfaces.localSetParametersStrategy_FMUConnector localSetParameters annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Methods.SetTemperatures setTemperatures annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   output ThermalNetworks.Interfaces.hnhtControl                                                         hnhtControl annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   input ThermalNetworks.Interfaces.thermalNetworkState                                                         hnhtState annotation (Placement(transformation(

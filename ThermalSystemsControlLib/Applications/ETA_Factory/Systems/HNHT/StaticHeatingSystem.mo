@@ -80,13 +80,13 @@ equation
   connect(SV.nControlModeAutomatic, integerExpression2.y) annotation (Line(points={{58,-35},{52.6,-35},{52.6,-65}}, color={255,127,0}));
   connect(SV.bSetStatusOnAutomatic, systemFlowControl.bSetStatusOn_Components[2]) annotation (Line(points={{58,-21},{40,-21},{40,70},{-19,70}}, color={255,0,255}));
   connect(selectSetPoint.fSetPoint, SV.fSetPointAutomatic) annotation (Line(points={{-59,30},{16,30},{16,-29},{58,-29}}, color={0,0,127}));
-  connect(SV.fTemperatureExternal, StaticHeating.T_Room) annotation (Line(points={{65,-42},{64,-42},{64,-44},{88,-44},{88,51},{87,51}}, color={0,0,127}));
+  connect(SV.fTemperatureExternal, StaticHeating.T_Consumer) annotation (Line(points={{65,-42},{64,-42},{64,-44},{88,-44},{88,51},{87,51}}, color={0,0,127}));
   connect(StaticHeating.port_a, PU350.port_b) annotation (Line(points={{80,30},{80,20}}, color={0,127,255}));
   connect(PU350.port_a, SV.port_b) annotation (Line(points={{80,0},{80,-20}}, color={0,127,255}));
   connect(PU350.fThermalPowerExternal, temperature1.T) annotation (Line(points={{75,-2},{83,-2},{83,-10}}, color={0,0,127}));
   connect(PU350.fTemperatureExternal, PU350.fThermalPowerExternal) annotation (Line(points={{65,-2},{75,-2}}, color={0,0,127}));
-  connect(SV.fThermalPowerExternal, StaticHeating.T_Room) annotation (Line(points={{75,-42},{75,-44},{88,-44},{88,51},{87,51}}, color={0,0,127}));
-  connect(fromKelvin.Kelvin, StaticHeating.T_Room) annotation (Line(points={{30.6,55},{87,55},{87,51}}, color={0,0,127}));
+  connect(SV.fThermalPowerExternal, StaticHeating.T_Consumer) annotation (Line(points={{75,-42},{75,-44},{88,-44},{88,51},{87,51}}, color={0,0,127}));
+  connect(fromKelvin.Kelvin, StaticHeating.T_Consumer) annotation (Line(points={{30.6,55},{87,55},{87,51}}, color={0,0,127}));
   connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{23.7,55},{0,55},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(pressureDrop.port_b, pipe2.port_a) annotation (Line(points={{80,80},{100,80},{100,40}}, color={0,127,255}));
   connect(temperature.port_a, port_a) annotation (Line(points={{80,-100},{100,-100}}, color={0,127,255}));

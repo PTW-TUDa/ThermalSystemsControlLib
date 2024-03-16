@@ -126,8 +126,8 @@ equation
   connect(SV.bSetStatusOnAutomatic, systemFlowControl.bSetStatusOn_Components[1]) annotation (Line(points={{58,13},{40,13},{40,70},{-19,70}}, color={255,0,255}));
   connect(SV.fThermalPowerExternal, RV425.fThermalPowerExternal) annotation (Line(points={{75,-8},{75.2,-8},{75.2,-72}}, color={0,0,127}));
   connect(integerExpression5.y, PU425.nControlModeAutomatic) annotation (Line(points={{52.4,-35},{58,-35}}, color={255,127,0}));
-  connect(UnderfloorHeating.T_Room, SV.fTemperatureExternal) annotation (Line(points={{87,41},{87,8},{65,8},{65,-8}}, color={0,0,127}));
-  connect(fromKelvin.Kelvin, UnderfloorHeating.T_Room) annotation (Line(points={{32.6,41},{60.3,41},{60.3,41},{87,41}}, color={0,0,127}));
+  connect(UnderfloorHeating.T_Consumer, SV.fTemperatureExternal) annotation (Line(points={{87,41},{87,8},{65,8},{65,-8}}, color={0,0,127}));
+  connect(fromKelvin.Kelvin, UnderfloorHeating.T_Consumer) annotation (Line(points={{32.6,41},{60.3,41},{60.3,41},{87,41}}, color={0,0,127}));
   connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{25.7,41},{0,41},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end UnderfloorHeatingSystem;

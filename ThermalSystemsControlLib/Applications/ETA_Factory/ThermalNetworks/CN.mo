@@ -112,6 +112,7 @@ model CN
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold annotation (Placement(transformation(extent={{64,4},{74,14}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{-110,-108},{-90,-88}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
+  Modelica.Blocks.Math.Gain gain(k=1000) annotation (Placement(transformation(extent={{66,-10},{72,-4}})));
 equation
    //states
   localState1.fUpperTemperature =BufferStorage.localStorageState.fUpperTemperature;
@@ -147,7 +148,6 @@ equation
   connect(CentralMachineCoolingSystem.port_b, pipe8.port_a) annotation (Line(points={{100,10},{100,60},{80,60}}, color={0,127,255}));
   connect(pipe8.port_b, BufferStorage.port_b) annotation (Line(points={{60,60},{0,60},{0,10}}, color={0,127,255}));
   connect(greaterThreshold.y, CentralMachineCoolingSystem.bSetStatusOnAutomatic) annotation (Line(points={{74.5,9},{78,9}},               color={255,0,255}));
-  connect(combiTimeTable.y[1], CentralMachineCoolingSystem.fHeatFlowRate) annotation (Line(points={{58.5,-7},{78,-7}},                   color={0,0,127}));
   connect(pipe10.port_a, BufferStorage.port_a) annotation (Line(points={{-40,-90},{0,-90},{0,-10}}, color={0,127,255}));
   connect(pipe1.port_a, BufferStorage.port_a) annotation (Line(points={{60,-60},{0,-60},{0,-10}}, color={0,127,255}));
   connect(pipe5.port_b, BufferStorage.port_a) annotation (Line(points={{-20,-20},{0,-20},{0,-10}}, color={0,127,255}));
@@ -156,6 +156,8 @@ equation
   connect(boundary.ports[1], BufferStorage.port_a) annotation (Line(points={{30,-20},{30,-10},{0,-10}}, color={0,127,255}));
   connect(port_b_HNLT_Consumer, BufferStorage.port_a) annotation (Line(points={{-100,-98},{0,-98},{0,-10}}, color={0,127,255}));
   connect(port_a_HNLT_Consumer, BufferStorage.port_b) annotation (Line(points={{-100,100},{0,100},{0,10}}, color={0,127,255}));
-  connect(greaterThreshold.u, CentralMachineCoolingSystem.fHeatFlowRate) annotation (Line(points={{63,9},{60,9},{60,-7},{78,-7}}, color={0,0,127}));
+  connect(combiTimeTable.y[1], gain.u) annotation (Line(points={{58.5,-7},{62.25,-7},{62.25,-7},{65.4,-7}}, color={0,0,127}));
+  connect(gain.y, CentralMachineCoolingSystem.fHeatFlowRate) annotation (Line(points={{72.3,-7},{75.15,-7},{75.15,-7},{78,-7}}, color={0,0,127}));
+  connect(greaterThreshold.u, gain.u) annotation (Line(points={{63,9},{60,9},{60,-7},{65.4,-7}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CN;

@@ -33,7 +33,7 @@ model Consumer_InherentHeatCapacity "Extends Consumer_VariableMassFlow with inhe
         rotation=90,
         origin={-10,-30})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Modelica.Blocks.Interfaces.RealOutput T_Room "Absolute temperature as output signal" annotation (Placement(transformation(extent={{100,60},{120,80}})));
+  Modelica.Blocks.Interfaces.RealOutput T_Consumer "Absolute temperature as output signal" annotation (Placement(transformation(extent={{100,60},{120,80}})));
 equation
 
    //connections
@@ -45,7 +45,7 @@ equation
   connect(heatCapacitor.port, thermalResistor1.port_a) annotation (Line(points={{-30,-60},{-10,-60},{-10,-40}}, color={191,0,0}));
   connect(thermalResistor1.port_b, volume.heatPort) annotation (Line(points={{-10,-20},{-10,10}}, color={191,0,0}));
   connect(temperatureSensor.port, heatCapacitor.port) annotation (Line(points={{0,70},{-30,70},{-30,-60}},  color={191,0,0}));
-  connect(temperatureSensor.T, T_Room) annotation (Line(points={{20,70},{110,70}}, color={0,0,127}));
+  connect(temperatureSensor.T, T_Consumer) annotation (Line(points={{20,70},{110,70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Model for floor or wall heating according to <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a>.</p>

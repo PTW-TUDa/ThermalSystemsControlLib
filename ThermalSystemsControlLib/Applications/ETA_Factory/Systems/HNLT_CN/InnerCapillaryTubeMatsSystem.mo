@@ -137,7 +137,7 @@ equation
   connect(RV500.fTemperatureExternal, PU500.fTemperatureExternal) annotation (Line(points={{45,82},{40,82},{40,42},{45,42}}, color={0,0,127}));
   connect(SV.fThermalPowerExternal, PU405.fThermalPowerExternal) annotation (Line(points={{-15,-102},{-15,-90},{70,-90},{70,-30},{95,-30},{95,-42}}, color={0,0,127}));
   connect(SV_HNLT.fTemperatureExternal, SV_HNLT.fThermalPowerExternal) annotation (Line(points={{85,18},{95,18}}, color={0,0,127}));
-  connect(InnerCapillaryTubeMats.T_Room, SV.fTemperatureExternal) annotation (Line(points={{-3,-39},{-3,-74},{-25,-74},{-25,-102}}, color={0,0,127}));
+  connect(InnerCapillaryTubeMats.T_Consumer, SV.fTemperatureExternal) annotation (Line(points={{-3,-39},{-3,-74},{-25,-74},{-25,-102}}, color={0,0,127}));
   connect(pressureDrop.port_b, SV.port_a) annotation (Line(points={{40,-60},{40,-100},{-10,-100}}, color={0,127,255}));
   connect(boundary.ports[1], SV.port_a) annotation (Line(points={{20,-110},{40,-110},{40,-100},{-10,-100}}, color={0,127,255}));
   connect(temperature2.port, SV.port_a) annotation (Line(points={{30,-80},{40,-80},{40,-100},{-10,-100}}, color={0,127,255}));
@@ -166,7 +166,7 @@ equation
   connect(SV1.fTemperatureExternal, temperature3.T) annotation (Line(points={{65,142},{66,142},{66,160},{83,160},{83,90}}, color={0,0,127}));
   connect(SV1.bAlgorithmPermission, RV500.bAlgorithmPermission) annotation (Line(points={{58,125},{20,125},{20,65},{38,65}}, color={255,0,255}));
   connect(SV1.bSetStatusOnAutomatic, bHeatingModeAutomatic) annotation (Line(points={{58,121},{4,121},{4,-121},{-80,-121},{-80,-90},{-120,-90}}, color={255,0,255}));
-  connect(fromKelvin.Kelvin, InnerCapillaryTubeMats.T_Room) annotation (Line(points={{-1,-14.6},{-1,-39},{-3,-39}}, color={0,0,127}));
+  connect(fromKelvin.Kelvin, InnerCapillaryTubeMats.T_Consumer) annotation (Line(points={{-1,-14.6},{-1,-39},{-3,-39}}, color={0,0,127}));
   connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{-1,-7.7},{-1,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end InnerCapillaryTubeMatsSystem;

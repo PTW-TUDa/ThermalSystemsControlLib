@@ -139,6 +139,7 @@ model HNHT_Only
         579600,0; 580500,0; 581400,0; 582300,0; 583200,0; 584100,0; 585000,0; 585900,0; 586800,0; 587700,0; 588600,0; 589500,0; 590400,0; 591300,0; 592200,0; 593100,0; 594000,0; 594900,0; 595800,0; 596700,0; 597600,0; 598500,0; 599400,0; 600300,0; 601200,0; 602100,0; 603000,0; 603900,0],
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)                             annotation (Placement(transformation(extent={{86,2},{96,12}})));
+  Modelica.Blocks.Math.Gain gain(k=1000) annotation (Placement(transformation(extent={{106,4},{112,10}})));
 equation
   //states
   localState1.fUpperTemperature =BufferStorage.localStorageState.fUpperTemperature;
@@ -166,7 +167,7 @@ equation
   VSIStorageSystem.fSetPointAutomatic = 100;
   VSIStorageSystem.bLoadingAutomatic = controlAutomatic.bLoading_VSIStorage;
   CentralMachineHeatingSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  CentralMachineHeatingSystem.fSetPointAutomatic  = 30;
+  CentralMachineHeatingSystem.fSetPointAutomatic  = 100;
   ambientState.fOutsideTemperature = StaticHeatingSystem.fAmbientTemperature;
 
   connect(localState.thermalNetworkState1, localState1) annotation (Line(points={{79,90},{50,90},{50,110}},    color={0,0,0}));
@@ -190,8 +191,6 @@ equation
   connect(StaticHeatingSystem.port_b, pipe9.port_a) annotation (Line(points={{80,-10},{80,-20}}, color={0,127,255}));
   connect(CentralMachineHeatingSystem.bSetStatusOnAutomatic, lessThreshold.y) annotation (Line(points={{118,-9},{110.3,-9}}, color={255,0,255}));
   connect(boundary.ports[1], pipe11.port_a) annotation (Line(points={{160,-30},{150,-30},{150,-20},{140,-20}}, color={0,127,255}));
-  connect(combiTimeTable.y[1], CentralMachineHeatingSystem.fHeatFlowRate) annotation (Line(points={{96.5,7},{118,7}},                       color={0,0,127}));
-  connect(lessThreshold.u, CentralMachineHeatingSystem.fHeatFlowRate) annotation (Line(points={{103.4,-9},{100,-9},{100,7},{118,7}}, color={0,0,127}));
   connect(CondensingBoilerSystem.port_a, pipe5.port_b) annotation (Line(points={{-80,-10},{-80,-20}}, color={0,127,255}));
   connect(CondensingBoilerSystem.port_b, pipe4.port_a) annotation (Line(points={{-80,10},{-80,20}}, color={0,127,255}));
   connect(VSIStorageSystem.port_a2, pipe15.port_b) annotation (Line(points={{40,72},{40,80},{52,80}}, color={0,127,255}));
@@ -200,5 +199,8 @@ equation
   connect(VSIStorageSystem.port_b2, BufferStorage.port_a) annotation (Line(points={{40,52},{46,52},{46,-10},{40,-10}}, color={0,127,255}));
   connect(VSIStorageSystem.port_a1, BufferStorage.port_a) annotation (Line(points={{36,52},{36,-10},{40,-10}}, color={0,127,255}));
   connect(pipe12.port_b, BufferStorage.port_b) annotation (Line(points={{-20,80},{-20,40},{40,40},{40,10}}, color={0,127,255}));
+  connect(combiTimeTable.y[1], gain.u) annotation (Line(points={{96.5,7},{101.25,7},{101.25,7},{105.4,7}}, color={0,0,127}));
+  connect(gain.y, CentralMachineHeatingSystem.fHeatFlowRate) annotation (Line(points={{112.3,7},{114.15,7},{114.15,7},{118,7}}, color={0,0,127}));
+  connect(lessThreshold.u, gain.u) annotation (Line(points={{103.4,-9},{100,-9},{100,7},{105.4,7}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNHT_Only;

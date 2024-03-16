@@ -113,6 +113,7 @@ model HNLT
   Modelica.Blocks.Logical.GreaterThreshold
                                         greaterThreshold
                                                       annotation (Placement(transformation(extent={{-62,2},{-56,8}})));
+  Modelica.Blocks.Math.Gain gain(k=1000) annotation (Placement(transformation(extent={{-58,-6},{-52,0}})));
 equation
    //states
   localState1.fUpperTemperature = BufferStorage.localStorageState.fUpperTemperature;
@@ -162,7 +163,8 @@ equation
   connect(port_a_HNHT_Consumer, BufferStorage.port_a) annotation (Line(points={{-100,-60},{0,-60},{0,-10}}, color={0,127,255}));
   connect(greaterThreshold.y, CompressorSystem.bSetStatusOnAutomatic) annotation (Line(points={{-55.7,5},{-54,5},{-54,9},{-48,9}}, color={255,0,255}));
   connect(greaterThreshold.u, combiTimeTable.y[1]) annotation (Line(points={{-62.6,5},{-63.5,5},{-63.5,-15}}, color={0,0,127}));
-  connect(CompressorSystem.fHeatFlowRate, combiTimeTable.y[1]) annotation (Line(points={{-48,-3},{-60,-3},{-60,-15},{-63.5,-15}}, color={0,0,127}));
   connect(port_b_CN_Producer, BufferStorage.port_a) annotation (Line(points={{100,-100},{0,-100},{0,-10}}, color={0,127,255}));
+  connect(gain.y, CompressorSystem.fHeatFlowRate) annotation (Line(points={{-51.7,-3},{-50.85,-3},{-50.85,-3},{-48,-3}}, color={0,0,127}));
+  connect(gain.u, combiTimeTable.y[1]) annotation (Line(points={{-58.6,-3},{-60,-3},{-60,-15},{-63.5,-15}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNLT;
