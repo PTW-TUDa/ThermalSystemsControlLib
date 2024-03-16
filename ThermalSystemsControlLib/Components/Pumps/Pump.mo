@@ -39,7 +39,7 @@ equation
   connect(controlPump.nControlMode, selectLocalControlMode.nControlMode) annotation (Line(points={{-22,-59},{-40,-59},{-40,-70},{-59,-70}}, color={255,127,0}));
   connect(selectSetPoint.fSetPoint, controlPump.fSetPoint) annotation (Line(points={{-59,30},{-40,30},{-40,-50},{-22,-50}}, color={0,0,127}));
   connect(selectControlMode.bSetStatusOn, controlPump.bSetStatusOn) annotation (Line(points={{-59,70},{-22,70},{-22,-41}}, color={255,0,255}));
-  connect(controlPump.fSetPointInternal, pump_Physical.fSetPoint) annotation (Line(points={{1,-50},{20,-50},{20,12},{70,12}},
+  connect(controlPump.fSetPointInternal, pump_Physical.fSetPoint) annotation (Line(points={{1,-50},{20,-50},{20,20},{70,20},{70,12}},
                                                                                                                             color={0,0,127}));
   connect(bStatusOn, bStatusOn) annotation (Line(points={{-50,110},{-50,110}}, color={255,0,255}));
   connect(pump_Physical.port_a, port_a) annotation (Line(points={{80,-10},{80,-100},{100,-100}}, color={0,127,255}));
@@ -50,6 +50,7 @@ equation
   connect(add.u2, fTemperatureExternal) annotation (Line(points={{62,-56},{62,-80},{-50,-80},{-50,-120}},                              color={0,0,127}));
   connect(temperature.port, port_a) annotation (Line(points={{70,-40},{80,-40},{80,-100},{100,-100}}, color={0,127,255}));
   connect(temperature.T, add.u1) annotation (Line(points={{63,-30},{60,-30},{60,-44},{62,-44}}, color={0,0,127}));
+  connect(pump_Physical.bSetStatusOn, controlPump.bSetStatusOn) annotation (Line(points={{65,12},{64,12},{64,70},{-22,70},{-22,-41}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Pressure building pump including control method.</p>
