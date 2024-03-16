@@ -2,7 +2,7 @@ within ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks;
 model HNHT_Only
   extends ThermalSystemsControlLib.BaseClasses.Icons.Systems_Icon;
   parameter SI.Temperature T_start=328.15 "Start value of buffer storage temperature";
-  parameter SI.Temperature T_start_ActiveStorage=293.15 "Start value of active storage temperature";
+  parameter SI.Temperature T_start_ActiveStorage=328.15 "Start value of active storage temperature";
   ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.CHP1System CHP1System annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.CondensingBoilerSystem CondensingBoilerSystem annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT.CHP2System CHP2System annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -160,9 +160,10 @@ equation
   StaticHeatingSystem.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_StaticHeating;
   StaticHeatingSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
   StaticHeatingSystem.fSetPointAutomatic = controlAutomatic.fTargetTemperature_ProductionHall;
-  VSIStorageSystem.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_VSIStorage;
+  //VSIStorageSystem.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_VSIStorage;
+  VSIStorageSystem.bSetStatusOnAutomatic = true;
   VSIStorageSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  VSIStorageSystem.fSetPointAutomatic = 50;
+  VSIStorageSystem.fSetPointAutomatic = 100;
   VSIStorageSystem.bLoadingAutomatic = controlAutomatic.bLoading_VSIStorage;
   CentralMachineHeatingSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
   CentralMachineHeatingSystem.fSetPointAutomatic  = 30;

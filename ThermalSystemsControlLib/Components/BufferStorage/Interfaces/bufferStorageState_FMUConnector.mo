@@ -7,8 +7,8 @@ model bufferStorageState_FMUConnector
 
   input BufferStorageState localState1 annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 equation
-  fUpperTemperature = localState1.fUpperTemperature;
-  fMidTemperature = localState1.fMidTemperature;
-  fLowerTemperature = localState1.fLowerTemperature;
+  fUpperTemperature = localState1.fUpperTemperature-273.15;
+  fMidTemperature = localState1.fMidTemperature-273.15;
+  fLowerTemperature = localState1.fLowerTemperature-273.15;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end bufferStorageState_FMUConnector;
