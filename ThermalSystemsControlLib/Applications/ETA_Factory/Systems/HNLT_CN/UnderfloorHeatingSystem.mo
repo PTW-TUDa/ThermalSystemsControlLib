@@ -6,7 +6,7 @@ model UnderfloorHeatingSystem
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
 
-  Components.Valves.ThreeWayValve RV425(k=0.01,  redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Components.Valves.ThreeWayValve RV425(k=0.01, redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.SV deviceData) annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Components.Pumps.Pump PU425 annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Components.Pipes.PhysicalModels.PressureDrop pressureDrop(
     redeclare package Medium = Medium,
@@ -38,14 +38,14 @@ model UnderfloorHeatingSystem
         rotation=180,
         origin={110,60})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression5(y=0) annotation (Placement(transformation(extent={{44,-40},{52,-30}})));
-  Components.Valves.ThreeWayValve SV423(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
+  Components.Valves.ThreeWayValve SV423(redeclare Records.SV deviceData) annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_CN(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{42,-140},{50,-130}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=100)
                                                              annotation (Placement(transformation(extent={{42,-136},{50,-124}})));
   Modelica.Blocks.Interfaces.BooleanInput bHeatingModeAutomatic annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
-  Components.Valves.ThreeWayValve SV424(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,140},{80,120}})));
+  Components.Valves.ThreeWayValve SV424(redeclare Records.SV deviceData) annotation (Placement(transformation(extent={{60,140},{80,120}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{42,130},{50,140}})));
   Modelica.Blocks.Sources.RealExpression realExpression2(y=100)
                                                              annotation (Placement(transformation(extent={{42,124},{50,136}})));
@@ -61,8 +61,7 @@ model UnderfloorHeatingSystem
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={80,30})));
-  Components.Valves.TwoWayValve SV(k=0.1,
-    redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,-6},{80,14}})));
+  Components.Valves.TwoWayValve SV(k=0.1, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,-6},{80,14}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
         rotation=180,
         origin={29,41})));

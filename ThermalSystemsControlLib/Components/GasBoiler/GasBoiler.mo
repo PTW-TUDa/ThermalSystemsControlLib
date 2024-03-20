@@ -21,6 +21,7 @@ model GasBoiler
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,50})));
+  Modelica.Blocks.Interfaces.RealOutput P_gas "Output signal connector" annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 equation
   connect(gasBoiler_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{66,11},{66,20},{0,20},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(controlBoiler.nControlMode, selectLocalControlMode.nControlMode) annotation (Line(points={{-22,-59},{-40,-59},{-40,-70},{-59,-70}}, color={255,127,0}));
@@ -33,6 +34,7 @@ equation
   connect(gasBoiler_Physical.port_b, temperature.port_a) annotation (Line(points={{70,10},{70,40}}, color={0,127,255}));
   connect(temperature.port_b, port_b) annotation (Line(points={{70,60},{70,100},{100,100}}, color={0,127,255}));
   connect(temperature.T, controlBoiler.fTemperatureExternal) annotation (Line(points={{59,50},{20,50},{20,-20},{-10,-20},{-10,-62}}, color={0,0,127}));
+  connect(gasBoiler_Physical.P_gas, P_gas) annotation (Line(points={{61,-11},{61,-20},{110,-20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Gas boiler model including control method.</p>

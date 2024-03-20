@@ -1,8 +1,8 @@
 within ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records;
 record CompressionChiller_Properties "Basic parameter record for compression chiller models"
     extends ThermalSystemsControlLib.BaseClasses.Icons.Record_Icon;
-  parameter SI.Power P_el_nom "Maximum electric power defined as nominal electric power";
-  parameter SI.Power P_th_cool_nom "Maximum thermal cooling power defined as nominal thermal cooling power";
+  parameter SI.Power P_el_nominal "Maximum electric power defined as nominal electric power";
+  parameter SI.Power P_th_cool_nominal "Maximum thermal cooling power defined as nominal thermal cooling power";
   parameter Real f_PthMax[:,:]
     "Efficiency table matrix for availble thermal cooling power normalized to P_th_cool_nom (grid T_in_cool = first column, grid T_in_heat = first row)";
   parameter Real f_PelMax[:,:]
@@ -14,7 +14,11 @@ record CompressionChiller_Properties "Basic parameter record for compression chi
   parameter SI.Temperature T_in_cool_max "Maximal cool instream temperature";
   parameter SI.Temperature T_in_heat_min "Minimal heated instream temperature";
   parameter SI.Temperature T_in_heat_max "Maximal heated instream temperature";
-  parameter SI.Volume V_int_cool "Internal Cool Mixing Volume";
-  parameter SI.Volume V_int_heat "Internal Heat Mixing Volume";
+  parameter SI.Volume V_cool "Internal Cool Mixing Volume";
+  parameter SI.Volume V_heat "Internal Heat Mixing Volume";
   parameter SI.Time riseTime "Rise time of the filter (time to reach 99.6 % of the nominal operating point)";
+  parameter Modelica.SIunits.PressureDifference dp_nominal_heat "Nominal pressure difference 1";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_heat "Nominal mass flow rate 1";
+  parameter Modelica.SIunits.PressureDifference dp_nominal_cool "Nominal pressure difference 2";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_cool "Nominal mass flow rate 2";
 end CompressionChiller_Properties;

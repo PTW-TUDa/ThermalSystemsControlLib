@@ -14,7 +14,7 @@ equation
   connect(Strategy.ambientState, Ambient.ambientState) annotation (Line(points={{-10,61},{-10,80},{-40,80},{-40,-19},{-10,-19}}, color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=604800,
+      StopTime=86400,
       Interval=60,
       Tolerance=0.001,
       __Dymola_fixedstepsize=0.001,

@@ -20,6 +20,8 @@ model CHP
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,56})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput P_gas "Output signal connector" annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 equation
   connect(cHP_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{66,11},{66,20},{0,20},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(controlCHP.nControlMode, selectLocalControlMode.nControlMode) annotation (Line(points={{-22,-59},{-40,-59},{-40,-70},{-59,-70}}, color={255,127,0}));
@@ -32,6 +34,8 @@ equation
   connect(cHP_Physical.port_b, temperature.port_a) annotation (Line(points={{70,10},{70,46}}, color={0,127,255}));
   connect(temperature.port_b, port_b) annotation (Line(points={{70,66},{70,100},{100,100}}, color={0,127,255}));
   connect(controlCHP.fTemperatureExternal, temperature.T) annotation (Line(points={{-10,-62},{-10,-20},{20,-20},{20,56},{59,56}}, color={0,0,127}));
+  connect(cHP_Physical.P_el, P_el) annotation (Line(points={{65,-11},{65,-20},{110,-20}}, color={0,0,127}));
+  connect(cHP_Physical.P_gas, P_gas) annotation (Line(points={{61,-11},{61,-40},{110,-40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Combined heat power model including control methods.</p>

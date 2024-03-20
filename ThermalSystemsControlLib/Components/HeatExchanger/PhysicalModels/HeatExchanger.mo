@@ -51,6 +51,18 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,50})));
+  Pipes.PhysicalModels.PressureDrop            pressureDrop(
+    redeclare package Medium = Medium1,
+    dp_nominal=deviceData.dp_nominal_1,
+    m_flow_nominal=deviceData.m_flow_nominal_1)                                                  annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-50,50})));
+  Pipes.PhysicalModels.PressureDrop            pressureDrop1(
+    redeclare package Medium = Medium2,
+    dp_nominal=deviceData.dp_nominal_2,
+    m_flow_nominal=deviceData.m_flow_nominal_2)                                                  annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={70,-30})));
 protected
   Medium1.ThermodynamicState state_a1_inflow=
     Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
@@ -86,9 +98,11 @@ equation
   connect(preHeatFlow2.port, volume2.heatPort) annotation (Line(points={{20,-30},{10,-30}}, color={191,0,0}));
   connect(preHeatFlow1.port, volume1.heatPort) annotation (Line(points={{20,50},{10,50}}, color={191,0,0}));
   connect(volume1.ports[1], port_b1) annotation (Line(points={{2,40},{100,40}},  color={0,127,255}));
-  connect(volume1.ports[2], port_a1) annotation (Line(points={{-2,40},{-100,40}}, color={0,127,255}));
   connect(port_b2, volume2.ports[1]) annotation (Line(points={{-100,-40},{2,-40}}, color={0,127,255}));
-  connect(volume2.ports[2], port_a2) annotation (Line(points={{-2,-40},{50,-40},{50,-40},{100,-40}}, color={0,127,255}));
+  connect(volume1.ports[2], pressureDrop.port_b) annotation (Line(points={{-2,40},{-40,40}}, color={0,127,255}));
+  connect(pressureDrop.port_a, port_a1) annotation (Line(points={{-60,40},{-100,40}}, color={0,127,255}));
+  connect(volume2.ports[2], pressureDrop1.port_b) annotation (Line(points={{-2,-40},{60,-40}}, color={0,127,255}));
+  connect(pressureDrop1.port_a, port_a2) annotation (Line(points={{80,-40},{100,-40}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
               Icon(graphics={Text(
           extent={{-78,82},{76,38}},

@@ -1,9 +1,9 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.Records;
-record Belimo_R2032_S2
-  extends ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.TwoWayValveProperties(
+record SV
+  extends ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.ThreeWayValveProperties(
   dp_nominal = 10000,
   m_flow_nominal = 0.89,
-  riseTime = 60);
-  //kvs 32 -> R2032-S2
+  riseTime = 60,
+  V_int = 0.01);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end Belimo_R2032_S2;
+end SV;

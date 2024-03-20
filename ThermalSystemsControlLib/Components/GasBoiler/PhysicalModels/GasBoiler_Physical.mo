@@ -12,7 +12,8 @@ model GasBoiler_Physical
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,78})));
-  ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.ConditionCheck_OneTemperature conditionCheck(T_inMin=deviceData.T_inMin, T_inMax=deviceData.T_inMax) annotation (Placement(transformation(
+  ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.ConditionCheck_OneTemperature conditionCheck(T_inMin=deviceData.T_return_min, T_inMax=deviceData.T_return_max)
+                                                                                                                                                             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,50})));
@@ -35,7 +36,7 @@ model GasBoiler_Physical
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={50,-90})));
-  Modelica.Blocks.Math.Gain gain_P_gs_nom1(k=deviceData.P_gs_nom)
+  Modelica.Blocks.Math.Gain gain_P_gs_nom1(k=deviceData.P_gas_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={70,-70})));
@@ -43,7 +44,7 @@ model GasBoiler_Physical
     redeclare package Medium = Medium,
     use_portsData=false,
     use_HeatTransfer=true,
-    V=deviceData.V_int,
+    V=deviceData.V,
     nPorts=2) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -63,6 +64,14 @@ model GasBoiler_Physical
         origin={0,-10})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=deviceData.u_min) annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Math.Product product1 annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Modelica.Blocks.Math.Gain gain_P_gs_nom2(k=deviceData.P_gas_nominal)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-70,90})));
+  Modelica.Blocks.Interfaces.RealOutput P_gas "Output signal connector" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-110,90})));
 equation
 
   connect(fSetPoint, zeroLimiter.u) annotation (Line(points={{0,120},{0,90}}, color={0,0,127}));
@@ -85,6 +94,8 @@ equation
   connect(product1.u1, Tableefficency_P_th1.u1) annotation (Line(points={{18,-44},{0,-44},{0,-30},{-42,-30},{-42,-44}}, color={0,0,127}));
   connect(product1.y, gain_P_gs_nom1.u) annotation (Line(points={{41,-50},{70,-50},{70,-58}}, color={0,0,127}));
   connect(greaterEqualThreshold.y, bStatusOn) annotation (Line(points={{41,10},{60,10},{60,80},{110,80}}, color={255,0,255}));
+  connect(gain_P_gs_nom2.u, limiter.y) annotation (Line(points={{-58,90},{-40,90},{-40,-21},{-2.22045e-15,-21}}, color={0,0,127}));
+  connect(gain_P_gs_nom2.y, P_gas) annotation (Line(points={{-81,90},{-110,90}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1)),
     Documentation(info="<html>
 <p>This model is based on the approach by <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a>.</p>

@@ -1,12 +1,14 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.Records;
-record EfficientEnergy_eChiller_45_II
+record eChiller
   extends ThermalSystemsControlLib.Components.CompressionChiller.PhysicalModels.Records.CompressionChillerSimplifiedProperties(
-    V_int_cool=0.05,
+    V=0.05,
     f_EER=[0,14,17,23,29,35,41; 16,18,16,7,4,3.5,3; 18,16,13,10,5,3.8,3.5; 20,16,14,12,6,4,3.8],
     riseTime=180,
-    T_Recooling_max=318.15,
-    T_Recooling_min=278.15,
-    u_min=0.01,
-    P_el_nom=12.3e3);
+    T_cooling_max=313.15,
+    T_cooling_min=283.15,
+    u_min=0.025,
+    P_el_nominal=12.3e3,
+    dp_nominal=15000,
+    m_flow_nominal=1.38);
   annotation(defaultComponentPrefixes = "parameter", Icon(graphics));
-end EfficientEnergy_eChiller_45_II;
+end eChiller;

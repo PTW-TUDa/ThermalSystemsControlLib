@@ -3,7 +3,7 @@ model StaticHeatingSystem
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=2));
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   extends ThermalSystemsControlLib.BaseClasses.Icons.Consumer_Icon;
-  Components.Valves.ThreeWayValve RV350(k=0.01,  redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Components.Valves.ThreeWayValve RV350(k=0.01, redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.SV deviceData) annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Components.Pumps.Pump PU350 annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Components.Pipes.PhysicalModels.PressureDrop pressureDrop(
     redeclare package Medium = Medium,
@@ -47,8 +47,7 @@ model StaticHeatingSystem
         rotation=270,
         origin={80,40})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Components.Valves.TwoWayValve SV(k=0.1,
-    redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  Components.Valves.TwoWayValve SV(k=10, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
         rotation=180,
         origin={27,55})));

@@ -5,7 +5,8 @@ model CompressorSystem
   extends ThermalSystemsControlLib.BaseClasses.Icons.Consumer_Icon;
   Components.Valves.ThreeWayValve RV251(
     k=0.1,
-    yMin=0.1,                                    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+    yMin=0.1,
+    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.SV deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Components.Pumps.Pump PU251 annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Components.Pipes.PhysicalModels.PressureDrop pressureDrop(
     redeclare package Medium = Medium,

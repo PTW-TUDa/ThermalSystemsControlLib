@@ -10,7 +10,7 @@ model OuterCapillaryTubeMatsSystem
   Components.HeatExchanger.PhysicalModels.HeatExchanger HeatExchanger6(
     redeclare replaceable package Medium1 = Modelica.Media.Incompressible.Examples.Glycol47,
     redeclare package Medium2 = Medium,
-    redeclare Records.PWT6_SWEP_30kW deviceData) annotation (Placement(transformation(
+    redeclare Records.HEX6 deviceData) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={70,0})));
@@ -18,8 +18,9 @@ model OuterCapillaryTubeMatsSystem
                                         annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Components.Valves.ThreeWayValve RV600(
     redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47,
-    k=0.01,                             redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{40,80},{60,60}})));
-  Components.Valves.TwoWayValve SV235(redeclare package Medium = Medium, redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
+    k=0.01,
+    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.SV deviceData) annotation (Placement(transformation(extent={{40,80},{60,60}})));
+  Components.Valves.TwoWayValve SV235(redeclare package Medium = Medium, redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.RV deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-80},{80,-60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{66,20},{74,30}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=70) annotation (Placement(transformation(extent={{64,-34},{72,-24}})));
@@ -57,10 +58,6 @@ model OuterCapillaryTubeMatsSystem
     redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47,
     dp_nominal=50000,
     m_flow_nominal=1.4)                                                                          annotation (Placement(transformation(extent={{-30,-72},{-10,-52}})));
-  Components.Pipes.PhysicalModels.PressureDrop pressureDrop1(
-    redeclare package Medium = Medium,
-    dp_nominal=50000,
-    m_flow_nominal=1.4)                                                                          annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(HeatExchanger6.port_a2,PU235. port_b) annotation (Line(points={{74,-10},{100,-10},{100,-20}}, color={0,127,255}));
   connect(HeatExchanger6.port_a1,PU600. port_b) annotation (Line(points={{66,10},{60,10},{60,20}}, color={0,127,255}));
@@ -108,7 +105,6 @@ equation
   connect(SV235.fTemperatureExternal, SV235.fThermalPowerExternal) annotation (Line(points={{85,18},{90,18},{90,18},{95,18}}, color={0,0,127}));
   connect(OuterCapillaryTubeMats.port_a, pressureDrop.port_b) annotation (Line(points={{-10,-40},{-10,-52}}, color={0,127,255}));
   connect(pressureDrop.port_a, temperature2.port) annotation (Line(points={{-10,-72},{-10,-80},{50,-80}}, color={0,127,255}));
-  connect(HeatExchanger6.port_b2, pressureDrop1.port_a) annotation (Line(points={{74,10},{112,10},{112,0},{140,0}}, color={0,127,255}));
-  connect(pressureDrop1.port_b, SV235.port_a) annotation (Line(points={{140,20},{100,20}}, color={0,127,255}));
+  connect(HeatExchanger6.port_b2, SV235.port_a) annotation (Line(points={{74,10},{100,10},{100,20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end OuterCapillaryTubeMatsSystem;

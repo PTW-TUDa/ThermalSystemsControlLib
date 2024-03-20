@@ -30,7 +30,7 @@ model CentralMachineCoolingSystem
         rotation=270,
         origin={80,0})));
   Modelica.Blocks.Interfaces.RealInput fHeatFlowRate annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Components.Valves.TwoWayValve SV100(redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  Components.Valves.TwoWayValve SV100(redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
   connect(temperature.T,WMZ100. fFeedTemperature) annotation (Line(points={{91,-70},{96,-70},{96,90},{82,90}}, color={0,0,127}));

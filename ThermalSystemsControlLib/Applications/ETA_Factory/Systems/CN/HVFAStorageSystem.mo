@@ -9,11 +9,10 @@ model HVFAStorageSystem
     V=25,
     n_Seg=6,
     T_start=T_start) annotation (Placement(transformation(extent={{220,8},{200,28}})));
-  Components.Valves.ThreeWayValve SVx05(redeclare package Medium = Medium1,
-                                        redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  Components.Valves.ThreeWayValve SVx05(redeclare package Medium = Medium1, redeclare Records.SV deviceData) annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Components.Pumps.Pump PUx05(redeclare package Medium = Medium1,
                               pumpType=11) annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  Components.Valves.ThreeWayValve SVx06(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,90},{100,70}})));
+  Components.Valves.ThreeWayValve SVx06(redeclare Records.SV deviceData) annotation (Placement(transformation(extent={{80,90},{100,70}})));
   Components.HeatMeter.HeatMeter WMZx05 annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{60,78},{72,92}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=100)
@@ -22,7 +21,7 @@ model HVFAStorageSystem
   Components.HeatExchanger.PhysicalModels.HeatExchanger HeatExchanger4(
     redeclare replaceable package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
-    redeclare Records.PWT4_SWEP_115kW deviceData) annotation (Placement(transformation(
+    redeclare Records.HEX4 deviceData) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={104,18})));
@@ -50,7 +49,7 @@ model HVFAStorageSystem
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={210,70})));
-  Components.Valves.ThreeWayValve RVx05(redeclare package Medium = Medium1, redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+  Components.Valves.ThreeWayValve RVx05(redeclare package Medium = Medium1, redeclare Records.SV deviceData) annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{-6,-7},{6,7}},
         rotation=90,
         origin={154,-33})));

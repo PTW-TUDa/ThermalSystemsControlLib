@@ -38,7 +38,7 @@ model CompressionChiller
     redeclare package Medium = Medium,
     use_portsData=false,
     use_HeatTransfer=true,
-    V=deviceData.V_int_cool,
+    V=deviceData.V_cool,
     nPorts=2) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -59,7 +59,7 @@ model CompressionChiller
     redeclare package Medium = Medium1,
     use_portsData=false,
     use_HeatTransfer=true,
-    V=deviceData.V_int_heat,
+    V=deviceData.V_heat,
     nPorts=2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -77,7 +77,7 @@ model CompressionChiller
                                                                                                    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={50,-100})));
+        origin={30,-100})));
   Modelica.Blocks.Tables.CombiTable1Ds Table_f_Pel_partLoad1(
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns={2},
@@ -93,7 +93,7 @@ model CompressionChiller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,30})));
-  Modelica.Blocks.Math.Gain gain_P_el_nom2(k=deviceData.P_el_nom)
+  Modelica.Blocks.Math.Gain gain_P_el_nom2(k=deviceData.P_el_nominal)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=180,
         origin={-72,60})));
@@ -108,7 +108,7 @@ model CompressionChiller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,60})));
-  Modelica.Blocks.Math.Gain gain_P_th_nom1(k=deviceData.P_th_cool_nom)
+  Modelica.Blocks.Math.Gain gain_P_th_nom1(k=deviceData.P_th_cool_nominal)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=180,
         origin={-72,30})));
@@ -125,19 +125,32 @@ model CompressionChiller
         rotation=270,
         origin={-82,10})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=deviceData.u_min) annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  Pipes.PhysicalModels.PressureDrop pressureDrop(
+    redeclare package Medium = Medium1,
+    dp_nominal=deviceData.dp_nominal_heat,
+    m_flow_nominal=deviceData.m_flow_nominal_heat) annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={70,-90})));
+  Pipes.PhysicalModels.PressureDrop pressureDrop1(
+    redeclare package Medium = Medium,
+    dp_nominal=deviceData.dp_nominal_cool,
+    m_flow_nominal=deviceData.m_flow_nominal_cool) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={70,-30})));
 equation
 
   connect(prePow.port, volume1.heatPort) annotation (Line(points={{-20,-50},{-8,-50}},         color={191,0,0}));
   connect(K2degC1.Kelvin, temperature_cool_in.T) annotation (Line(points={{-70,-22},{-70,-29}}, color={0,0,127}));
   connect(port_a, temperature_cool_in.port_a) annotation (Line(points={{-100,0},{-100,-40},{-80,-40}}, color={0,127,255}));
   connect(temperature_cool_in.port_b, volume1.ports[1]) annotation (Line(points={{-60,-40},{0,-40}}, color={0,127,255}));
-  connect(volume1.ports[2], port_b) annotation (Line(points={{4,-40},{100,-40},{100,0}},    color={0,127,255}));
   connect(port_a,port_a)  annotation (Line(points={{-100,0},{-100,0}},                   color={0,127,255}));
   connect(volume2.ports[1], port_b1) annotation (Line(points={{-2,-100},{-50,-100},{-50,-100},{-100,-100}}, color={0,127,255}));
   connect(prePow1.port, volume2.heatPort) annotation (Line(points={{-20,-90},{-14,-90},{-14,-90},{-10,-90}}, color={191,0,0}));
-  connect(temperature_heat_in.T, K2degC2.Kelvin) annotation (Line(points={{50,-89},{50,-82}}, color={0,0,127}));
-  connect(temperature_heat_in.port_a, port_a1) annotation (Line(points={{60,-100},{100,-100}}, color={0,127,255}));
-  connect(temperature_heat_in.port_b, volume2.ports[2]) annotation (Line(points={{40,-100},{2,-100}}, color={0,127,255}));
+  connect(temperature_heat_in.T, K2degC2.Kelvin) annotation (Line(points={{30,-89},{30,-86},{50,-86},{50,-82}},
+                                                                                              color={0,0,127}));
+  connect(temperature_heat_in.port_b, volume2.ports[2]) annotation (Line(points={{20,-100},{2,-100}}, color={0,127,255}));
   connect(Table_f_PelMax1.u1, K2degC1.Celsius) annotation (Line(points={{-38,54},{-34,54},{-34,1},{-70,1}}, color={0,0,127}));
   connect(Table_f_PelMax1.u2, K2degC2.Celsius) annotation (Line(points={{-38,66},{-28,66},{-28,-20},{50,-20},{50,-59}}, color={0,0,127}));
   connect(Table_f_PthMax1.u1, K2degC1.Celsius) annotation (Line(points={{-38,24},{-34,24},{-34,1},{-70,1}}, color={0,0,127}));
@@ -161,6 +174,10 @@ equation
   connect(firstOrder.y, fOperatingPoint) annotation (Line(points={{0,71},{20,71},{20,70},{40,70},{40,-1},{60,-1},{60,40},{110,40}}, color={0,0,127}));
   connect(conditionCheck.fSetPointInternal, Table_f_Pel_partLoad1.u) annotation (Line(points={{5,-1},{5,-12},{-20,-12},{-20,90},{-38,90}}, color={0,0,127}));
   connect(firstOrder.y, conditionCheck.fSetPoint) annotation (Line(points={{0,71},{0,21}}, color={0,0,127}));
+  connect(temperature_heat_in.port_a, pressureDrop.port_b) annotation (Line(points={{40,-100},{60,-100}}, color={0,127,255}));
+  connect(pressureDrop.port_a, port_a1) annotation (Line(points={{80,-100},{100,-100}}, color={0,127,255}));
+  connect(volume1.ports[2], pressureDrop1.port_a) annotation (Line(points={{4,-40},{60,-40}}, color={0,127,255}));
+  connect(pressureDrop1.port_b, port_b) annotation (Line(points={{80,-40},{100,-40},{100,0}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1)),
     Documentation(info="<html>
 <p>This model is based on the approach by <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a> </p>

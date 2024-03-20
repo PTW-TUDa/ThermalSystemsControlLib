@@ -7,13 +7,13 @@ model CHP2System
     redeclare package Medium = Medium,
     k=5,
     yMin=0.5,
-    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.ViessmannVitobloc200_EM_9_2 deviceData) annotation (Placement(transformation(extent={{60,-8},{80,12}})));
+    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.CHP2 deviceData) annotation (Placement(transformation(extent={{60,-8},{80,12}})));
   Components.Valves.ThreeWayValve RV32x(
     k=5,
     yMin=0.5,
-    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.SV deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Components.Pumps.Pump PU32x annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Components.Valves.TwoWayValve SV32x(redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+  Components.Valves.TwoWayValve SV32x(redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.RV deviceData) annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Components.HeatMeter.HeatMeter WMZ32x annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package Medium = Medium)
                                                         annotation (Placement(transformation(
@@ -35,7 +35,13 @@ model CHP2System
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={110,30})));
-  Components.Pipes.PhysicalModels.PressureDrop pressureDrop(dp_nominal=25000,m_flow_nominal=0.2) annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Components.Pipes.PhysicalModels.Pipe pipe1(
+    length=30,
+    diameter=0.015,
+    n_Bending=0) annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={70,30})));
 equation
   connect(CHP.port_a, RV32x.port_b) annotation (Line(points={{80,-8},{80,-20}}, color={0,127,255}));
   connect(SV32x.port_a, port_a) annotation (Line(points={{80,-100},{100,-100}}, color={0,127,255}));
@@ -76,9 +82,9 @@ equation
   connect(PU32x.fThermalPowerExternal,SV32x. fThermalPowerExternal) annotation (Line(points={{75,48},{76,48},{76,-102},{75,-102}},         color={0,0,127}));
   connect(RV32x.port_a1, pipe2.port_b) annotation (Line(points={{80,-30},{100,-30},{100,20}}, color={0,127,255}));
   connect(pipe2.port_a,PU32x. port_b) annotation (Line(points={{100,40},{100,70},{80,70}}, color={0,127,255}));
-  connect(pressureDrop.port_a, CHP.port_b) annotation (Line(points={{80,20},{80,12}}, color={0,127,255}));
-  connect(pressureDrop.port_b, PU32x.port_a) annotation (Line(points={{80,40},{80,50}}, color={0,127,255}));
   connect(PU32x.fTemperatureExternal, WMZ32x.fFeedTemperature) annotation (Line(points={{65,48},{64,48},{64,44},{96,44},{96,-60},{82,-60}}, color={0,0,127}));
   connect(SV32x.fTemperatureExternal, SV32x.fThermalPowerExternal) annotation (Line(points={{65,-102},{65,-90},{76,-90},{76,-102},{75,-102}}, color={0,0,127}));
+  connect(pipe1.port_a, CHP.port_b) annotation (Line(points={{80,20},{80,12}}, color={0,127,255}));
+  connect(pipe1.port_b, PU32x.port_a) annotation (Line(points={{80,40},{80,50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CHP2System;

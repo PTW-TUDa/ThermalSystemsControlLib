@@ -7,13 +7,13 @@ model CondensingBoilerSystem
     redeclare package Medium = Medium,
     k=5,
     yMin=0.5,
-    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.ViessmannVitodens200 deviceData) annotation (Placement(transformation(extent={{60,-8},{80,12}})));
+    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.CondensingBoiler deviceData) annotation (Placement(transformation(extent={{60,-8},{80,12}})));
   Components.Valves.ThreeWayValve RV331(
     k=5,
     yMin=0.5,
-    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+    redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.SV deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Components.Pumps.Pump      PU                                                                                                           annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Components.Valves.TwoWayValve SV331(redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+  Components.Valves.TwoWayValve SV331(redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.RV deviceData) annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Components.HeatMeter.HeatMeter WMZ331 annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package Medium = Medium)
                                                         annotation (Placement(transformation(

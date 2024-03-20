@@ -11,11 +11,10 @@ model VSIStorageSystem
   Components.Pumps.Pump PU305(pumpType=11) annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=180,
         origin={70,90})));
-  Components.Valves.ThreeWayValve SV306(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+  Components.Valves.ThreeWayValve SV306(redeclare Records.SV deviceData) annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Components.Pumps.Pump PU306(pumpType=11) annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Components.Valves.ThreeWayValve SV305(redeclare Records.Belimo_R2032_S2_ThreeWay deviceData) annotation (Placement(transformation(extent={{80,70},{100,50}})));
-  Components.Valves.TwoWayValve SV307(k=0.1,
-                                      redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+  Components.Valves.ThreeWayValve SV305(redeclare Records.SV deviceData) annotation (Placement(transformation(extent={{80,70},{100,50}})));
+  Components.Valves.TwoWayValve SV307(k=0.1, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Components.HeatMeter.HeatMeter WMZ305 annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Modelica.Blocks.Logical.Not not1 annotation (Placement(transformation(extent={{40,40},{60,60}})));

@@ -6,29 +6,15 @@ model HeatPumpSystem
   Components.CompressionChiller.CompressionChiller HeatPump(
     redeclare package Medium = Medium1,
     redeclare package Medium1 = Medium2,
-    redeclare Records.ViessmannVitocal350G deviceData) annotation (Placement(transformation(extent={{60,12},{80,-8}})));
-  Components.Valves.TwoWayValve SV246(redeclare package Medium = Medium2, redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
+    redeclare Records.HP1 deviceData) annotation (Placement(transformation(extent={{60,12},{80,-8}})));
+  Components.Valves.TwoWayValve SV246(redeclare package Medium = Medium2, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Components.HeatMeter.HeatMeter WMZ246(redeclare package Medium = Medium2) annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Components.Valves.TwoWayValve SV146(redeclare package Medium = Medium1, redeclare Records.Belimo_R2032_S2 deviceData) annotation (Placement(transformation(extent={{40,-20},{60,-40}})));
+  Components.Valves.TwoWayValve SV146(redeclare package Medium = Medium1, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{40,-20},{60,-40}})));
   Components.Pumps.Pump PU_int_HNLT(redeclare package Medium = Medium2, pumpType=2) annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Components.Pipes.PhysicalModels.PressureDrop pressureDrop(
-    redeclare package Medium = Medium2,
-    dp_nominal=60000,
-    m_flow_nominal=0.2)                                     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={90,-30})));
   Components.Pumps.Pump PU_int_CN(redeclare package Medium = Medium1, pumpType=2) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={50,84})));
-  Components.Pipes.PhysicalModels.PressureDrop pressureDrop1(
-    redeclare package Medium = Medium1,
-    dp_nominal=64000,
-    m_flow_nominal=0.3)                                     annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={50,30})));
   Components.HeatMeter.HeatMeter WMZ146(redeclare package Medium = Medium1) annotation (Placement(transformation(extent={{40,68},{60,48}})));
   Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium2)
                                                                                      annotation (Placement(transformation(extent={{100,-20},{120,0}})));
@@ -39,14 +25,10 @@ model HeatPumpSystem
                                                              annotation (Placement(transformation(extent={{20,80},{30,96}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
 equation
-  connect(temperature2.port, pressureDrop.port_b) annotation (Line(points={{110,-20},{100,-20}}, color={0,127,255}));
   connect(temperature2.T, WMZ246.fFeedTemperature) annotation (Line(points={{117,-10},{117,70},{102,70}}, color={0,0,127}));
   connect(PU_int_CN.port_a, port_a1) annotation (Line(points={{60,94},{60,100}}, color={0,127,255}));
-  connect(HeatPump.port_a1, pressureDrop.port_b) annotation (Line(points={{80.2,-2},{100,-2},{100,-20}}, color={0,127,255}));
   connect(HeatPump.port_b1, SV246.port_a) annotation (Line(points={{80,6},{100,6},{100,20}}, color={0,127,255}));
-  connect(pressureDrop1.port_b, HeatPump.port_a) annotation (Line(points={{60,20},{60,12},{80,12}}, color={0,127,255}));
   connect(HeatPump.port_b, SV146.port_a) annotation (Line(points={{80,-8},{80,-14},{60,-14},{60,-20}}, color={0,127,255}));
-  connect(pressureDrop.port_a, PU_int_HNLT.port_b) annotation (Line(points={{100,-40},{100,-60}}, color={0,127,255}));
   connect(PU_int_HNLT.port_a, port_a2) annotation (Line(points={{100,-80},{100,-100}}, color={0,127,255}));
   connect(bAlgorithmPermission, PU_int_CN.bAlgorithmPermission) annotation (Line(points={{-120,50},{30,50},{30,79},{38,79}}, color={255,0,255}));
   connect(SV246.bAlgorithmPermission, PU_int_CN.bAlgorithmPermission) annotation (Line(points={{78,35},{30,35},{30,79},{38,79}}, color={255,0,255}));
@@ -73,7 +55,6 @@ equation
   connect(SV146.port_b, port_b1) annotation (Line(points={{60,-40},{60,-100}}, color={0,127,255}));
   connect(temperature1.port, SV146.port_b) annotation (Line(points={{70,-40},{60,-40}}, color={0,127,255}));
   connect(WMZ146.port_a, PU_int_CN.port_b) annotation (Line(points={{60,68},{60,74}}, color={0,127,255}));
-  connect(WMZ146.port_b, pressureDrop1.port_a) annotation (Line(points={{60,48},{60,40}}, color={0,127,255}));
   connect(WMZ146.fFeedTemperature, temperature1.T) annotation (Line(points={{62,58},{74,58},{74,-30},{77,-30}}, color={0,0,127}));
   connect(WMZ146.fHeatFlowRate, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{39,58},{52,58},{52,96},{55,96}}, color={0,0,127}));
   connect(PU_int_CN.fTemperatureExternal, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{45,96},{46,96},{46,84},{52,84},{52,96},{55,96}}, color={0,0,127}));
@@ -89,5 +70,8 @@ equation
   connect(HeatPump.bStatusOn, systemFlowControl.bStatusOn_Components[3]) annotation (Line(points={{65,-9},{65,120},{-30,120},{-30,81}}, color={255,0,255}));
   connect(HeatPump.bStatusOn, bStatusOn) annotation (Line(points={{65,-9},{65,128},{-70,128},{-70,100},{-50,100},{-50,110}}, color={255,0,255}));
   connect(HeatPump.fSetPointAutomatic, selectSetPoint.fSetPoint) annotation (Line(points={{58,1},{10,1},{10,30},{-59,30}}, color={0,0,127}));
+  connect(HeatPump.port_a, WMZ146.port_b) annotation (Line(points={{80,12},{60,12},{60,48}}, color={0,127,255}));
+  connect(HeatPump.port_a1, PU_int_HNLT.port_b) annotation (Line(points={{80.2,-2},{100,-2},{100,-60}}, color={0,127,255}));
+  connect(temperature2.port, PU_int_HNLT.port_b) annotation (Line(points={{110,-20},{100,-20},{100,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HeatPumpSystem;
