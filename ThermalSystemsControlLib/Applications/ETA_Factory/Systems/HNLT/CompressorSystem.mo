@@ -41,6 +41,9 @@ model CompressorSystem
         origin={110,30})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{40,46},{52,64}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-20},{80,0}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+        rotation=180,
+        origin={51,13})));
 equation
   connect(RV251.port_a,WMZ251. port_b) annotation (Line(points={{80,-40},{80,-50}}, color={0,127,255}));
   connect(PU251.port_a, pressureDrop.port_b) annotation (Line(points={{80,50},{80,40}}, color={0,127,255}));
@@ -64,12 +67,13 @@ equation
   connect(bStatusOn,PU251. bStatusOn) annotation (Line(points={{-50,110},{-50,100},{65,100},{65,71}}, color={255,0,255}));
   connect(RV251.port_a1, pipe2.port_b) annotation (Line(points={{80,-30},{100,-30},{100,20}}, color={0,127,255}));
   connect(pipe2.port_a,PU251. port_b) annotation (Line(points={{100,40},{100,70},{80,70}}, color={0,127,255}));
-  connect(temperature.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{91,90},{96,90},{96,96},{0,96},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
-  connect(selectSetPoint.fSetPoint,RV251. fSetPointAutomatic) annotation (Line(points={{-59,30},{10,30},{10,-29},{58,-29}}, color={0,0,127}));
+  connect(selectSetPoint.fSetPoint,RV251. fSetPointAutomatic) annotation (Line(points={{-59,30},{32,30},{32,-29},{58,-29}}, color={0,0,127}));
   connect(PU251.nControlModeAutomatic, integerExpression1.y) annotation (Line(points={{58,55},{52.6,55}}, color={255,127,0}));
   connect(temperature1.port,RV251. port_b) annotation (Line(points={{90,-20},{80,-20}}, color={0,127,255}));
   connect(temperature1.T,PU251. fTemperatureExternal) annotation (Line(points={{83,-10},{65,-10},{65,48}}, color={0,0,127}));
   connect(Compressor.Q_flow, fHeatFlowRate) annotation (Line(points={{68,0},{26,0},{26,-30},{-120,-30}}, color={0,0,127}));
   connect(temperature.T, RV251.fTemperatureExternal) annotation (Line(points={{91,90},{65,90},{65,-42}}, color={0,0,127}));
+  connect(fromKelvin.Kelvin, Compressor.T_Consumer) annotation (Line(points={{54.6,13},{86,13},{86,11},{87,11}}, color={0,0,127}));
+  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{47.7,13},{0,13},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CompressorSystem;

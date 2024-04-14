@@ -32,6 +32,9 @@ model CentralMachineCoolingSystem
   Modelica.Blocks.Interfaces.RealInput fHeatFlowRate annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Components.Valves.TwoWayValve SV100(redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+        rotation=180,
+        origin={51,17})));
 equation
   connect(temperature.T,WMZ100. fFeedTemperature) annotation (Line(points={{91,-70},{96,-70},{96,90},{82,90}}, color={0,0,127}));
   connect(WMZ100.fHeatFlowRate,PU100. fThermalPowerExternal) annotation (Line(points={{59,90},{75,90},{75,-42}},  color={0,0,127}));
@@ -57,6 +60,7 @@ equation
   connect(WMZ100.port_b, port_b) annotation (Line(points={{80,100},{100,100}}, color={0,127,255}));
   connect(temperature.port_a, port_a) annotation (Line(points={{80,-80},{80,-100},{100,-100}}, color={0,127,255}));
   connect(temperature.port_b, PU100.port_a) annotation (Line(points={{80,-60},{80,-40}}, color={0,127,255}));
-  connect(PU100.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{70,-19},{70,-32},{0,-32},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(fromKelvin.Kelvin, CentralMachineCooling.T_Consumer) annotation (Line(points={{54.6,17},{87,17},{87,11}}, color={0,0,127}));
+  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{47.7,17},{0,17},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CentralMachineCoolingSystem;

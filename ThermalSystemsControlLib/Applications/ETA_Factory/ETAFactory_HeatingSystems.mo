@@ -43,8 +43,8 @@ equation
   connect(HNHT_HNLT.port_b_HNLT_Consumer, HNLT.port_a_HNHT_Consumer) annotation (Line(points={{-20,4},{0,4}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=86400,
-      Interval=900,
+      StopTime=604800,
+      Interval=60,
       __Dymola_fixedstepsize=0.001,
       __Dymola_Algorithm="Cvode"),
     __Dymola_experimentFlags(Advanced(
