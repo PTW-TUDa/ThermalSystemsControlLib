@@ -42,6 +42,8 @@ model CHP2System
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={70,30})));
+  Modelica.Blocks.Interfaces.RealOutput P_gas "Output signal connector" annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,0},{120,20}})));
 equation
   connect(CHP.port_a, RV32x.port_b) annotation (Line(points={{80,-8},{80,-20}}, color={0,127,255}));
   connect(SV32x.port_a, port_a) annotation (Line(points={{80,-100},{100,-100}}, color={0,127,255}));
@@ -86,5 +88,7 @@ equation
   connect(SV32x.fTemperatureExternal, SV32x.fThermalPowerExternal) annotation (Line(points={{65,-102},{65,-90},{76,-90},{76,-102},{75,-102}}, color={0,0,127}));
   connect(pipe1.port_a, CHP.port_b) annotation (Line(points={{80,20},{80,12}}, color={0,127,255}));
   connect(pipe1.port_b, PU32x.port_a) annotation (Line(points={{80,40},{80,50}}, color={0,127,255}));
+  connect(CHP.P_gas, P_gas) annotation (Line(points={{81,-2},{92.5,-2},{92.5,-10},{110,-10}}, color={0,0,127}));
+  connect(CHP.P_el, P_el) annotation (Line(points={{81,0},{94,0},{94,10},{110,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CHP2System;

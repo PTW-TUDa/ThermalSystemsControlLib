@@ -14,7 +14,7 @@ model CompressionChiller_Simplified_Physical
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.RealOutput fOperatingPoint annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput fOperatingPoint annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.BooleanOutput bStatusOn annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin K2degC1
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -82,6 +82,7 @@ model CompressionChiller_Simplified_Physical
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,-70})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,30},{120,50}})));
 equation
 
   connect(prePow.port, volume1.heatPort) annotation (Line(points={{-20,-70},{-10,-70}},        color={191,0,0}));
@@ -99,12 +100,13 @@ equation
   connect(K2degC2.Celsius, Table_f_EER.u2) annotation (Line(points={{-50,19},{-50,12},{-56,12},{-56,2}}, color={0,0,127}));
   connect(K2degC2.Kelvin, limiter.y) annotation (Line(points={{-50,42},{-50,70},{-59,70}}, color={0,0,127}));
   connect(greaterEqualThreshold.y, bStatusOn) annotation (Line(points={{81,80},{110,80}}, color={255,0,255}));
-  connect(greaterEqualThreshold.u, fOperatingPoint) annotation (Line(points={{58,80},{40,80},{40,-1},{60,-1},{60,40},{110,40}}, color={0,0,127}));
+  connect(greaterEqualThreshold.u, fOperatingPoint) annotation (Line(points={{58,80},{40,80},{40,60},{110,60}},                 color={0,0,127}));
   connect(firstOrder.u, fSetPoint) annotation (Line(points={{0,82},{0,120}}, color={0,0,127}));
-  connect(firstOrder.y, fOperatingPoint) annotation (Line(points={{0,59},{0,52},{40,52},{40,-1},{60,-1},{60,40},{110,40}}, color={0,0,127}));
-  connect(gain_P_el_nom2.u, fOperatingPoint) annotation (Line(points={{2.22045e-15,-18},{0,-18},{0,52},{40,52},{40,-1},{60,-1},{60,40},{110,40}}, color={0,0,127}));
+  connect(firstOrder.y, fOperatingPoint) annotation (Line(points={{0,59},{0,52},{40,52},{40,60},{110,60}},                 color={0,0,127}));
+  connect(gain_P_el_nom2.u, fOperatingPoint) annotation (Line(points={{2.22045e-15,-18},{0,-18},{0,52},{40,52},{40,60},{110,60}},                 color={0,0,127}));
   connect(temperature_out.port_b, pressureDrop.port_a) annotation (Line(points={{60,-80},{80,-80}}, color={0,127,255}));
   connect(pressureDrop.port_b, port_b) annotation (Line(points={{100,-80},{100,0}}, color={0,127,255}));
+  connect(gain_P_el_nom2.y, P_el) annotation (Line(points={{0,-41},{16,-41},{16,-40},{80,-40},{80,40},{110,40}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1)),
     Documentation(info="<html>
 <p>Compression chiller model without cooling water cycle. EER depends on ambient air temperature and feed temperature.</p>

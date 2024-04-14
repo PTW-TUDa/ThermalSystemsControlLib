@@ -33,6 +33,7 @@ model CompressionChiller
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={80,-30})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   connect(compressionChiller_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{66,11},{66,20},{0,20},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(controlChiller.nControlMode, selectLocalControlMode.nControlMode) annotation (Line(points={{-22,-59},{-40,-59},{-40,-70},{-59,-70}}, color={255,127,0}));
@@ -49,6 +50,7 @@ equation
   connect(temperature1.port_b, port_b1) annotation (Line(points={{80,-40},{100,-40}}, color={0,127,255}));
   connect(controlChiller.fTemperatureExternal_HeatPump, temperature1.T) annotation (Line(points={{-15,-62},{-15,-80},{60,-80},{60,-30},{69,-30}}, color={0,0,127}));
   connect(controlChiller.fTemperatureExternal_Chiller, temperature.T) annotation (Line(points={{-5,-62},{-8,-62},{-8,-20},{20,-20},{20,50},{59,50}}, color={0,0,127}));
+  connect(compressionChiller_Physical.P_el, P_el) annotation (Line(points={{68,11},{68,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Compression chiller model including control method.</p>

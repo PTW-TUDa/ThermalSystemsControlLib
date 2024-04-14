@@ -69,6 +69,18 @@ model HNHT_HNLT
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-70,-90})));
+  Modelica.Blocks.Interfaces.RealOutput P_gas annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-110,30})));
+  Modelica.Blocks.Interfaces.RealOutput P_el annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-110,10})));
+  Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-70,30})));
 equation
   HeatExchanger1System.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_HeatExchanger1;
   HeatExchanger1System.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission_HNHT and controlAutomatic.bAlgorithmPermission_HNLT;
@@ -94,5 +106,7 @@ equation
   connect(pipe6.port_a, HeatPumpSystem.port_b2) annotation (Line(points={{-60,100},{-60,10}}, color={0,127,255}));
   connect(port_a_HNHT_Producer, pipe7.port_a) annotation (Line(points={{-100,-100},{-80,-100}}, color={0,127,255}));
   connect(pipe7.port_b, HeatPumpSystem.port_a2) annotation (Line(points={{-60,-100},{-60,-10}}, color={0,127,255}));
+  connect(P_gas, realExpression.y) annotation (Line(points={{-110,30},{-81,30}}, color={0,0,127}));
+  connect(HeatPumpSystem.P_el, P_el) annotation (Line(points={{-61,4},{-80,4},{-80,10},{-110,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNHT_HNLT;

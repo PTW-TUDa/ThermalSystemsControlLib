@@ -26,8 +26,9 @@ model CompressionChiller_Simplified
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,10},{120,30}})));
 equation
-  connect(compressionChiller_Simplified_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{66,13},{66,20},{0,20},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(compressionChiller_Simplified_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{64,13},{64,20},{0,20},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(controlChiller.nControlMode, selectLocalControlMode.nControlMode) annotation (Line(points={{-22,-59},{-40,-59},{-40,-70},{-59,-70}}, color={255,127,0}));
   connect(selectSetPoint.fSetPoint, controlChiller.fSetPoint) annotation (Line(points={{-59,30},{-40,30},{-40,-50},{-22,-50}}, color={0,0,127}));
   connect(selectControlMode.bSetStatusOn, controlChiller.bSetStatusOn) annotation (Line(points={{-59,70},{-22,70},{-22,-41}}, color={255,0,255}));
@@ -40,6 +41,7 @@ equation
   connect(temperature.T, controlChiller.fTemperatureExternal_Chiller) annotation (Line(points={{59,50},{20,50},{20,-20},{-5,-20},{-5,-62}}, color={0,0,127}));
   connect(compressionChiller_Simplified_Physical.T_air, T_air) annotation (Line(points={{63,-10},{63,-80},{0,-80},{0,-120}}, color={0,0,127}));
   connect(controlChiller.fTemperatureExternal_HeatPump, controlChiller.fTemperatureExternal_Chiller) annotation (Line(points={{-15,-62},{-14,-62},{-14,-20},{-5,-20},{-5,-62}}, color={0,0,127}));
+  connect(compressionChiller_Simplified_Physical.P_el, P_el) annotation (Line(points={{66,13},{66,20},{110,20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Compression chiller model including control method.</p>

@@ -24,6 +24,7 @@ model HeatPumpSystem
   Modelica.Blocks.Sources.RealExpression realExpression(y=100)
                                                              annotation (Placement(transformation(extent={{20,80},{30,96}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-8},{120,12}})));
 equation
   connect(temperature2.T, WMZ246.fFeedTemperature) annotation (Line(points={{117,-10},{117,70},{102,70}}, color={0,0,127}));
   connect(PU_int_CN.port_a, port_a1) annotation (Line(points={{60,94},{60,100}}, color={0,127,255}));
@@ -73,5 +74,6 @@ equation
   connect(HeatPump.port_a, WMZ146.port_b) annotation (Line(points={{80,12},{60,12},{60,48}}, color={0,127,255}));
   connect(HeatPump.port_a1, PU_int_HNLT.port_b) annotation (Line(points={{80.2,-2},{100,-2},{100,-60}}, color={0,127,255}));
   connect(temperature2.port, PU_int_HNLT.port_b) annotation (Line(points={{110,-20},{100,-20},{100,-60}}, color={0,127,255}));
+  connect(HeatPump.P_el, P_el) annotation (Line(points={{81,2},{110,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HeatPumpSystem;

@@ -101,6 +101,18 @@ model HNLT_CN
         rotation=90,
         origin={22,-50})));
   input Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
+  Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-70,90})));
+  Modelica.Blocks.Interfaces.RealOutput P_gas annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-110,90})));
+  Modelica.Blocks.Interfaces.RealOutput P_el annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-110,70})));
 equation
   HeatPumpSystem.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_HeatPump;
   HeatPumpSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission_CN and controlAutomatic.bAlgorithmPermission_HNLT;
@@ -139,5 +151,7 @@ equation
   connect(InnerCapillaryTubeMats.port_a_HNLT, pipe9.port_b) annotation (Line(points={{0,10},{0,60}}, color={0,127,255}));
   connect(pipe11.port_b, port_b_CN_Consumer) annotation (Line(points={{30,60},{60,60},{60,100},{100,100}}, color={0,127,255}));
   connect(pipe12.port_a, port_a_CN_Consumer) annotation (Line(points={{32,-60},{80,-60},{80,-100},{100,-100}}, color={0,127,255}));
+  connect(P_gas, realExpression.y) annotation (Line(points={{-110,90},{-81,90}}, color={0,0,127}));
+  connect(HeatPumpSystem.P_el, P_el) annotation (Line(points={{59,-1.8},{50,-1.8},{50,70},{-110,70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNLT_CN;

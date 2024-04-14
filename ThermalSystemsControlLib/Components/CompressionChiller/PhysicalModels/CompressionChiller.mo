@@ -139,6 +139,7 @@ model CompressionChiller
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={70,-30})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,10},{120,30}})));
 equation
 
   connect(prePow.port, volume1.heatPort) annotation (Line(points={{-20,-50},{-8,-50}},         color={191,0,0}));
@@ -178,6 +179,7 @@ equation
   connect(pressureDrop.port_a, port_a1) annotation (Line(points={{80,-100},{100,-100}}, color={0,127,255}));
   connect(volume1.ports[2], pressureDrop1.port_a) annotation (Line(points={{4,-40},{60,-40}}, color={0,127,255}));
   connect(pressureDrop1.port_b, port_b) annotation (Line(points={{80,-40},{100,-40},{100,0}}, color={0,127,255}));
+  connect(gain_P_el_nom2.y, P_el) annotation (Line(points={{-78.6,60},{80,60},{80,20},{110,20}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1)),
     Documentation(info="<html>
 <p>This model is based on the approach by <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a> </p>

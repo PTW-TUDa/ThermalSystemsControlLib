@@ -113,6 +113,18 @@ model CN
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{-110,-108},{-90,-88}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_HNLT_Consumer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater) annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   Modelica.Blocks.Math.Gain gain(k=1000) annotation (Placement(transformation(extent={{66,-10},{72,-4}})));
+  Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={70,90})));
+  Modelica.Blocks.Interfaces.RealOutput P_gas annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,90})));
+  Modelica.Blocks.Interfaces.RealOutput P_el annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,70})));
 equation
    //states
   localState1.fUpperTemperature =BufferStorage.localStorageState.fUpperTemperature;
@@ -159,5 +171,7 @@ equation
   connect(combiTimeTable.y[1], gain.u) annotation (Line(points={{58.5,-7},{62.25,-7},{62.25,-7},{65.4,-7}}, color={0,0,127}));
   connect(gain.y, CentralMachineCoolingSystem.fHeatFlowRate) annotation (Line(points={{72.3,-7},{75.15,-7},{75.15,-7},{78,-7}}, color={0,0,127}));
   connect(greaterThreshold.u, gain.u) annotation (Line(points={{63,9},{60,9},{60,-7},{65.4,-7}}, color={0,0,127}));
+  connect(P_gas, realExpression.y) annotation (Line(points={{110,90},{81,90}}, color={0,0,127}));
+  connect(P_el, eChillerSystem.P_el) annotation (Line(points={{110,70},{20,70},{20,0},{-39,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CN;

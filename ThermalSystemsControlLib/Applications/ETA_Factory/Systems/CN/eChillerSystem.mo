@@ -19,6 +19,7 @@ model eChillerSystem
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Components.CompressionChiller.CompressionChiller_Simplified eChiller(redeclare Records.eChiller deviceData) annotation (Placement(transformation(extent={{60,-8},{80,12}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression3(y=1) annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   connect(temperature.port_b, port_b) annotation (Line(points={{80,100},{100,100}}, color={0,127,255}));
   connect(temperature.T,WMZ138. fFeedTemperature) annotation (Line(points={{91,90},{96,90},{96,-70},{82,-70}}, color={0,0,127}));
@@ -49,5 +50,6 @@ equation
   connect(eChiller.bStatusOn, bStatusOn) annotation (Line(points={{65,13},{65,20},{-30,20},{-30,100},{-50,100},{-50,110}}, color={255,0,255}));
   connect(integerExpression3.y, eChiller.nControlModeAutomatic) annotation (Line(points={{41,-10},{46,-10},{46,-3},{58,-3}}, color={255,127,0}));
   connect(eChiller.port_b, SV138.port_a) annotation (Line(points={{80,12},{80,50}}, color={0,127,255}));
+  connect(eChiller.P_el, P_el) annotation (Line(points={{81,4},{96,4},{96,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end eChillerSystem;
