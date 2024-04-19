@@ -58,6 +58,9 @@ model OuterCapillaryTubeMatsSystem
     redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47,
     dp_nominal=50000,
     m_flow_nominal=1.4)                                                                          annotation (Placement(transformation(extent={{-30,-72},{-10,-52}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+        rotation=180,
+        origin={-31,-9})));
 equation
   connect(HeatExchanger6.port_a2,PU235. port_b) annotation (Line(points={{74,-10},{100,-10},{100,-20}}, color={0,127,255}));
   connect(HeatExchanger6.port_a1,PU600. port_b) annotation (Line(points={{66,10},{60,10},{60,20}}, color={0,127,255}));
@@ -100,11 +103,12 @@ equation
   connect(WMZ235.fHeatFlowRate, SV235.fThermalPowerExternal) annotation (Line(points={{79,70},{80,70},{80,48},{95,48},{95,18}}, color={0,0,127}));
   connect(selectSetPoint.fSetPoint, RV600.fSetPointAutomatic) annotation (Line(points={{-59,30},{6,30},{6,69},{38,69}}, color={0,0,127}));
   connect(RV600.fTemperatureExternal, temperature3.T) annotation (Line(points={{45,82},{45,90},{83,90}}, color={0,0,127}));
-  connect(temperature3.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{83,90},{0,90},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(boundary.ports[1], HeatExchanger6.port_b1) annotation (Line(points={{40,-90},{60,-90},{60,-10},{66,-10}}, color={0,127,255}));
   connect(SV235.fTemperatureExternal, SV235.fThermalPowerExternal) annotation (Line(points={{85,18},{90,18},{90,18},{95,18}}, color={0,0,127}));
   connect(OuterCapillaryTubeMats.port_a, pressureDrop.port_b) annotation (Line(points={{-10,-40},{-10,-52}}, color={0,127,255}));
   connect(pressureDrop.port_a, temperature2.port) annotation (Line(points={{-10,-72},{-10,-80},{50,-80}}, color={0,127,255}));
   connect(HeatExchanger6.port_b2, SV235.port_a) annotation (Line(points={{74,10},{100,10},{100,20}}, color={0,127,255}));
+  connect(fromKelvin.Kelvin, OuterCapillaryTubeMats.T_Consumer) annotation (Line(points={{-27.4,-9},{-3,-9},{-3,-19}}, color={0,0,127}));
+  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{-34.3,-9},{-40,-9},{-40,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end OuterCapillaryTubeMatsSystem;

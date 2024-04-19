@@ -1,16 +1,19 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory;
 model ETAFactory_HeatingSystems
   extends ThermalSystemsControlLib.BaseClasses.Icons.Applications_Icon;
-  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNHT HNHT annotation (Placement(transformation(extent={{-82,0},{-62,20}})));
+  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNHT HNHT(T_start=338.15, T_start_ActiveStorage=323.15)
+                                                                              annotation (Placement(transformation(extent={{-82,0},{-62,20}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNHT_HNLT HNHT_HNLT annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNLT HNLT annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNLT HNLT(T_start=313.15, T_start_ActiveStorage=303.15)
+                                                                              annotation (Placement(transformation(extent={{0,0},{20,20}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.Strategies.Strategy.StrategyController Strategy annotation (Placement(transformation(extent={{0,60},{20,80}})));
   ThermalNetworks.Ambient Ambient annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={10,-50})));
   ThermalNetworks.HNLT_CN HNLT_CN annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  ThermalNetworks.CN CN annotation (Placement(transformation(extent={{80,0},{100,20}})));
+  ThermalNetworks.CN CN(T_start=288.15, T_start_ActiveStorage=293.15)
+                        annotation (Placement(transformation(extent={{80,0},{100,20}})));
 equation
   connect(HNHT.port_b_HNLT_Consumer, HNHT_HNLT.port_a_HNHT_Consumer) annotation (Line(points={{-62,16},{-40,16}},                 color={0,127,255}));
   connect(HNHT.port_a_HNLT_Consumer, HNHT_HNLT.port_b_HNHT_Consumer) annotation (Line(points={{-62,4},{-40,4}},               color={0,127,255}));
@@ -43,8 +46,8 @@ equation
   connect(HNHT_HNLT.port_b_HNLT_Consumer, HNLT.port_a_HNHT_Consumer) annotation (Line(points={{-20,4},{0,4}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=604800,
-      Interval=60,
+      StopTime=21600,
+      Interval=60.00012,
       __Dymola_fixedstepsize=0.001,
       __Dymola_Algorithm="Cvode"),
     __Dymola_experimentFlags(Advanced(
