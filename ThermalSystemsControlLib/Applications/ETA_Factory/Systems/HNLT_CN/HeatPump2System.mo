@@ -1,14 +1,14 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNLT_CN;
-model HeatPumpSystem
+model HeatPump2System
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=3));
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidFourPort_CounterFlow;
   extends ThermalSystemsControlLib.BaseClasses.Icons.CompressionChiller_Icon;
   Components.CompressionChiller.CompressionChiller HeatPump(
     redeclare package Medium = Medium1,
     redeclare package Medium1 = Medium2,
-    redeclare Records.HP1 deviceData) annotation (Placement(transformation(extent={{60,12},{80,-8}})));
+    redeclare Records.HP2 deviceData) annotation (Placement(transformation(extent={{60,12},{80,-8}})));
   Components.Valves.TwoWayValve SV246(redeclare package Medium = Medium2, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  Components.HeatMeter.HeatMeter WMZ246(redeclare package Medium = Medium2) annotation (Placement(transformation(extent={{80,60},{100,80}})));
+  Components.HeatMeter.HeatMeter WMZ246(redeclare package Medium = Medium2) annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   Components.Valves.TwoWayValve SV146(redeclare package Medium = Medium1, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{40,-20},{60,-40}})));
   Components.Pumps.Pump PU_int_HNLT(redeclare package Medium = Medium2, pumpType=2) annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Components.Pumps.Pump PU_int_CN(redeclare package Medium = Medium1, pumpType=2) annotation (Placement(transformation(
@@ -17,16 +17,17 @@ model HeatPumpSystem
         origin={50,84})));
   Components.HeatMeter.HeatMeter WMZ146(redeclare package Medium = Medium1) annotation (Placement(transformation(extent={{40,68},{60,48}})));
   Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium2)
-                                                                                     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+                                                                                     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium1)
-                                                                                     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+                                                                                     annotation (Placement(transformation(extent={{56,-40},{76,-20}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,66},{30,84}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=100)
                                                              annotation (Placement(transformation(extent={{20,80},{30,96}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
   Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-8},{120,12}})));
+  Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(extent={{88,0},{92,4}})));
 equation
-  connect(temperature2.T, WMZ246.fFeedTemperature) annotation (Line(points={{117,-10},{117,70},{102,70}}, color={0,0,127}));
+  connect(temperature2.T, WMZ246.fFeedTemperature) annotation (Line(points={{117,70},{117,-30},{102,-30}},color={0,0,127}));
   connect(PU_int_CN.port_a, port_a1) annotation (Line(points={{60,94},{60,100}}, color={0,127,255}));
   connect(HeatPump.port_b1, SV246.port_a) annotation (Line(points={{80,6},{100,6},{100,20}}, color={0,127,255}));
   connect(HeatPump.port_b, SV146.port_a) annotation (Line(points={{80,-8},{80,-14},{60,-14},{60,-20}}, color={0,127,255}));
@@ -43,20 +44,15 @@ equation
   connect(PU_int_CN.fSetPointAutomatic, realExpression.y) annotation (Line(points={{38,83},{34,83},{34,88},{30.5,88}}, color={0,0,127}));
   connect(SV246.fSetPointAutomatic, realExpression.y) annotation (Line(points={{78,31},{34,31},{34,88},{30.5,88}}, color={0,0,127}));
   connect(HeatPump.bAlgorithmPermission, PU_int_CN.bAlgorithmPermission) annotation (Line(points={{58,-3},{30,-3},{30,79},{38,79}}, color={255,0,255}));
-  connect(WMZ246.fHeatFlowRate, SV246.fThermalPowerExternal) annotation (Line(points={{79,70},{95,70},{95,18}}, color={0,0,127}));
-  connect(WMZ246.port_b, port_b2) annotation (Line(points={{100,80},{100,100}}, color={0,127,255}));
-  connect(PU_int_HNLT.fThermalPowerExternal, SV246.fThermalPowerExternal) annotation (Line(points={{95,-82},{96,-82},{96,30},{95,30},{95,18}}, color={0,0,127}));
-  connect(PU_int_HNLT.fTemperatureExternal, temperature2.T) annotation (Line(points={{85,-82},{86,-82},{86,-72},{120,-72},{120,-10},{117,-10}}, color={0,0,127}));
   connect(SV146.fSetPointAutomatic, realExpression.y) annotation (Line(points={{38,-31},{34,-31},{34,88},{30.5,88}}, color={0,0,127}));
   connect(PU_int_HNLT.fSetPointAutomatic, realExpression.y) annotation (Line(points={{78,-69},{34,-69},{34,88},{30.5,88}}, color={0,0,127}));
   connect(HeatPump.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{70,-9},{70,-12},{0,-12},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(SV146.fTemperatureExternal, SV146.fThermalPowerExternal) annotation (Line(points={{45,-18},{55,-18}}, color={0,0,127}));
   connect(SV246.fTemperatureExternal, SV246.fThermalPowerExternal) annotation (Line(points={{85,18},{95,18}}, color={0,0,127}));
-  connect(SV246.port_b, WMZ246.port_a) annotation (Line(points={{100,40},{100,60}}, color={0,127,255}));
   connect(SV146.port_b, port_b1) annotation (Line(points={{60,-40},{60,-100}}, color={0,127,255}));
-  connect(temperature1.port, SV146.port_b) annotation (Line(points={{70,-40},{60,-40}}, color={0,127,255}));
+  connect(temperature1.port, SV146.port_b) annotation (Line(points={{66,-40},{60,-40}}, color={0,127,255}));
   connect(WMZ146.port_a, PU_int_CN.port_b) annotation (Line(points={{60,68},{60,74}}, color={0,127,255}));
-  connect(WMZ146.fFeedTemperature, temperature1.T) annotation (Line(points={{62,58},{74,58},{74,-30},{77,-30}}, color={0,0,127}));
+  connect(WMZ146.fFeedTemperature, temperature1.T) annotation (Line(points={{62,58},{74,58},{74,-30},{73,-30}}, color={0,0,127}));
   connect(WMZ146.fHeatFlowRate, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{39,58},{52,58},{52,96},{55,96}}, color={0,0,127}));
   connect(PU_int_CN.fTemperatureExternal, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{45,96},{46,96},{46,84},{52,84},{52,96},{55,96}}, color={0,0,127}));
   connect(SV146.fThermalPowerExternal, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{55,-18},{55,58},{52,58},{52,96},{55,96}}, color={0,0,127}));
@@ -72,8 +68,14 @@ equation
   connect(HeatPump.bStatusOn, bStatusOn) annotation (Line(points={{65,-9},{65,128},{-70,128},{-70,100},{-50,100},{-50,110}}, color={255,0,255}));
   connect(HeatPump.fSetPointAutomatic, selectSetPoint.fSetPoint) annotation (Line(points={{58,1},{10,1},{10,30},{-59,30}}, color={0,0,127}));
   connect(HeatPump.port_a, WMZ146.port_b) annotation (Line(points={{80,12},{60,12},{60,48}}, color={0,127,255}));
-  connect(HeatPump.port_a1, PU_int_HNLT.port_b) annotation (Line(points={{80.2,-2},{100,-2},{100,-60}}, color={0,127,255}));
-  connect(temperature2.port, PU_int_HNLT.port_b) annotation (Line(points={{110,-20},{100,-20},{100,-60}}, color={0,127,255}));
-  connect(HeatPump.P_el, P_el) annotation (Line(points={{81,2},{110,2}}, color={0,0,127}));
+  connect(SV246.fThermalPowerExternal, WMZ246.fHeatFlowRate) annotation (Line(points={{95,18},{96,18},{96,-30},{79,-30}}, color={0,0,127}));
+  connect(HeatPump.port_a1, WMZ246.port_b) annotation (Line(points={{80.2,-2},{100,-2},{100,-20}}, color={0,127,255}));
+  connect(PU_int_HNLT.port_b, WMZ246.port_a) annotation (Line(points={{100,-60},{100,-40}}, color={0,127,255}));
+  connect(SV246.port_b, port_b2) annotation (Line(points={{100,40},{100,100},{100,100}}, color={0,127,255}));
+  connect(temperature2.port, port_b2) annotation (Line(points={{110,60},{100,60},{100,100}}, color={0,127,255}));
+  connect(PU_int_HNLT.fThermalPowerExternal, WMZ246.fHeatFlowRate) annotation (Line(points={{95,-82},{94,-82},{94,-30},{79,-30}}, color={0,0,127}));
+  connect(PU_int_HNLT.fTemperatureExternal, PU_int_HNLT.fThermalPowerExternal) annotation (Line(points={{85,-82},{95,-82}}, color={0,0,127}));
+  connect(HeatPump.P_el, gain.u) annotation (Line(points={{81,2},{87.6,2}}, color={0,0,127}));
+  connect(gain.y, P_el) annotation (Line(points={{92.2,2},{110,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end HeatPumpSystem;
+end HeatPump2System;

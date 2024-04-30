@@ -58,7 +58,8 @@ model OuterCapillaryTubeMatsSystem
     redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47,
     dp_nominal=50000,
     m_flow_nominal=1.4)                                                                          annotation (Placement(transformation(extent={{-30,-72},{-10,-52}})));
-  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin ConsumerTemperature annotation (Placement(transformation(
+        extent={{-3,-3},{3,3}},
         rotation=180,
         origin={-31,-9})));
 equation
@@ -108,7 +109,7 @@ equation
   connect(OuterCapillaryTubeMats.port_a, pressureDrop.port_b) annotation (Line(points={{-10,-40},{-10,-52}}, color={0,127,255}));
   connect(pressureDrop.port_a, temperature2.port) annotation (Line(points={{-10,-72},{-10,-80},{50,-80}}, color={0,127,255}));
   connect(HeatExchanger6.port_b2, SV235.port_a) annotation (Line(points={{74,10},{100,10},{100,20}}, color={0,127,255}));
-  connect(fromKelvin.Kelvin, OuterCapillaryTubeMats.T_Consumer) annotation (Line(points={{-27.4,-9},{-3,-9},{-3,-19}}, color={0,0,127}));
-  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{-34.3,-9},{-40,-9},{-40,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(ConsumerTemperature.Kelvin, OuterCapillaryTubeMats.T_Consumer) annotation (Line(points={{-27.4,-9},{-3,-9},{-3,-19}}, color={0,0,127}));
+  connect(temperature3.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{83,90},{0,90},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end OuterCapillaryTubeMatsSystem;

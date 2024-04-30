@@ -32,7 +32,8 @@ model CentralMachineHeatingSystem
   Modelica.Blocks.Interfaces.RealInput fHeatFlowRate annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Components.Valves.TwoWayValve SV300(redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin ConsumerTemperature annotation (Placement(transformation(
+        extent={{-3,-3},{3,3}},
         rotation=180,
         origin={29,15})));
 equation
@@ -53,8 +54,7 @@ equation
   connect(PU300.bStatusOn, systemFlowControl.bStatusOn_Components[2]) annotation (Line(points={{65,-19},{65,42},{64,42},{64,100},{-30,100},{-30,81}}, color={255,0,255}));
   connect(PU300.bStatusOn, bStatusOn) annotation (Line(points={{65,-19},{65,100},{-50,100},{-50,110}}, color={255,0,255}));
   connect(SV300.fTemperatureExternal, SV300.fThermalPowerExternal) annotation (Line(points={{65,48},{75,48}}, color={0,0,127}));
-  connect(fromKelvin.Kelvin, consumer_Physical.T_Consumer) annotation (Line(points={{32.6,15},{87,15},{87,11}}, color={0,0,127}));
-  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{25.7,15},{0,15},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(ConsumerTemperature.Kelvin, consumer_Physical.T_Consumer) annotation (Line(points={{32.6,15},{87,15},{87,11}}, color={0,0,127}));
   connect(WMZ300.port_a, SV300.port_b) annotation (Line(points={{80,80},{80,70}}, color={0,127,255}));
   connect(WMZ300.port_b, port_b) annotation (Line(points={{80,100},{100,100}}, color={0,127,255}));
   connect(temperature.port_a, port_a) annotation (Line(points={{80,-80},{80,-100},{100,-100}}, color={0,127,255}));
@@ -62,5 +62,6 @@ equation
   connect(temperature.T, WMZ300.fFeedTemperature) annotation (Line(points={{91,-70},{100,-70},{100,90},{82,90}}, color={0,0,127}));
   connect(WMZ300.fHeatFlowRate, SV300.fThermalPowerExternal) annotation (Line(points={{59,90},{75,90},{75,48}}, color={0,0,127}));
   connect(PU300.fTemperatureExternal, PU300.fThermalPowerExternal) annotation (Line(points={{65,-42},{75,-42}}, color={0,0,127}));
+  connect(PU300.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{70,-19},{70,-14},{0,-14},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CentralMachineHeatingSystem;

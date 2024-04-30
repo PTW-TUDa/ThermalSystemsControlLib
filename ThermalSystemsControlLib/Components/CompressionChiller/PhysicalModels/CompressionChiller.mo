@@ -179,7 +179,7 @@ equation
   connect(pressureDrop.port_a, port_a1) annotation (Line(points={{80,-100},{100,-100}}, color={0,127,255}));
   connect(volume1.ports[2], pressureDrop1.port_a) annotation (Line(points={{4,-40},{60,-40}}, color={0,127,255}));
   connect(pressureDrop1.port_b, port_b) annotation (Line(points={{80,-40},{100,-40},{100,0}}, color={0,127,255}));
-  connect(gain_P_el_nom2.y, P_el) annotation (Line(points={{-78.6,60},{80,60},{80,20},{110,20}}, color={0,0,127}));
+  connect(product_P_el1.y, P_el) annotation (Line(points={{-90,43.4},{6,43.4},{6,20},{110,20}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1)),
     Documentation(info="<html>
 <p>This model is based on the approach by <a href=\"ThermalSystemsControlLib.UsersGuide.References\">[WISC05]</a> </p>

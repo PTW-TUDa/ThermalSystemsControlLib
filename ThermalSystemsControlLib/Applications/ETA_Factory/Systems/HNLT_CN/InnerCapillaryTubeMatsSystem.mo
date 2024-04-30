@@ -83,7 +83,8 @@ model InnerCapillaryTubeMatsSystem
                                                              annotation (Placement(transformation(extent={{42,124},{50,136}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{90,90},{110,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT1(redeclare package Medium = Medium)                                           annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin ConsumerTemperature annotation (Placement(transformation(
+        extent={{-3,-3},{3,3}},
         rotation=90,
         origin={-1,-11})));
 equation
@@ -165,7 +166,7 @@ equation
   connect(SV1.fTemperatureExternal, temperature3.T) annotation (Line(points={{65,142},{66,142},{66,160},{83,160},{83,90}}, color={0,0,127}));
   connect(SV1.bAlgorithmPermission, RV500.bAlgorithmPermission) annotation (Line(points={{58,125},{20,125},{20,65},{38,65}}, color={255,0,255}));
   connect(SV1.bSetStatusOnAutomatic, bHeatingModeAutomatic) annotation (Line(points={{58,121},{4,121},{4,-121},{-80,-121},{-80,-90},{-120,-90}}, color={255,0,255}));
-  connect(fromKelvin.Kelvin, InnerCapillaryTubeMats.T_Consumer) annotation (Line(points={{-1,-14.6},{-1,-39},{-3,-39}}, color={0,0,127}));
-  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{-1,-7.7},{-1,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(ConsumerTemperature.Kelvin, InnerCapillaryTubeMats.T_Consumer) annotation (Line(points={{-1,-14.6},{-1,-39},{-3,-39}}, color={0,0,127}));
+  connect(ConsumerTemperature.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{-1,-7.7},{-1,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end InnerCapillaryTubeMatsSystem;

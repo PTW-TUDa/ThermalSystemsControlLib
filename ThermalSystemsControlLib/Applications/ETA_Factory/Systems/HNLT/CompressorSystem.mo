@@ -41,7 +41,8 @@ model CompressorSystem
         origin={110,30})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{40,46},{52,64}})));
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-20},{80,0}})));
-  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin ConsumerTemperature annotation (Placement(transformation(
+        extent={{-3,-3},{3,3}},
         rotation=180,
         origin={51,13})));
 equation
@@ -73,7 +74,7 @@ equation
   connect(temperature1.T,PU251. fTemperatureExternal) annotation (Line(points={{83,-10},{65,-10},{65,48}}, color={0,0,127}));
   connect(Compressor.Q_flow, fHeatFlowRate) annotation (Line(points={{68,0},{26,0},{26,-30},{-120,-30}}, color={0,0,127}));
   connect(temperature.T, RV251.fTemperatureExternal) annotation (Line(points={{91,90},{65,90},{65,-42}}, color={0,0,127}));
-  connect(fromKelvin.Kelvin, Compressor.T_Consumer) annotation (Line(points={{54.6,13},{86,13},{86,11},{87,11}}, color={0,0,127}));
-  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{47.7,13},{0,13},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(ConsumerTemperature.Kelvin, Compressor.T_Consumer) annotation (Line(points={{54.6,13},{86,13},{86,11},{87,11}}, color={0,0,127}));
+  connect(temperature.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{91,90},{46,90},{46,96},{0,96},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CompressorSystem;

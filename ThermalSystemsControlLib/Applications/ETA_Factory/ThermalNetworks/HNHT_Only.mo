@@ -140,22 +140,6 @@ model HNHT_Only
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)                             annotation (Placement(transformation(extent={{86,2},{96,12}})));
   Modelica.Blocks.Math.Gain gain(k=1000) annotation (Placement(transformation(extent={{106,4},{112,10}})));
-  Modelica.Blocks.Math.MultiSum multiSum_gas(nu=3) annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=180,
-        origin={-70,90})));
-  Modelica.Blocks.Math.MultiSum multiSum_el(nu=2) annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=180,
-        origin={-70,70})));
-  Modelica.Blocks.Interfaces.RealOutput P_gas annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-110,90})));
-  Modelica.Blocks.Interfaces.RealOutput P_el annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-110,70})));
 equation
   //states
   localState1.fUpperTemperature =BufferStorage.localStorageState.fUpperTemperature;
@@ -218,12 +202,5 @@ equation
   connect(combiTimeTable.y[1], gain.u) annotation (Line(points={{96.5,7},{101.25,7},{101.25,7},{105.4,7}}, color={0,0,127}));
   connect(gain.y, CentralMachineHeatingSystem.fHeatFlowRate) annotation (Line(points={{112.3,7},{114.15,7},{114.15,7},{118,7}}, color={0,0,127}));
   connect(lessThreshold.u, gain.u) annotation (Line(points={{103.4,-9},{100,-9},{100,7},{105.4,7}}, color={0,0,127}));
-  connect(multiSum_gas.y, P_gas) annotation (Line(points={{-77.02,90},{-110,90}}, color={0,0,127}));
-  connect(multiSum_el.y, P_el) annotation (Line(points={{-77.02,70},{-110,70}}, color={0,0,127}));
-  connect(CHP2System.P_gas, multiSum_gas.u[1]) annotation (Line(points={{-39,-1},{-30,-1},{-30,87.2},{-64,87.2}}, color={0,0,127}));
-  connect(CHP1System.P_gas, multiSum_gas.u[2]) annotation (Line(points={{1,-1},{10,-1},{10,90},{-64,90}}, color={0,0,127}));
-  connect(CHP1System.P_el, multiSum_el.u[1]) annotation (Line(points={{1,1},{6,1},{6,67.9},{-64,67.9}}, color={0,0,127}));
-  connect(CHP2System.P_el, multiSum_el.u[2]) annotation (Line(points={{-39,1},{-32,1},{-32,72.1},{-64,72.1}}, color={0,0,127}));
-  connect(multiSum_gas.u[3], CondensingBoilerSystem.P_gas) annotation (Line(points={{-64,92.8},{-70,92.8},{-70,1},{-79,1}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNHT_Only;

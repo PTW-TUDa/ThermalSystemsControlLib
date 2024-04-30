@@ -48,9 +48,10 @@ model StaticHeatingSystem
         origin={80,40})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Components.Valves.TwoWayValve SV(k=10, redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fromKelvin annotation (Placement(transformation(extent={{-3,-3},{3,3}},
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin ConsumerTemperature annotation (Placement(transformation(
+        extent={{-3,-3},{3,3}},
         rotation=180,
-        origin={27,55})));
+        origin={29,55})));
 equation
   connect(bAlgorithmPermission,PU350. bAlgorithmPermission) annotation (Line(points={{-120,50},{20,50},{20,15},{58,15}}, color={255,0,255}));
   connect(RV350.bAlgorithmPermission,PU350. bAlgorithmPermission) annotation (Line(points={{58,-55},{20,-55},{20,15},{58,15}}, color={255,0,255}));
@@ -85,8 +86,6 @@ equation
   connect(PU350.fThermalPowerExternal, temperature1.T) annotation (Line(points={{75,-2},{83,-2},{83,-10}}, color={0,0,127}));
   connect(PU350.fTemperatureExternal, PU350.fThermalPowerExternal) annotation (Line(points={{65,-2},{75,-2}}, color={0,0,127}));
   connect(SV.fThermalPowerExternal, StaticHeating.T_Consumer) annotation (Line(points={{75,-42},{75,-44},{88,-44},{88,51},{87,51}}, color={0,0,127}));
-  connect(fromKelvin.Kelvin, StaticHeating.T_Consumer) annotation (Line(points={{30.6,55},{87,55},{87,51}}, color={0,0,127}));
-  connect(fromKelvin.Celsius, selectSetPoint.fOperatingPoint) annotation (Line(points={{23.7,55},{0,55},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(pressureDrop.port_b, pipe2.port_a) annotation (Line(points={{80,80},{100,80},{100,40}}, color={0,127,255}));
   connect(temperature.port_a, port_a) annotation (Line(points={{80,-100},{100,-100}}, color={0,127,255}));
   connect(temperature.port_b, RV350.port_a) annotation (Line(points={{80,-80},{80,-70}}, color={0,127,255}));
@@ -94,5 +93,7 @@ equation
   connect(WMZ350.port_b, port_b) annotation (Line(points={{80,120},{86,120},{86,122},{100,122},{100,100}}, color={0,127,255}));
   connect(WMZ350.fFeedTemperature, temperature.T) annotation (Line(points={{82,110},{120,110},{120,-90},{91,-90}}, color={0,0,127}));
   connect(RV350.fThermalPowerExternal, WMZ350.fHeatFlowRate) annotation (Line(points={{75.2,-72},{110,-72},{110,130},{59,130},{59,110}}, color={0,0,127}));
+  connect(ConsumerTemperature.Kelvin, StaticHeating.T_Consumer) annotation (Line(points={{32.6,55},{87,55},{87,51}}, color={0,0,127}));
+  connect(temperature1.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{83,-10},{0,-10},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end StaticHeatingSystem;

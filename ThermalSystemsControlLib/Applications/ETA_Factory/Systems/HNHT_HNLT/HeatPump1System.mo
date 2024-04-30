@@ -1,5 +1,5 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT_HNLT;
-model HeatPumpSystem
+model HeatPump1System
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=3));
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidFourPort_CounterFlow;
   extends ThermalSystemsControlLib.BaseClasses.Icons.CompressionChiller_Icon;
@@ -21,7 +21,7 @@ model HeatPumpSystem
     redeclare package Medium = Medium1,
     redeclare package Medium1 = Medium2,
     k=0.1,
-    redeclare Records.HP2 deviceData) annotation (Placement(transformation(extent={{120,10},{140,-10}})));
+    redeclare Records.HP1 deviceData) annotation (Placement(transformation(extent={{120,10},{140,-10}})));
   Components.Valves.ThreeWayValve RV242(k=0.1, redeclare Records.SV deviceData) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -40,6 +40,14 @@ model HeatPumpSystem
   Modelica.Blocks.Sources.IntegerExpression integerExpression6(y=0) annotation (Placement(transformation(extent={{124,70},{132,80}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression7(y=1) annotation (Placement(transformation(extent={{108,0},{116,10}})));
   Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fReturnTemperature_cold annotation (Placement(transformation(
+        extent={{-3,-3},{3,3}},
+        rotation=180,
+        origin={91,55})));
+  Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(
+        extent={{-2,-2},{2,2}},
+        rotation=90,
+        origin={140,26})));
 equation
   connect(RV342.port_a1, pipe2.port_b) annotation (Line(points={{160,70},{180,70},{180,10}}, color={0,127,255}));
   connect(PU_int.port_b, HeatPump.port_a1) annotation (Line(points={{160,-20},{160,-4},{140.2,-4}}, color={0,127,255}));
@@ -90,6 +98,8 @@ equation
   connect(HeatPump.port_b1, RV342.port_b) annotation (Line(points={{140,4},{160,4},{160,60}}, color={0,127,255}));
   connect(port_b1, RV242.port_a1) annotation (Line(points={{60,-100},{80,-100},{80,80},{60,80}}, color={0,127,255}));
   connect(PU242.port_b, HeatPump.port_a) annotation (Line(points={{60,20},{60,10},{140,10}}, color={0,127,255}));
-  connect(HeatPump.P_el, P_el) annotation (Line(points={{141,0},{140,0},{140,40},{110,40}}, color={0,0,127}));
+  connect(fReturnTemperature_cold.Kelvin, temperature1.T) annotation (Line(points={{94.6,55},{116,55},{116,54},{117,54},{117,30}}, color={0,0,127}));
+  connect(HeatPump.P_el, gain.u) annotation (Line(points={{141,0},{140,0},{140,23.6}}, color={0,0,127}));
+  connect(gain.y, P_el) annotation (Line(points={{140,28.2},{140,40},{110,40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end HeatPumpSystem;
+end HeatPump1System;

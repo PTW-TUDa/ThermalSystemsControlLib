@@ -40,6 +40,12 @@ model HeatExchanger1System
   Modelica.Blocks.Sources.IntegerExpression integerExpression4(y=0) annotation (Placement(transformation(extent={{64,-40},{72,-30}})));
   Modelica.Fluid.Sensors.Temperature temperature2(redeclare package Medium = Medium2)
                                                                                      annotation (Placement(transformation(extent={{60,-80},{40,-60}})));
+  Modelica.Fluid.Sensors.Temperature temperature3(redeclare package Medium = Medium2)
+                                                                                     annotation (Placement(transformation(extent={{0,-40},{-20,-20}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin fFeedTemperature_hot annotation (Placement(transformation(
+        extent={{-3,-3},{3,3}},
+        rotation=180,
+        origin={-31,-29})));
 equation
   connect(WMZ215.port_a, port_a2) annotation (Line(points={{100,-80},{100,-100}}, color={0,127,255}));
   connect(PU215.port_a, WMZ215.port_b) annotation (Line(points={{100,-40},{100,-60}}, color={0,127,255}));
@@ -66,7 +72,6 @@ equation
   connect(PU315.bStatusOn, systemFlowControl.bStatusOn_Components[2]) annotation (Line(points={{45,19},{45,81},{-30,81}}, color={255,0,255}));
   connect(PU315.bStatusOn, bStatusOn) annotation (Line(points={{45,19},{45,100},{-50,100},{-50,110}}, color={255,0,255}));
   connect(temperature1.T,RV315. fTemperatureExternal) annotation (Line(points={{85,70},{80,70},{80,90},{45,90},{45,82}}, color={0,0,127}));
-  connect(temperature1.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{85,70},{80,70},{80,90},{0,90},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(WMZ215.fFeedTemperature, temperature1.T) annotation (Line(points={{102,-70},{120,-70},{120,70},{85,70}}, color={0,0,127}));
   connect(WMZ215.fHeatFlowRate,SV215. fThermalPowerExternal) annotation (Line(points={{79,-70},{95,-70},{95,18}}, color={0,0,127}));
   connect(PU315.fThermalPowerExternal,SV215. fThermalPowerExternal) annotation (Line(points={{55,42},{55,48},{95,48},{95,18}}, color={0,0,127}));
@@ -83,5 +88,8 @@ equation
   connect(temperature2.port, HeatExchanger1.port_b1) annotation (Line(points={{50,-80},{60,-80},{60,-10},{66,-10}}, color={0,127,255}));
   connect(temperature2.T, PU315.fTemperatureExternal) annotation (Line(points={{43,-70},{40,-70},{40,42},{45,42}}, color={0,0,127}));
   connect(SV215.fTemperatureExternal,SV215. fThermalPowerExternal) annotation (Line(points={{85,18},{90.5,18},{90.5,18},{95,18}}, color={0,0,127}));
+  connect(temperature3.port, PU315.port_b) annotation (Line(points={{-10,-40},{20,-40},{20,16},{60,16},{60,20}}, color={0,127,255}));
+  connect(fFeedTemperature_hot.Kelvin, temperature3.T) annotation (Line(points={{-27.4,-29},{-17,-29},{-17,-30}}, color={0,0,127}));
+  connect(temperature1.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{85,70},{84,70},{84,94},{0,94},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HeatExchanger1System;
