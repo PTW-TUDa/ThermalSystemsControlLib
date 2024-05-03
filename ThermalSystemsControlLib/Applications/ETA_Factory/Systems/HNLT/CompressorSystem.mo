@@ -70,11 +70,11 @@ equation
   connect(pipe2.port_a,PU251. port_b) annotation (Line(points={{100,40},{100,70},{80,70}}, color={0,127,255}));
   connect(selectSetPoint.fSetPoint,RV251. fSetPointAutomatic) annotation (Line(points={{-59,30},{32,30},{32,-29},{58,-29}}, color={0,0,127}));
   connect(PU251.nControlModeAutomatic, integerExpression1.y) annotation (Line(points={{58,55},{52.6,55}}, color={255,127,0}));
-  connect(temperature1.port,RV251. port_b) annotation (Line(points={{90,-20},{80,-20}}, color={0,127,255}));
-  connect(temperature1.T,PU251. fTemperatureExternal) annotation (Line(points={{83,-10},{65,-10},{65,48}}, color={0,0,127}));
   connect(Compressor.Q_flow, fHeatFlowRate) annotation (Line(points={{68,0},{26,0},{26,-30},{-120,-30}}, color={0,0,127}));
-  connect(temperature.T, RV251.fTemperatureExternal) annotation (Line(points={{91,90},{65,90},{65,-42}}, color={0,0,127}));
   connect(ConsumerTemperature.Kelvin, Compressor.T_Consumer) annotation (Line(points={{54.6,13},{86,13},{86,11},{87,11}}, color={0,0,127}));
   connect(temperature.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{91,90},{46,90},{46,96},{0,96},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
+  connect(PU251.fTemperatureExternal, temperature1.T) annotation (Line(points={{65,48},{65,-10},{83,-10}}, color={0,0,127}));
+  connect(RV251.fTemperatureExternal, temperature1.T) annotation (Line(points={{65,-42},{66,-42},{66,-10},{83,-10}}, color={0,0,127}));
+  connect(temperature1.port, RV251.port_b) annotation (Line(points={{90,-20},{80,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end CompressorSystem;

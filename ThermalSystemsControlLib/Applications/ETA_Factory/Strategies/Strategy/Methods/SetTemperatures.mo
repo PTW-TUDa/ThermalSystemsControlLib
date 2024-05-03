@@ -6,7 +6,7 @@ model SetTemperatures
 equation
   if not localSetParameters.bProductionModeActivated then
     localState.fTargetTemperature_HNHT_Heating = 273.15+50;
-    localState.fTargetTemperature_HNHT_Cooling = 273.15+70;
+    localState.fTargetTemperature_HNHT_Cooling = 273.15+65;
     localState.fTargetTemperature_HNLT_Cooling = 273.15+46;
     localState.fTargetTemperature_HNLT_Heating = 273.15+40;
 
@@ -19,10 +19,10 @@ equation
     end if;
 
     localState.aTemperatureLimits_HNHT = {273.15+40,273.15+70};
-    localState.aTemperatureLimits_HNLT = {273.15+30,273.15+50};
-    localState.aTemperatureLimits_CN = {273.15+5,273.15+25};
+    localState.aTemperatureLimits_HNLT = {273.15+30,273.15+55};
+    localState.aTemperatureLimits_CN = {273.15+10,273.15+25};
   else
-    localState.fTargetTemperature_HNHT_Heating = 273.15+60;
+    localState.fTargetTemperature_HNHT_Heating = 273.15+70;
     localState.fTargetTemperature_HNHT_Cooling = 273.15+80;
     localState.fTargetTemperature_HNLT_Cooling = 273.15+40;
     localState.fTargetTemperature_HNLT_Heating = 273.15+34;
@@ -33,18 +33,13 @@ equation
     end if;
 
     localState.aTemperatureLimits_HNHT = {273.15+45,273.15+85};
-    localState.aTemperatureLimits_HNLT = {273.15+10,273.15+45};
-    localState.aTemperatureLimits_CN = {273.15+5,273.15+25};
+    localState.aTemperatureLimits_HNLT = {273.15+10,273.15+50};
+    localState.aTemperatureLimits_CN = {273.15+10,273.15+25};
   end if;
   localState.fFeedTemperature_HNHT = localState.fTargetTemperature_HNHT_Heating+4;
   localState.fFeedTemperature_HNLT_Heating = localState.fTargetTemperature_HNLT_Heating+4;
   localState.fFeedTemperature_HNLT_Cooling = localState.fTargetTemperature_HNLT_Cooling-6;
-
-  if time>604800 then
-    localState.fFeedTemperature_CN = localState.fTargetTemperature_CN;
-  else
-    localState.fFeedTemperature_CN = localState.fTargetTemperature_CN-5;
-  end if;
+  localState.fFeedTemperature_CN = localState.fTargetTemperature_CN-5;
 
   localState.fTargetTemperature_ProductionHall = 273.15+19;
   localState.bProductionModeActivated = localSetParameters.bProductionModeActivated;

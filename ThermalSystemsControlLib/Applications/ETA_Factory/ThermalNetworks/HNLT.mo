@@ -131,7 +131,7 @@ equation
   HVFASystem.fSetPointAutomatic = 70;
   HVFASystem.bLoadingAutomatic = controlAutomatic.bLoading_HVFASystem;
   CompressorSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  CompressorSystem.fSetPointAutomatic = controlAutomatic.fFeedTemperature_Heating;
+  CompressorSystem.fSetPointAutomatic = controlAutomatic.fFeedTemperature_Heating-5;
   ambientState.fOutsideTemperature = OuterCapillaryTubeMats.fAmbientTemperature;
 
   connect(localState.thermalNetworkState1, localState1) annotation (Line(points={{-79,90},{-50,90},{-50,110}}, color={0,0,0}));

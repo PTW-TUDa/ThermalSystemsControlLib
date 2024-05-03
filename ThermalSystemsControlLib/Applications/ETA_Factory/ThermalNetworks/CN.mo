@@ -123,7 +123,7 @@ equation
 
   //controls
   CentralMachineCoolingSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  CentralMachineCoolingSystem.fSetPointAutomatic = 75;
+  CentralMachineCoolingSystem.fSetPointAutomatic = 3;
   HVFASystem.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_HVFASystem;
   HVFASystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
   HVFASystem.fSetPointAutomatic = 40;

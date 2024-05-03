@@ -108,7 +108,7 @@ model HNLT_CN
 equation
   HeatPump2System.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_HeatPump;
   HeatPump2System.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission_CN and controlAutomatic.bAlgorithmPermission_HNLT;
-  HeatPump2System.fSetPointAutomatic = controlAutomatic.fFeedTemperature_HNLT_Heating;
+  HeatPump2System.fSetPointAutomatic = 100;
   UnderfloorHeatingSystem.bSetStatusOnAutomatic = true;
   UnderfloorHeatingSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission_CN and controlAutomatic.bAlgorithmPermission_HNLT;
   UnderfloorHeatingSystem.fSetPointAutomatic = controlAutomatic.fTargetTemperature_ProductionHall;

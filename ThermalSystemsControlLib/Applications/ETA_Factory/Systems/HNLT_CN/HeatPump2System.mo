@@ -23,7 +23,7 @@ model HeatPump2System
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,66},{30,84}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=100)
                                                              annotation (Placement(transformation(extent={{20,80},{30,96}})));
-  Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
+  Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
   Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-8},{120,12}})));
   Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(extent={{88,0},{92,4}})));
 equation
