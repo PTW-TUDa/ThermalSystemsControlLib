@@ -21,6 +21,7 @@ model eChillerSystem
   Modelica.Blocks.Sources.IntegerExpression integerExpression3(y=1) annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(extent={{86,2},{90,6}})));
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=273.15 + 30, uMin=273.15 + 15) annotation (Placement(transformation(extent={{-24,20},{-4,40}})));
 equation
   connect(temperature.port_b, port_b) annotation (Line(points={{80,100},{100,100}}, color={0,127,255}));
   connect(temperature.T,WMZ138. fFeedTemperature) annotation (Line(points={{91,90},{96,90},{96,-70},{82,-70}}, color={0,0,127}));
@@ -37,7 +38,6 @@ equation
   connect(integerExpression1.y,PU138. nControlModeAutomatic) annotation (Line(points={{41,-50},{58,-50},{58,-35}}, color={255,127,0}));
   connect(eChiller.port_a, PU138.port_b) annotation (Line(points={{80,-8},{80,-20}}, color={0,127,255}));
   connect(eChiller.T_air, fAmbientTemperature) annotation (Line(points={{70,-10},{70,-14},{-60,-14},{-60,-70},{-120,-70}}, color={0,0,127}));
-  connect(selectSetPoint.fSetPoint, eChiller.fSetPointAutomatic) annotation (Line(points={{-59,30},{10,30},{10,3},{58,3}}, color={0,0,127}));
   connect(eChiller.bAlgorithmPermission, bAlgorithmPermission) annotation (Line(points={{58,7},{40,7},{40,50},{-120,50}}, color={255,0,255}));
   connect(temperature.T, selectSetPoint.fOperatingPoint) annotation (Line(points={{91,90},{0,90},{0,0},{-70,0},{-70,18}}, color={0,0,127}));
   connect(PU138.fSetPointAutomatic, realExpression.y) annotation (Line(points={{58,-29},{50,-29},{50,50},{41,50}}, color={0,0,127}));
@@ -53,5 +53,7 @@ equation
   connect(eChiller.port_b, SV138.port_a) annotation (Line(points={{80,12},{80,50}}, color={0,127,255}));
   connect(eChiller.P_el, gain.u) annotation (Line(points={{81,4},{85.6,4}}, color={0,0,127}));
   connect(gain.y, P_el) annotation (Line(points={{90.2,4},{96,4},{96,0},{110,0}}, color={0,0,127}));
+  connect(selectSetPoint.fSetPoint, limiter.u) annotation (Line(points={{-59,30},{-26,30}}, color={0,0,127}));
+  connect(limiter.y, eChiller.fSetPointAutomatic) annotation (Line(points={{-3,30},{10,30},{10,3},{58,3}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end eChillerSystem;

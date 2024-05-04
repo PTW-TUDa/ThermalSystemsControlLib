@@ -31,7 +31,7 @@ model CentralMachineHeatingSystem
         origin={80,0})));
   Modelica.Blocks.Interfaces.RealInput fHeatFlowRate annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Components.Valves.TwoWayValve SV300(redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=3) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Thermal.HeatTransfer.Celsius.FromKelvin ConsumerTemperature annotation (Placement(transformation(
         extent={{-3,-3},{3,3}},
         rotation=180,
