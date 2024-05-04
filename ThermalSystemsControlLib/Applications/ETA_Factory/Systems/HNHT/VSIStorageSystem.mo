@@ -31,7 +31,7 @@ model VSIStorageSystem
         origin={30,150})));
   Components.Pipes.PhysicalModels.Pipe pipe2(
     length=200,
-    diameter=0.03,
+    diameter=0.05,
     n_Bending=10)
                  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

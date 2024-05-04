@@ -34,7 +34,7 @@ model CondensingBoilerSystem
         origin={110,30})));
   Components.Pipes.PhysicalModels.Pipe pipe1(
     length=8.95,
-    diameter=0.013,
+    diameter=0.01,
     n_Bending=12)
                  annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},

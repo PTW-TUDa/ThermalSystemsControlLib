@@ -9,14 +9,14 @@ model HNHT_HNLT
   ThermalSystemsControlLib.Applications.ETA_Factory.Systems.HNHT_HNLT.HeatExchanger1System HeatExchanger1System annotation (Placement(transformation(extent={{40,-12},{60,8}})));
   Components.Pipes.PhysicalModels.Pipe pipe8(
     length=30,
-    diameter=0.03,
+    diameter=0.04,
     n_Bending=5) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={70,50})));
   Components.Pipes.PhysicalModels.Pipe pipe1(
     length=30,
-    diameter=0.03,
+    diameter=0.04,
     n_Bending=5) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -55,20 +55,6 @@ model HNHT_HNLT
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-10,-30})));
-  Components.Pipes.PhysicalModels.Pipe pipe6(
-    length=10,
-    diameter=0.04,
-    n_Bending=5) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-70,90})));
-  Components.Pipes.PhysicalModels.Pipe pipe7(
-    length=10,
-    diameter=0.04,
-    n_Bending=5) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-70,-90})));
 equation
   HeatExchanger1System.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_HeatExchanger1;
   HeatExchanger1System.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission_HNHT and controlAutomatic.bAlgorithmPermission_HNLT;
@@ -90,9 +76,7 @@ equation
   connect(pipe4.port_a, port_a_HNLT_Consumer) annotation (Line(points={{-1.77636e-15,20},{100,20},{100,60}}, color={0,127,255}));
   connect(HeatPump1System.port_b1, pipe5.port_a) annotation (Line(points={{-56,-10},{-56,-20},{-20,-20}}, color={0,127,255}));
   connect(pipe5.port_b, port_b_HNLT_Consumer) annotation (Line(points={{0,-20},{100,-20},{100,-60}}, color={0,127,255}));
-  connect(port_b_HNHT_Producer, pipe6.port_b) annotation (Line(points={{-100,100},{-80,100}}, color={0,127,255}));
-  connect(pipe6.port_a, HeatPump1System.port_b2) annotation (Line(points={{-60,100},{-60,10}}, color={0,127,255}));
-  connect(port_a_HNHT_Producer, pipe7.port_a) annotation (Line(points={{-100,-100},{-80,-100}}, color={0,127,255}));
-  connect(pipe7.port_b, HeatPump1System.port_a2) annotation (Line(points={{-60,-100},{-60,-10}}, color={0,127,255}));
+  connect(port_a_HNHT_Producer, HeatPump1System.port_a2) annotation (Line(points={{-100,-100},{-60,-100},{-60,-10}}, color={0,127,255}));
+  connect(port_b_HNHT_Producer, HeatPump1System.port_b2) annotation (Line(points={{-100,100},{-60,100},{-60,10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end HNHT_HNLT;

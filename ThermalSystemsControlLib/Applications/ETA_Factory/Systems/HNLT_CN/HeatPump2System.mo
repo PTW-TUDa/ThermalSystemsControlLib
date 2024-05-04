@@ -23,7 +23,7 @@ model HeatPump2System
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,66},{30,84}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=100)
                                                              annotation (Placement(transformation(extent={{20,80},{30,96}})));
-  Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
+  Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=2) annotation (Placement(transformation(extent={{40,-2},{50,16}})));
   Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-8},{120,12}})));
   Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(extent={{88,0},{92,4}})));
 equation
@@ -52,7 +52,7 @@ equation
   connect(SV146.port_b, port_b1) annotation (Line(points={{60,-40},{60,-100}}, color={0,127,255}));
   connect(temperature1.port, SV146.port_b) annotation (Line(points={{66,-40},{60,-40}}, color={0,127,255}));
   connect(WMZ146.port_a, PU_int_CN.port_b) annotation (Line(points={{60,68},{60,74}}, color={0,127,255}));
-  connect(WMZ146.fFeedTemperature, temperature1.T) annotation (Line(points={{62,58},{74,58},{74,-30},{73,-30}}, color={0,0,127}));
+  connect(WMZ146.fFeedTemperature, temperature1.T) annotation (Line(points={{62,58},{72,58},{72,-30},{73,-30}}, color={0,0,127}));
   connect(WMZ146.fHeatFlowRate, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{39,58},{52,58},{52,96},{55,96}}, color={0,0,127}));
   connect(PU_int_CN.fTemperatureExternal, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{45,96},{46,96},{46,84},{52,84},{52,96},{55,96}}, color={0,0,127}));
   connect(SV146.fThermalPowerExternal, PU_int_CN.fThermalPowerExternal) annotation (Line(points={{55,-18},{55,58},{52,58},{52,96},{55,96}}, color={0,0,127}));

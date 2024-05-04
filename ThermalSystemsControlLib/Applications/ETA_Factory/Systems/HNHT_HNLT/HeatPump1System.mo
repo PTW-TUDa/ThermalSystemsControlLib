@@ -3,7 +3,7 @@ model HeatPump1System
   extends ThermalSystemsControlLib.BaseClasses.AutomationBaseClasses.SystemContinuous(systemFlowControl(nComponents=3));
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidFourPort_CounterFlow;
   extends ThermalSystemsControlLib.BaseClasses.Icons.CompressionChiller_Icon;
-  Components.Pumps.Pump PU_int(pumpType=1) annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
+  Components.Pumps.Pump PU_int(pumpType=3) annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
   Components.HeatMeter.HeatMeter WMZ342 annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Components.Valves.ThreeWayValve RV342(k=5,   redeclare ThermalSystemsControlLib.Applications.ETA_Factory.Records.SV deviceData) annotation (Placement(transformation(extent={{140,80},{160,60}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=50) annotation (Placement(transformation(extent={{26,24},{34,34}})));

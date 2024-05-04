@@ -37,7 +37,7 @@ model CHP2System
         origin={110,30})));
   Components.Pipes.PhysicalModels.Pipe pipe1(
     length=30,
-    diameter=0.015,
+    diameter=0.018,
     n_Bending=0) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,

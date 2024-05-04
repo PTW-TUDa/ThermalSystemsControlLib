@@ -74,16 +74,14 @@ model HNLT
   Components.Pipes.PhysicalModels.Pipe pipe11(
     length=14,
     diameter=0.05,
-    n_Bending=12)
-                 annotation (Placement(transformation(
+    n_Bending=5) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={70,50})));
   Components.Pipes.PhysicalModels.Pipe pipe12(
     length=14,
     diameter=0.05,
-    n_Bending=12)
-                 annotation (Placement(transformation(
+    n_Bending=5) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={70,-50})));

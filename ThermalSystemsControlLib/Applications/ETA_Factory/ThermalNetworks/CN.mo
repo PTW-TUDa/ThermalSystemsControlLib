@@ -46,7 +46,7 @@ model CN
   Modelica.Fluid.Interfaces.FluidPort_b port_b_HNLT_Producer(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater)                                     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Components.Pipes.PhysicalModels.Pipe pipe4(
     length=100,
-    diameter=0.05,
+    diameter=0.04,
     n_Bending=10)
                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -54,7 +54,7 @@ model CN
         origin={-30,30})));
   Components.Pipes.PhysicalModels.Pipe pipe5(
     length=100,
-    diameter=0.05,
+    diameter=0.04,
     n_Bending=10)
                  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

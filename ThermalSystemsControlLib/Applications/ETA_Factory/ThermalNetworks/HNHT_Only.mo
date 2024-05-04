@@ -164,10 +164,10 @@ equation
   //VSIStorageSystem.bSetStatusOnAutomatic = controlAutomatic.bSetStatusOn_VSIStorage;
   VSIStorageSystem.bSetStatusOnAutomatic = true;
   VSIStorageSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  VSIStorageSystem.fSetPointAutomatic = 100;
+  VSIStorageSystem.fSetPointAutomatic = 30;
   VSIStorageSystem.bLoadingAutomatic = controlAutomatic.bLoading_VSIStorage;
   CentralMachineHeatingSystem.bAlgorithmPermission = controlAutomatic.bAlgorithmPermission;
-  CentralMachineHeatingSystem.fSetPointAutomatic  = 100;
+  CentralMachineHeatingSystem.fSetPointAutomatic  = 5;
   ambientState.fOutsideTemperature = StaticHeatingSystem.fAmbientTemperature;
 
   connect(localState.thermalNetworkState1, localState1) annotation (Line(points={{79,90},{50,90},{50,110}},    color={0,0,0}));
