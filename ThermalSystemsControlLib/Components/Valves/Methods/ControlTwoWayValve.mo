@@ -16,7 +16,7 @@ model ControlTwoWayValve
         origin={0,-120})));
   Modelica.Blocks.Continuous.LimPID PID_ThermalPower(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=k,
+    k=1,
     yMax=1,
     yMin=0,
     initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{20,-40},{40,-20}})));

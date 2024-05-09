@@ -45,7 +45,7 @@ equation
   Controller_HVFA_HNLT_Recooling.reference = hnltState.fLowerTemperature_ActiveStorage;
   Controller_HVFA_HNLT_Recooling.u = strategyState.fFeedTemperature_HNLT_Cooling-fOffset_HVFA_HNLT_Recooling;
 
-  if time>604800 then
+  if not strategyState.bHeatingModeActivated then
     hnltControl.bSetStatusOn_HVFASystem = (Controller_HVFA_HNLT_HVFALoadingPermission.y and Controller_Buffer_HVFA_HNLT_HVFALoading.y) or (Controller_HVFA_HNLT_HVFAUnloadingPermission.y and Controller_Buffer_HVFA_HNLT_HVFAUnloading.y) or (Controller_HVFA_HNLT_Recooling.y and Controller_OuterCapillaryTubeMats_Permission.y);
     hnltControl.bLoading_HVFASystem = Controller_HVFA_HNLT_HVFALoadingPermission.y and Controller_Buffer_HVFA_HNLT_HVFALoading.y;
     hnltControl.bSetStatusOn_OuterCapillaryTubeMats = (Controller_OuterCapillaryTubeMats.y and Controller_OuterCapillaryTubeMats_Permission.y) or (Controller_HVFA_HNLT_Recooling.y and Controller_OuterCapillaryTubeMats_Permission.y);

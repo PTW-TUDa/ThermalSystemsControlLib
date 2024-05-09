@@ -37,7 +37,7 @@ equation
   Controller_Buffer_HVFA_CN_Unloading.reference = cnState.fMidTemperature;
   Controller_Buffer_HVFA_CN_Unloading.u = strategyState.fTargetTemperature_CN+fOffset_TargetTemperature_HVFA_CN;
 
-  if time>604800 then
+  if not strategyState.bHeatingModeActivated then
     cnControl.bSetStatusOn_HVFASystem = false;
     cnControl.bLoading_HVFASystem = false;
   else

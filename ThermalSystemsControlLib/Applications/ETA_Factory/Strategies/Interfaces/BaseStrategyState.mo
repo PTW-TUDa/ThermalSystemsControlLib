@@ -7,6 +7,7 @@ connector BaseStrategyState
     Real fTargetTemperature_CN;
     Real fTargetTemperature_ProductionHall;
     Boolean bProductionModeActivated;
+    Boolean bHeatingModeActivated;
 
     Real aTemperatureLimits_HNHT[2];
     Real aTemperatureLimits_HNLT[2];

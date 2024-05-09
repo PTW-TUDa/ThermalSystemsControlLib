@@ -32,12 +32,7 @@ equation
 
   //heating systems
   hnltCnLinkageControl.fTargetTemperature_ProductionHall = strategyState.fTargetTemperature_ProductionHall;
-
-  if time>604800 then
-    hnltCnLinkageControl.bHeatingMode = false;
-  else
-    hnltCnLinkageControl.bHeatingMode = true;
-  end if;
+  hnltCnLinkageControl.bHeatingMode = strategyState.bHeatingModeActivated;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ControlHnltCnLinkage;
