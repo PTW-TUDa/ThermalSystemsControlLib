@@ -26,13 +26,13 @@ model ControlHNHT
   Modelica.Blocks.Logical.FallingEdge fallingEdge_CHP1_LowerTemperature annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Logical.FallingEdge fallingEdge_CHP2_LowerTemperature annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Logical.OnOffController Controller_StaticHeating(bandwidth=4) annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  BaseClasses.Utilities.RangeCheck RangeCheck(
+    fRestoreDifference=5) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   //algortihm permission and general control
-  if hnhtState.fMidTemperature > strategyState.aTemperatureLimits_HNHT[1] and hnhtState.fMidTemperature < strategyState.aTemperatureLimits_HNHT[2] then
-    hnhtControl.bAlgorithmPermission = true;
-  else
-    hnhtControl.bAlgorithmPermission = false;
-  end if;
+  RangeCheck.u = hnhtState.fMidTemperature;
+  RangeCheck.aTemperatureLimits = strategyState.aTemperatureLimits_HNHT;
+  hnhtControl.bAlgorithmPermission = RangeCheck.y;
   hnhtControl.fFeedTemperature = strategyState.fFeedTemperature_HNHT;
 
   //chp prioritization

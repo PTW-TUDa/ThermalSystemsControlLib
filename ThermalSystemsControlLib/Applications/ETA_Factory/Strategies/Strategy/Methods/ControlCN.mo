@@ -13,13 +13,13 @@ model ControlCN
   Modelica.Blocks.Logical.OnOffController Controller_HVFA_CN_UnloadingPermission(bandwidth=1) annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Logical.OnOffController Controller_Buffer_HVFA_CN_Unloading(bandwidth=2) annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Modelica.Blocks.Logical.OnOffController Controller_Buffer_HVFA_CN_Loading(bandwidth=2) annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  BaseClasses.Utilities.RangeCheck RangeCheck(fRestoreDifference=2)
+                          annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   //algortihm permission and general control
-  if cnState.fMidTemperature > strategyState.aTemperatureLimits_CN[1] and cnState.fMidTemperature < strategyState.aTemperatureLimits_CN[2] then
-    cnControl.bAlgorithmPermission = true;
-  else
-    cnControl.bAlgorithmPermission = false;
-  end if;
+  RangeCheck.u = cnState.fMidTemperature;
+  RangeCheck.aTemperatureLimits = strategyState.aTemperatureLimits_CN;
+  cnControl.bAlgorithmPermission = RangeCheck.y;
   cnControl.fFeedTemperature = strategyState.fFeedTemperature_CN;
 
   //eChiller control

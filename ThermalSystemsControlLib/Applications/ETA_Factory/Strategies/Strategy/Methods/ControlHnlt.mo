@@ -17,13 +17,13 @@ model ControlHnlt
   Modelica.Blocks.Logical.OnOffController Controller_Buffer_HVFA_HNLT_HVFALoading(bandwidth=4) annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Logical.OnOffController Controller_HVFA_HNLT_Recooling(bandwidth=4) annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   ThermalNetworks.Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  BaseClasses.Utilities.RangeCheck RangeCheck(fRestoreDifference=5)
+                          annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
   //algortihm permission and general control
-  if hnltState.fMidTemperature > strategyState.aTemperatureLimits_HNLT[1] and hnltState.fMidTemperature < strategyState.aTemperatureLimits_HNLT[2] then
-    hnltControl.bAlgorithmPermission = true;
-  else
-    hnltControl.bAlgorithmPermission = false;
-  end if;
+  RangeCheck.u = hnltState.fMidTemperature;
+  RangeCheck.aTemperatureLimits = strategyState.aTemperatureLimits_HNLT;
+  hnltControl.bAlgorithmPermission = RangeCheck.y;
   hnltControl.fFeedTemperature_Heating = strategyState.fFeedTemperature_HNLT_Heating;
   hnltControl.fFeedTemperature_Cooling = strategyState.fFeedTemperature_HNLT_Cooling;
 

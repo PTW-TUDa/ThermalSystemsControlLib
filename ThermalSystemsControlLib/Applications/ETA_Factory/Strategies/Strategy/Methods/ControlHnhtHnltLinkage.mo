@@ -12,18 +12,16 @@ model ControlHnhtHnltLinkage
   ThermalNetworks.Interfaces.hnhtHnltLinkageControl hnhtHnltLinkageControl annotation (Placement(transformation(extent={{-8,-120},{12,-100}})));
   Modelica.Blocks.Logical.OnOffController Controller_HeatPump_HNHT(bandwidth=10) annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.Blocks.Logical.OnOffController Controller_HeatPump_HNHT_Permission(bandwidth=4) annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+  BaseClasses.Utilities.RangeCheck RangeCheck_HNHT(fRestoreDifference=5) annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  BaseClasses.Utilities.RangeCheck RangeCheck_HNLT(fRestoreDifference=5) annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   //algortihm permission and general control
-  if hnhtState.fMidTemperature > strategyState.aTemperatureLimits_HNHT[1] and hnhtState.fMidTemperature < strategyState.aTemperatureLimits_HNHT[2] then
-    hnhtHnltLinkageControl.bAlgorithmPermission_HNHT = true;
-  else
-    hnhtHnltLinkageControl.bAlgorithmPermission_HNHT = false;
-  end if;
-  if hnltState.fMidTemperature > strategyState.aTemperatureLimits_HNLT[1] and hnltState.fMidTemperature < strategyState.aTemperatureLimits_HNLT[2] then
-    hnhtHnltLinkageControl.bAlgorithmPermission_HNLT = true;
-  else
-    hnhtHnltLinkageControl.bAlgorithmPermission_HNLT = false;
-  end if;
+  RangeCheck_HNHT.u = hnhtState.fMidTemperature;
+  RangeCheck_HNHT.aTemperatureLimits = strategyState.aTemperatureLimits_HNHT;
+  RangeCheck_HNLT.u = hnltState.fMidTemperature;
+  RangeCheck_HNLT.aTemperatureLimits = strategyState.aTemperatureLimits_HNLT;
+  hnhtHnltLinkageControl.bAlgorithmPermission_HNHT = RangeCheck_HNHT.y;
+  hnhtHnltLinkageControl.bAlgorithmPermission_HNLT = RangeCheck_HNLT.y;
   hnhtHnltLinkageControl.fFeedTemperature_HNLT_Heating = strategyState.fFeedTemperature_HNLT_Heating;
   hnhtHnltLinkageControl.fFeedTemperature_HNHT = strategyState.fFeedTemperature_HNHT;
 
