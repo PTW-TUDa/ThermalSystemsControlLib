@@ -35,13 +35,13 @@ equation
   connect(controlChiller.fSetPointInternal, compressionChiller_Simplified_Physical.fSetPoint) annotation (Line(points={{1,-50},{40,-50},{40,2},{58,2}},                     color={0,0,127}));
   connect(bStatusOn, bStatusOn) annotation (Line(points={{-50,110},{-50,110}}, color={255,0,255}));
   connect(compressionChiller_Simplified_Physical.port_a, port_a) annotation (Line(points={{70,-8},{70,-100},{100,-100}},  color={0,127,255}));
-  connect(compressionChiller_Simplified_Physical.bStatusOn, bStatusOn) annotation (Line(points={{62,13},{62,80},{-50,80},{-50,110}}, color={255,0,255}));
   connect(compressionChiller_Simplified_Physical.port_b, temperature.port_a) annotation (Line(points={{70,12},{70,40}}, color={0,127,255}));
   connect(temperature.port_b, port_b) annotation (Line(points={{70,60},{70,100},{100,100}}, color={0,127,255}));
   connect(temperature.T, controlChiller.fTemperatureExternal_Chiller) annotation (Line(points={{59,50},{20,50},{20,-20},{-5,-20},{-5,-62}}, color={0,0,127}));
   connect(compressionChiller_Simplified_Physical.T_air, T_air) annotation (Line(points={{63,-10},{63,-80},{0,-80},{0,-120}}, color={0,0,127}));
   connect(controlChiller.fTemperatureExternal_HeatPump, controlChiller.fTemperatureExternal_Chiller) annotation (Line(points={{-15,-62},{-14,-62},{-14,-20},{-5,-20},{-5,-62}}, color={0,0,127}));
   connect(compressionChiller_Simplified_Physical.P_el, P_el) annotation (Line(points={{66,13},{66,20},{110,20}}, color={0,0,127}));
+  connect(bStatusOn, controlChiller.bSetStatusOn) annotation (Line(points={{-50,110},{-50,70},{-22,70},{-22,-41}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Compression chiller model including control method.</p>

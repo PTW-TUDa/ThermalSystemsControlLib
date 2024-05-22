@@ -14,6 +14,10 @@ model ETAFactory_HeatingSystems
   ThermalNetworks.HNLT_CN HNLT_CN annotation (Placement(transformation(extent={{40,0},{60,20}})));
   ThermalNetworks.CN CN(T_start=288.15, T_start_ActiveStorage=293.15)
                         annotation (Placement(transformation(extent={{80,0},{100,20}})));
+  Modelica.Blocks.Interfaces.RealInput T_ambient "Connector of Real input signal 1" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={10,-120})));
 equation
   connect(HNHT.port_b_HNLT_Consumer, HNHT_HNLT.port_a_HNHT_Consumer) annotation (Line(points={{-62,16},{-40,16}},                 color={0,127,255}));
   connect(HNHT.port_a_HNLT_Consumer, HNHT_HNLT.port_b_HNHT_Consumer) annotation (Line(points={{-62,4},{-40,4}},               color={0,127,255}));
@@ -44,6 +48,7 @@ equation
   connect(HNHT.port_b_HNLT_Producer, HNHT_HNLT.port_a_HNHT_Producer) annotation (Line(points={{-62,0},{-40,0}}, color={0,127,255}));
   connect(HNHT_HNLT.port_a_HNLT_Consumer, HNLT.port_b_HNHT_Consumer) annotation (Line(points={{-20,16},{0,16}}, color={0,127,255}));
   connect(HNHT_HNLT.port_b_HNLT_Consumer, HNLT.port_a_HNHT_Consumer) annotation (Line(points={{-20,4},{0,4}}, color={0,127,255}));
+  connect(Ambient.T_ambient, T_ambient) annotation (Line(points={{10,-62},{10,-120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=86400,
