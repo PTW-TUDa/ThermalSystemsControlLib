@@ -15,9 +15,11 @@ model eChillerSystem
                                                              annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=0) annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Interfaces.RealInput fAmbientTemperature annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Components.Valves.TwoWayValve SV138(redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  Components.Valves.TwoWayValve SV138(k=0.1,
+                                      redeclare Records.RV deviceData) annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=0) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Components.CompressionChiller.CompressionChiller_Simplified eChiller(redeclare Records.eChiller deviceData) annotation (Placement(transformation(extent={{60,-8},{80,12}})));
+  Components.CompressionChiller.CompressionChiller_Simplified eChiller(k=0.1,
+                                                                       redeclare Records.eChiller deviceData) annotation (Placement(transformation(extent={{60,-8},{80,12}})));
   Modelica.Blocks.Sources.IntegerExpression integerExpression3(y=1) annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Interfaces.RealOutput P_el "Output signal connector" annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(extent={{86,2},{90,6}})));
