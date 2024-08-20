@@ -1,10 +1,10 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory;
 model ETAFactory_HeatingSystems
   extends ThermalSystemsControlLib.BaseClasses.Icons.Applications_Icon;
-  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNHT HNHT(T_start=338.15, T_start_ActiveStorage=323.15)
+  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNHT HNHT(T_start=338.15, T_start_ActiveStorage=333.15)
                                                                               annotation (Placement(transformation(extent={{-82,0},{-62,20}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNHT_HNLT HNHT_HNLT annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNLT HNLT(T_start=313.15, T_start_ActiveStorage=303.15)
+  ThermalSystemsControlLib.Applications.ETA_Factory.ThermalNetworks.HNLT HNLT(T_start=313.15, T_start_ActiveStorage=308.15)
                                                                               annotation (Placement(transformation(extent={{0,0},{20,20}})));
   ThermalSystemsControlLib.Applications.ETA_Factory.Strategies.Strategy.StrategyController Strategy annotation (Placement(transformation(extent={{0,60},{20,80}})));
   ThermalNetworks.Ambient Ambient annotation (Placement(transformation(
@@ -12,7 +12,7 @@ model ETAFactory_HeatingSystems
         rotation=270,
         origin={10,-50})));
   ThermalNetworks.HNLT_CN HNLT_CN annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  ThermalNetworks.CN CN(T_start=288.15, T_start_ActiveStorage=293.15)
+  ThermalNetworks.CN CN(T_start=288.15, T_start_ActiveStorage=290.15)
                         annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Blocks.Interfaces.RealInput T_ambient "Connector of Real input signal 1" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
