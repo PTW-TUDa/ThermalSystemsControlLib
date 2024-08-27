@@ -41,5 +41,6 @@ equation
   connect(controlCN.cnControl, cnControl) annotation (Line(points={{99,-61},{99,-80},{140,-80},{140,-110}}, color={0,0,0}));
   connect(controlCN.cnState, cnState) annotation (Line(points={{90,-61},{90,-82},{100,-82},{100,-110}}));
   connect(controlHnlt.ambientState, ambientState) annotation (Line(points={{-1,-50},{0,-50},{0,110}}));
+  connect(controlHnltCnLinkage.hnltCnLinkageControl, controlCN.hnltCnLinkageControl) annotation (Line(points={{50.2,-61},{50.2,-50},{79,-50}}, color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end StrategyController;

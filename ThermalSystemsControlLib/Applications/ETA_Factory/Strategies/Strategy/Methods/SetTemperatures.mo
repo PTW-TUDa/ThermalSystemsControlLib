@@ -9,14 +9,7 @@ equation
     localState.fTargetTemperature_HNHT_Cooling = 273.15+65;
     localState.fTargetTemperature_HNLT_Cooling = 273.15+46;
     localState.fTargetTemperature_HNLT_Heating = 273.15+40;
-
-    //summer
-    if time>604800 then
-      localState.fTargetTemperature_CN = 273.15+15;
-    //winter
-    else
-      localState.fTargetTemperature_CN = 273.15+20;
-    end if;
+    localState.fTargetTemperature_CN = 273.15+15;
 
     localState.aTemperatureLimits_HNHT = {273.15+40,273.15+70};
     localState.aTemperatureLimits_HNLT = {273.15+30,273.15+55};
@@ -26,11 +19,7 @@ equation
     localState.fTargetTemperature_HNHT_Cooling = 273.15+80;
     localState.fTargetTemperature_HNLT_Cooling = 273.15+40;
     localState.fTargetTemperature_HNLT_Heating = 273.15+34;
-    if time>604800 then
-      localState.fTargetTemperature_CN = 273.15+15;
-    else
-      localState.fTargetTemperature_CN = 273.15+20;
-    end if;
+    localState.fTargetTemperature_CN = 273.15+15;
 
     localState.aTemperatureLimits_HNHT = {273.15+45,273.15+85};
     localState.aTemperatureLimits_HNLT = {273.15+10,273.15+50};
