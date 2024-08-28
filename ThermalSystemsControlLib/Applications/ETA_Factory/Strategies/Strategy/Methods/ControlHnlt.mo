@@ -13,7 +13,7 @@ model ControlHnlt
   Modelica.Blocks.Logical.OnOffController Controller_OuterCapillaryTubeMats_Permission(bandwidth=6) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Logical.OnOffController Controller_HVFA_HNLT_HVFALoadingPermission(bandwidth=4) annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Logical.OnOffController Controller_HVFA_HNLT_HVFAUnloadingPermission(bandwidth=4) annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Modelica.Blocks.Logical.OnOffController Controller_Buffer_HVFA_HNLT_HVFAUnloading(bandwidth=6) annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+  Modelica.Blocks.Logical.OnOffController Controller_Buffer_HVFA_HNLT_HVFAUnloading(bandwidth=2) annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Modelica.Blocks.Logical.OnOffController Controller_Buffer_HVFA_HNLT_HVFALoading(bandwidth=4) annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Logical.OnOffController Controller_HVFA_HNLT_Recooling(bandwidth=4) annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   ThermalNetworks.Interfaces.ambientState ambientState annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -34,7 +34,7 @@ equation
   Controller_OuterCapillaryTubeMats_Permission.u = ambientState.fOutsideTemperature;
 
   //hvfa storage control
-  Controller_Buffer_HVFA_HNLT_HVFAUnloading.reference = strategyState.fTargetTemperature_HNLT_Heating-fOffset_TargetTemperature_HVFA_HNLT_Heating;
+  Controller_Buffer_HVFA_HNLT_HVFAUnloading.reference = strategyState.fTargetTemperature_HNLT_Heating+fOffset_TargetTemperature_HVFA_HNLT_Heating;
   Controller_Buffer_HVFA_HNLT_HVFAUnloading.u = hnltState.fMidTemperature;
   Controller_Buffer_HVFA_HNLT_HVFALoading.reference = hnltState.fMidTemperature;
   Controller_Buffer_HVFA_HNLT_HVFALoading.u = strategyState.fTargetTemperature_HNLT_Cooling;
