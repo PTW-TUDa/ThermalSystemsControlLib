@@ -7,7 +7,7 @@ record eChiller
     T_cooling_max=313.15,
     T_cooling_min=283.15,
     u_min=0.0,
-    P_el_nominal=12.3e3,
+    P_el_nominal=4.9e3,
     dp_nominal=15000,
     m_flow_nominal=1.38);
   annotation(defaultComponentPrefixes = "parameter", Icon(graphics));
