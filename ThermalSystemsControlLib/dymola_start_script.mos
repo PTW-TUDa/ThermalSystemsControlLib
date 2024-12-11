@@ -1,11 +1,11 @@
 ﻿//##Path must be changed!##
-openModel("C:/ptw_git/thermalsystemscontrollib/ThermalSystemsControlLib/package.mo");
+openModel("C:/Users/M.Frank/Documents/GitHub/thermalsystemscontrollib/ThermalSystemsControlLib/package.mo");
 
 //Set correct working directory to prevent generating temporary simulation files in repository
-cd("C:\Users\F.Borst\Documents\Dymola\WorkingDirectory");
+cd("C:/Users/F.Borst/Documents/Dymola/WorkingDirectory");
 
 //Set environment variable to library
-Modelica.Utilities.System.setEnvironmentVariable("env_tscl","C:/ptw_git/thermalsystemscontrollib/ThermalSystemsControlLib",false);
+Modelica.Utilities.System.setEnvironmentVariable("env_tscl","C:/Users/M.Frank/Documents/GitHub/thermalsystemscontrollib/ThermalSystemsControlLib",false);
 
 //Disable storing as one file for version management
 Advanced.DefaultStoreAsOneFile = false;

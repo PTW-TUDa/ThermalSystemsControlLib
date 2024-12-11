@@ -19,7 +19,8 @@ model ControlPump
     k=k,
     yMax=1,
     yMin=0,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    strict=true)                                      annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -35,7 +36,7 @@ model ControlPump
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) "Flow is heated" annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) "Flow is heated" annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Modelica.Blocks.Interfaces.RealInput fTemperatureExternal annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -45,13 +46,13 @@ model ControlPump
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) "Flow is cooled" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) "Flow is cooled" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Continuous.LimPID PID_TemperatureDifference(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) "Flow is heated" annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) "Flow is heated" annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Interfaces.RealInput fTemperatureDifference
                                                              annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

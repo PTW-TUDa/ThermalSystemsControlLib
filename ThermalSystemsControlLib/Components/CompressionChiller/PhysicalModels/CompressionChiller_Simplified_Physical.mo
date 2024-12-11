@@ -42,7 +42,7 @@ model CompressionChiller_Simplified_Physical
                                                annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
                                                annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Tables.CombiTable2D Table_f_EER(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_f_EER(
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     table=deviceData.f_EER,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(

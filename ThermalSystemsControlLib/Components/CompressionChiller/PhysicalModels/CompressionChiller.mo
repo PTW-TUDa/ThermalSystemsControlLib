@@ -86,11 +86,11 @@ model CompressionChiller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,90})));
-  Modelica.Blocks.Tables.CombiTable2D Table_f_PthMax1(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_f_PthMax1(
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     table=deviceData.f_PthMax,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,30})));
   Modelica.Blocks.Math.Gain gain_P_el_nom2(k=deviceData.P_el_nominal)
@@ -101,11 +101,11 @@ model CompressionChiller
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=270,
         origin={-90,50})));
-  Modelica.Blocks.Tables.CombiTable2D Table_f_PelMax1(
+  Modelica.Blocks.Tables.CombiTable2Ds Table_f_PelMax1(
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     table=deviceData.f_PelMax,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,60})));
   Modelica.Blocks.Math.Gain gain_P_th_nom1(k=deviceData.P_th_cool_nominal)

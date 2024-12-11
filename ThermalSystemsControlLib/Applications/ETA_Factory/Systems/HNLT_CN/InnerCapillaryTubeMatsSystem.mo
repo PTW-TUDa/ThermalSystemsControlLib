@@ -51,7 +51,7 @@ model InnerCapillaryTubeMatsSystem
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-10,-50})));
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(
     table=[-5 + 273.15,313.15; 20 + 273.15,288.15],
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
