@@ -188,8 +188,8 @@ package FluidBaseClasses
   model ConditionCheck_OneTemperature "Checks one temperature"
 
     //## PARAMETERS ##
-    parameter Modelica.SIunits.Temperature T_inMin "Minimal instream temperature";
-    parameter Modelica.SIunits.Temperature T_inMax "Maximal instream temperature";
+    parameter Modelica.Units.SI.Temperature T_inMin "Minimal instream temperature";
+    parameter Modelica.Units.SI.Temperature T_inMax "Maximal instream temperature";
 
     //## COMPONENTS ##
 
@@ -223,10 +223,10 @@ package FluidBaseClasses
   model ConditionCheck_TwoTemperatures "Checks two temperatures"
 
     //## PARAMETERS ##
-    parameter Modelica.SIunits.Temperature T2_min "Minimal T2";
-    parameter Modelica.SIunits.Temperature T2_max "Maximal T2";
-    parameter Modelica.SIunits.Temperature T1_min "Minimal T1";
-    parameter Modelica.SIunits.Temperature T1_max "Maximal T1";
+    parameter Modelica.Units.SI.Temperature T2_min "Minimal T2";
+    parameter Modelica.Units.SI.Temperature T2_max "Maximal T2";
+    parameter Modelica.Units.SI.Temperature T1_min "Minimal T1";
+    parameter Modelica.Units.SI.Temperature T1_max "Maximal T1";
 
     //## COMPONENTS ##
 

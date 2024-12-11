@@ -28,9 +28,10 @@ model GasBoiler_Physical
         origin={0,120})));
   Modelica.Blocks.Interfaces.RealOutput fOperatingPoint annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.BooleanOutput bStatusOn annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Tables.CombiTable2D Tableefficency_P_th1(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=deviceData.f_effPth,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Modelica.Blocks.Tables.CombiTable2Ds Tableefficency_P_th1(
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    table=deviceData.f_effPth,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},

@@ -5,16 +5,16 @@ model HeatExchanger
   replaceable package Medium2 = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   replaceable parameter ThermalSystemsControlLib.Components.HeatExchanger.PhysicalModels.Records.HeatExchanger_Properties deviceData constrainedby ThermalSystemsControlLib.Components.HeatExchanger.PhysicalModels.Records.HeatExchanger_Properties annotation (choicesAllMatching=true);
 
-  Modelica.SIunits.Efficiency eps;
-  Modelica.SIunits.Efficiency NTU;
+  Modelica.Units.SI.Efficiency eps;
+  Modelica.Units.SI.Efficiency NTU;
   Medium1.Temperature T_in1 "Inlet temperature medium 1";
   Medium2.Temperature T_in2 "Inlet temperature medium 2";
-  Modelica.SIunits.ThermalConductance C1_flow "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C2_flow "Heat capacity flow rate medium 2";
-  Modelica.SIunits.ThermalConductance CMax_flow(min=0);
-  Modelica.SIunits.ThermalConductance CMin_flow(min=0);
-  Modelica.SIunits.HeatFlowRate QMax_flow "Maximum heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q_flow;
+  Modelica.Units.SI.ThermalConductance C1_flow "Heat capacity flow rate medium 1";
+  Modelica.Units.SI.ThermalConductance C2_flow "Heat capacity flow rate medium 2";
+  Modelica.Units.SI.ThermalConductance CMax_flow(min=0);
+  Modelica.Units.SI.ThermalConductance CMin_flow(min=0);
+  Modelica.Units.SI.HeatFlowRate QMax_flow "Maximum heat flow rate into medium 1";
+  Modelica.Units.SI.HeatFlowRate Q_flow;
   constant Real e=Modelica.Math.exp(1.0);
 
     //## PUBLIC COMPONENTS ##

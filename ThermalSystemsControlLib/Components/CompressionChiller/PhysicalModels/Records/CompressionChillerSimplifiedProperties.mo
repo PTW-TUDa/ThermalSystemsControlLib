@@ -9,6 +9,6 @@ record CompressionChillerSimplifiedProperties "Basic parameter record for compre
   parameter SI.Temperature T_cooling_max "Maximal cool instream temperature";
   parameter SI.Volume V "Internal mixin volume";
   parameter SI.Time riseTime "Rise time of the filter (time to reach 99.6 % of the nominal operating point)";
-  parameter Modelica.SIunits.PressureDifference dp_nominal "Nominal pressure difference";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal "Nominal pressure difference";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 end CompressionChillerSimplifiedProperties;

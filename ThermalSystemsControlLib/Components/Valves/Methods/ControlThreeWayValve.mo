@@ -23,19 +23,20 @@ model ControlThreeWayValve
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{0,60},{20,80}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Continuous.LimPID PID_Cooling(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{0,10},{20,-10}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) annotation (Placement(transformation(extent={{0,10},{20,-10}})));
   Modelica.Blocks.Continuous.LimPID PID_ThermalPower(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=1,
     yMax=1,
     yMin=0,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    strict=true)                                      annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

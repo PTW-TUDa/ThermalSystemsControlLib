@@ -26,7 +26,7 @@ model UnderfloorHeatingSystem
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-50},{80,-30}})));
   Modelica.Blocks.Interfaces.RealInput fAmbientTemperature
                                                           annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(
     table=[-5 + 273.15,313.15; 20 + 273.15,288.15],
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

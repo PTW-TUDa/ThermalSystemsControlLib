@@ -19,7 +19,7 @@ model ControlChiller
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
   Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -30,7 +30,7 @@ model ControlChiller
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{-10,60},{10,40}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) annotation (Placement(transformation(extent={{-10,60},{10,40}})));
   Modelica.Blocks.Interfaces.RealInput fTemperatureExternal_HeatPump annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,

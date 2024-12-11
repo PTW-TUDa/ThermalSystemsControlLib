@@ -24,7 +24,7 @@ model StaticHeatingSystem
   Modelica.Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   Modelica.Blocks.Interfaces.RealInput fAmbientTemperature
                                                           annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(
     table=[-10 + 273.15,343.15; 10 + 273.15,323.15],
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));

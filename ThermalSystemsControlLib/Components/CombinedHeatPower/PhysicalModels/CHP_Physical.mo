@@ -6,9 +6,10 @@ model CHP_Physical
 
   replaceable parameter ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPower_Properties deviceData constrainedby ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records.CombinedHeatPower_Properties annotation (__Dymola_choicesAllMatching=true);
 
-  Modelica.Blocks.Tables.CombiTable2D Tableefficency_P_th(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=deviceData.f_effPth,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Modelica.Blocks.Tables.CombiTable2Ds Tableefficency_P_th(
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    table=deviceData.f_effPth,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   ThermalSystemsControlLib.BaseClasses.Utilities.ZeroLimiter zeroLimiter1(u_min=deviceData.u_min, u_0=0) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

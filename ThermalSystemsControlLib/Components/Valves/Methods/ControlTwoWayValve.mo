@@ -19,7 +19,8 @@ model ControlTwoWayValve
     k=1,
     yMax=1,
     yMin=0,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    strict=true)                                      annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Blocks.Sources.RealExpression realExpression annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -35,7 +36,7 @@ model ControlTwoWayValve
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Modelica.Blocks.Interfaces.RealInput fTemperatureExternal annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -45,7 +46,7 @@ model ControlTwoWayValve
     k=k,
     yMax=yMax,
     yMin=yMin,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    initType=Modelica.Blocks.Types.Init.InitialState) annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Blocks.Math.Gain gain(k=1/1000) annotation (Placement(transformation(extent={{-14,-36},{-2,-24}})));
   Modelica.Blocks.Math.Gain gain1(k=1/1000)
                                            annotation (Placement(transformation(extent={{8,-60},{20,-48}})));

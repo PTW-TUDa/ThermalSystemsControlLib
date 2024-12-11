@@ -2,7 +2,7 @@ within ThermalSystemsControlLib.Components.Pumps.PhysicalModels;
 model Pump_Physical "Pressure building pump"
     extends ThermalSystemsControlLib.BaseClasses.Icons.Pump_Icon;
     extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
   outer Modelica.Fluid.System system;
 
   //## PARAMETERS ##
@@ -23,7 +23,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,10})));
-  Modelica.Blocks.Tables.CombiTable2D InterpolationTable_Pressure(
+  Modelica.Blocks.Tables.CombiTable2Ds InterpolationTable_Pressure(
     tableOnFile=true,
     tableName="f_dp",
     fileName=fileName,
@@ -32,7 +32,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-32,-30})));
-  Modelica.Blocks.Tables.CombiTable2D InterpolationTable_Power(
+  Modelica.Blocks.Tables.CombiTable2Ds InterpolationTable_Power(
     tableOnFile=true,
     tableName="f_power",
     fileName=fileName,

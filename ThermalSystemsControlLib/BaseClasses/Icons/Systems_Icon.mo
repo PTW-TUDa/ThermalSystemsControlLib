@@ -16,5 +16,9 @@ partial model Systems_Icon
           lineColor={28,108,200},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
-          radius=5)}),                                           Diagram(coordinateSystem(preserveAspectRatio=false)));
+          radius=5),
+        Text(
+          extent={{-78,88},{68,34}},
+          textColor={28,108,200},
+          textString="%name")}),                                 Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Systems_Icon;

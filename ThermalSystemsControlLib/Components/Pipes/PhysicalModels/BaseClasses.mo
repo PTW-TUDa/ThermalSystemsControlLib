@@ -99,7 +99,7 @@ package BaseClasses
 
   function PressureLossFunction "Function for computing pressure loss depending on a given mass flow rate"
      //##IMPORTS##
-     import SI = Modelica.SIunits;
+     import      Modelica.Units.SI;
      import Con = Modelica.Constants;
 
      //##Inputs##
