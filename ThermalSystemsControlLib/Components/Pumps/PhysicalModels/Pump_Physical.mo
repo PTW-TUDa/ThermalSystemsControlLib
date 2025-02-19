@@ -64,6 +64,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,78})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Connector of Real output signal" annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   parameter String pumpTypes[:,:] = ["Grundfos_Magna3_25_40";"Grundfos_Magna3_25_80";"Grundfos_Magna3_25_120";"Grundfos_Magna3_32_60F";"Grundfos_Magna3_32_120FN";"Grundfos_Magna3_40_40F";"Grundfos_Magna3_40_60F";"Grundfos_Magna3_40_80F";"Grundfos_Magna3_40_120F";"Grundfos_Magna3_40_150FN";"Grundfos_Magna3_50_80F";"Grundfos_Unilift_CC9_A1";"Heidelberger_CHP_Pump";"Heidelberger_Boiler_Pump"] "Choosable pump types - [:]";
   parameter String str = Modelica.Utilities.System.getEnvironmentVariable("env_tscl")+"/Resources/Data_Pumps/"+pumpTypes[pumpType,1]+".mat";
@@ -100,6 +101,7 @@ equation
   connect(switch.u1, limiter.y) annotation (Line(points={{-12,58},{0,58},{-1.9984e-15,67}}, color={0,0,127}));
   connect(limiter.u, fSetPoint) annotation (Line(points={{2.22045e-15,90},{2.22045e-15,105},{0,105},{0,120}}, color={0,0,127}));
   connect(switch.y, firstOrder.u) annotation (Line(points={{-20,35},{-20,30},{2.22045e-15,30},{2.22045e-15,22}}, color={0,0,127}));
+  connect(InterpolationTable_Power.y, P_el) annotation (Line(points={{41,-30},{96,-30},{96,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Centrifugal, pressure building pump using linear interpolation on pressure and power curves. This model uses two-dimensional tables to interpolate (linearly) the pressure difference and electrical power consumption depending on the operating point [0,1] and the volume flow rate. A limiter ensures that the operating point is always in the allowed range. The dynamic behavior is modeled using a PT1 element. Steady-state model without storing mass or energy. </p>

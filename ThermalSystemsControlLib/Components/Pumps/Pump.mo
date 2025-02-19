@@ -33,6 +33,7 @@ model Pump
         rotation=180,
         origin={50,-50})));
   Modelica.Fluid.Sensors.Temperature temperature(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Connector of Real output signal" annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
   connect(pump_Physical.port_b, port_b) annotation (Line(points={{80,10},{80,100},{100,100}}, color={0,127,255}));
   connect(pump_Physical.fOperatingPoint, selectSetPoint.fOperatingPoint) annotation (Line(points={{81,4},{0,4},{0,0},{-70,0},{-70,18}},           color={0,0,127}));
@@ -51,6 +52,7 @@ equation
   connect(temperature.port, port_a) annotation (Line(points={{70,-40},{80,-40},{80,-100},{100,-100}}, color={0,127,255}));
   connect(temperature.T, add.u1) annotation (Line(points={{63,-30},{60,-30},{60,-44},{62,-44}}, color={0,0,127}));
   connect(pump_Physical.bSetStatusOn, controlPump.bSetStatusOn) annotation (Line(points={{65,12},{64,12},{64,70},{-22,70},{-22,-41}}, color={255,0,255}));
+  connect(pump_Physical.P_el, P_el) annotation (Line(points={{81,0},{90,0},{90,60},{110,60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Pressure building pump including control method.</p>
