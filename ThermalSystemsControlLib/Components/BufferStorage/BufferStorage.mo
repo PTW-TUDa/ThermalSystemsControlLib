@@ -4,13 +4,16 @@ model BufferStorage
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   parameter SI.Volume V = 1 "Storage volume";
   parameter Integer n_Seg = 2 "Number of volume segments";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start "Start value of temperature";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower "Start value of temperature";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper "Start value of temperature";
 
   PhysicalModels.BufferStorage_Physical BufferStorage(
     redeclare package Medium = Medium,
     V=V,
     n_Seg=n_Seg,
-    T_start=T_start) annotation (Placement(transformation(
+    T_start_upper=T_start_upper,
+    T_start_lower=T_start_lower)
+                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,10})));
