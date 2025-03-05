@@ -83,7 +83,7 @@ model CHP_Physical
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-10})));
-  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=deviceData.u_min) annotation (Placement(transformation(extent={{30,-6},{50,14}})));
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=deviceData.u_min) annotation (Placement(transformation(extent={{30,26},{50,46}})));
   Modelica.Blocks.Math.Product product1 annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Pipes.PhysicalModels.PressureDrop            pressureDrop(
     redeclare package Medium = Medium,
@@ -98,7 +98,7 @@ equation
   connect(prePow.Q_flow, gain_P_gs_nom2.y) annotation (Line(points={{60,-90},{70,-90},{70,-81}},     color={0,0,127}));
   connect(port_a, temperature.port_a) annotation (Line(points={{-100,0},{-100,-100},{-80,-100}},
                                                                                               color={0,127,255}));
-  connect(volume.ports[1], port_b) annotation (Line(points={{2,-100},{100,-100},{100,0}},
+  connect(volume.ports[1], port_b) annotation (Line(points={{1,-100},{100,-100},{100,0}},
                                                                                         color={0,127,255}));
   connect(fSetPoint, zeroLimiter1.u) annotation (Line(points={{0,120},{0,92},{2.22045e-15,92}}, color={0,0,127}));
   connect(port_a, port_a) annotation (Line(points={{-100,0},{-100,6},{-100,6},{-100,0}}, color={0,127,255}));
@@ -112,13 +112,14 @@ equation
   connect(firstOrder.y, limiter.u) annotation (Line(points={{-1.9984e-15,9},{2.22045e-15,9},{2.22045e-15,2}}, color={0,0,127}));
   connect(limiter.y, Tableefficency_P_th.u1) annotation (Line(points={{0,-21},{0,-44},{-42,-44}}, color={0,0,127}));
   connect(fOperatingPoint, limiter.y) annotation (Line(points={{110,40},{80,40},{80,-20},{0,-20},{0,-21}}, color={0,0,127}));
-  connect(greaterEqualThreshold.u, firstOrder.y) annotation (Line(points={{28,4},{0,4},{0,9}}, color={0,0,127}));
   connect(product1.u2, Tableefficency_P_th.y) annotation (Line(points={{18,-56},{0,-56},{0,-50},{-19,-50}}, color={0,0,127}));
   connect(product1.u1, Tableefficency_P_th.u1) annotation (Line(points={{18,-44},{-42,-44}}, color={0,0,127}));
   connect(product1.y, gain_P_gs_nom2.u) annotation (Line(points={{41,-50},{70,-50},{70,-58}}, color={0,0,127}));
-  connect(greaterEqualThreshold.y, bStatusOn) annotation (Line(points={{51,4},{60,4},{60,80},{110,80}}, color={255,0,255}));
+  connect(greaterEqualThreshold.y, bStatusOn) annotation (Line(points={{51,36},{78,36},{78,80},{110,80}},
+                                                                                                        color={255,0,255}));
   connect(temperature.port_b, pressureDrop.port_a) annotation (Line(points={{-60,-100},{-40,-100}}, color={0,127,255}));
-  connect(pressureDrop.port_b, volume.ports[2]) annotation (Line(points={{-20,-100},{-2,-100}}, color={0,127,255}));
+  connect(pressureDrop.port_b, volume.ports[2]) annotation (Line(points={{-20,-100},{-1,-100}}, color={0,127,255}));
+  connect(greaterEqualThreshold.u, conditionCheck.fSetPointInternal) annotation (Line(points={{28,36},{0,36},{0,39},{-5,39}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(coordinateSystem(initialScale=0.1),
         graphics={
         Line(points={{-176,98}}, color={255,255,255}),
