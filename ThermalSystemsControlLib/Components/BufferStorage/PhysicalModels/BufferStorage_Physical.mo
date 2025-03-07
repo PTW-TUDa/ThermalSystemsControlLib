@@ -26,9 +26,9 @@ model BufferStorage_Physical
 
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
-                                               annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+                                               annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
-                                               annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+                                               annotation (Placement(transformation(extent={{90,90},{110,110}})));
 
 
 equation
