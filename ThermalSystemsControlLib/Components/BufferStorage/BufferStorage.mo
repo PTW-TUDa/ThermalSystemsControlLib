@@ -3,9 +3,11 @@ model BufferStorage
   extends ThermalSystemsControlLib.BaseClasses.Icons.BufferStorage_Icon;
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   parameter SI.Volume V = 1 "Storage volume";
-  parameter Integer n_Seg = 2 "Number of volume segments";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower "Start value of temperature";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper "Start value of temperature";
+  parameter Integer n_Seg = 7 "Number of volume segments";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=313.15
+                                                                      "Start value of temperature";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=353.15
+                                                                      "Start value of temperature";
 
   PhysicalModels.BufferStorage_Physical BufferStorage(
     redeclare package Medium = Medium,
