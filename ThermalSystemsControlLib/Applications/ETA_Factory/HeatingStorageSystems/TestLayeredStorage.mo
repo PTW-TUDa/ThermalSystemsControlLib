@@ -1,29 +1,23 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.HeatingStorageSystems;
 model TestLayeredStorage
-extends ThermalSystemsControlLib.BaseClasses.Icons.Test_Icon;
+  extends ThermalSystemsControlLib.BaseClasses.Icons.Test_Icon;
 
-Components.LayeredHeatingStorage.LayeredHeatingStorage layeredHeatingStorage(
-  redeclare package Medium = Medium,
-  n_Seg=7,
+  Components.LayeredHeatingStorage.LayeredHeatingStorage layeredHeatingStorage(
+    n_Seg=7,
     T_start_lower=313.15,
-    T_start_upper=353.15)
-                        annotation (Placement(transformation(extent={{-12,-10},{8,10}}, rotation=0)));
-inner Modelica.Fluid.System system annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-Modelica.Fluid.Sources.FixedBoundary boundary(redeclare package Medium = Medium, nPorts=1)
-                                                        annotation (Placement(transformation(extent={{54,-68},{34,-48}})));
-
-Modelica.Fluid.Sources.MassFlowSource_T boundary1(
-  redeclare package Medium = Medium,
-  use_m_flow_in=false,
-  use_T_in=false,
-  m_flow=1,
-  T=353.15,
-    nPorts=1)
-            annotation (Placement(transformation(extent={{48,46},{28,66}})));
-replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater annotation (choicesAllMatching=true);
+    T_start_upper=353.15) annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
+  Modelica.Fluid.Sources.MassFlowSource_T boundary(
+    redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
+    use_T_in=true,
+    nPorts=1) annotation (Placement(transformation(extent={{56,54},{36,74}})));
+  Modelica.Fluid.Sources.Boundary_pT boundary1(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater, nPorts=1) annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
+  Modelica.Blocks.Sources.Step step(
+    height=-20,
+    offset=353.15,
+    startTime(displayUnit="min") = 300) annotation (Placement(transformation(extent={{100,56},{80,76}})));
 equation
-  connect(layeredHeatingStorage.port_b, boundary1.ports[1]) annotation (Line(points={{8,10},{22,10},{22,56},{28,56}}, color={0,127,255}));
-  connect(layeredHeatingStorage.port_a, boundary.ports[1]) annotation (Line(points={{8,-10},{22,-10},{22,-58},{34,-58}}, color={0,127,255}));
-annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
-  __Dymola_Commands(file="Components/plot_setup.mos" "plot_setup"));
+  connect(boundary.ports[1], layeredHeatingStorage.port_b) annotation (Line(points={{36,64},{20,64},{20,20}}, color={0,127,255}));
+  connect(layeredHeatingStorage.port_a, boundary1.ports[1]) annotation (Line(points={{20,-20},{20,-50},{60,-50}}, color={0,127,255}));
+  connect(step.y, boundary.T_in) annotation (Line(points={{79,66},{66,66},{66,68},{58,68}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end TestLayeredStorage;
