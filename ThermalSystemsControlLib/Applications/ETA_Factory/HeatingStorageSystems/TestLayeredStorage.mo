@@ -1,30 +1,23 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.HeatingStorageSystems;
 model TestLayeredStorage
   extends ThermalSystemsControlLib.BaseClasses.Icons.Test_Icon;
-
-  Modelica.Fluid.Sources.MassFlowSource_T boundary(
-    redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
-    use_T_in=true,
-    nPorts=1) annotation (Placement(transformation(extent={{56,54},{36,74}})));
-  Modelica.Fluid.Sources.Boundary_pT boundary1(redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater, nPorts=1) annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
-  Modelica.Blocks.Sources.Step step(
-    height=-20,
-    offset=353.15,
-    startTime(displayUnit="min") = 300) annotation (Placement(transformation(extent={{100,56},{80,76}})));
-  Modelica.Blocks.Sources.BooleanConstant mode_constant annotation (Placement(transformation(extent={{84,-10},{64,10}})));
-  Components.LayeredHeatingStorage.LayeredHeatingStorage_test layeredHeatingStorage_test(
-    redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
-    n_Seg=n_Seg,
-    T_start_lower=T_start_lower,
-    T_start_upper=T_start_upper) annotation (Placement(transformation(extent={{-32,-26},{20,24}})));
   inner Modelica.Fluid.System system annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  parameter Integer n_Seg=3 "Number of volume segments";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=313.15 "Start value of temperature";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=353.15 "Start value of temperature";
+  Components.LayeredHeatingStorage.PhysicalModels.LayeredStorage_Physical_simple layeredStorage_Physical_simple(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{-38,-30},{32,36}})));
+  Modelica.Fluid.Sources.FixedBoundary boundary(redeclare package Medium = Medium, nPorts=2) annotation (Placement(transformation(extent={{80,-62},{60,-42}})));
+  Modelica.Fluid.Sources.MassFlowSource_T boundary1(
+    redeclare package Medium = Medium,
+    m_flow=1,
+    nPorts=1) annotation (Placement(transformation(extent={{-98,-12},{-78,8}})));
+  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
+  Modelica.Blocks.Sources.Ramp ramp(
+    height=50,
+    duration=50,
+    offset=330,
+    startTime=50) annotation (Placement(transformation(extent={{-96,44},{-76,64}})));
 equation
-  connect(step.y, boundary.T_in) annotation (Line(points={{79,66},{66,66},{66,68},{58,68}}, color={0,0,127}));
-  connect(layeredHeatingStorage_test.port_b, boundary.ports[1]) annotation (Line(points={{20,24},{20,64},{36,64}}, color={0,127,255}));
-  connect(layeredHeatingStorage_test.port_a, boundary1.ports[1]) annotation (Line(points={{20,-26},{20,-50},{60,-50}}, color={0,127,255}));
-  connect(layeredHeatingStorage_test.mode, mode_constant.y) annotation (Line(points={{25.72,-1},{25.72,-2},{60,-2},{60,0},{63,0}}, color={255,0,255}));
+  connect(layeredStorage_Physical_simple.charge, boundary.ports[1]) annotation (Line(points={{31.3,-29.34},{31.3,-53},{60,-53}},     color={0,127,255}));
+  connect(ramp.y, layeredStorage_Physical_simple.feedTemperature) annotation (Line(points={{-75,54},{-60,54},{-60,25.44},{-45.7,25.44}}, color={0,0,127}));
+  connect(layeredStorage_Physical_simple.discharge, boundary.ports[2]) annotation (Line(points={{32,-10.2},{54,-10.2},{54,-51},{60,-51}},     color={0,127,255}));
+  connect(boundary1.ports[1], layeredStorage_Physical_simple.feed) annotation (Line(points={{-78,-2},{-50,-2},{-50,3},{-40.1,3}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end TestLayeredStorage;

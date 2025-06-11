@@ -3,9 +3,11 @@ model LayeredStorage_Physical
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   parameter SI.Volume V = 1 "Storage volume";
-  parameter Integer n_Seg=7   "Number of volume segments (min. 5)";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper "Start value of upper temperature";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower "Start value of lower temperature";
+  parameter Integer n_Seg=5   "Number of volume segments (min. 5)";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=353.15
+                                                                      "Start value of upper temperature";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=313.15
+                                                                      "Start value of lower temperature";
   parameter Real delta_T = (T_start_upper-T_start_lower)/n_Seg;
 
   //Real relative_height[:] = linspace(1, 0, n_Seg); // relative height used for temperature initalization
@@ -40,7 +42,8 @@ model LayeredStorage_Physical
   Modelica.Blocks.Sources.Constant const_close(k=0) annotation (Placement(transformation(extent={{-36,24},{-52,40}})));
   Modelica.Blocks.Sources.Constant const_open(k=1) annotation (Placement(transformation(extent={{-38,52},{-54,68}})));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual[n_Seg-1] annotation (Placement(transformation(extent={{-36,-40},{-56,-20}})));
-  Modelica.Blocks.Sources.Constant T_lim[n_Seg-1] annotation (Placement(transformation(extent={{16,-76},{-4,-56}})));
+  Modelica.Blocks.Sources.Constant T_lim[n_Seg-1]( each k=300)
+                                                              annotation (Placement(transformation(extent={{16,-76},{-4,-56}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold[n_Seg-1] annotation (Placement(transformation(extent={{-38,-74},{-58,-54}})));
   Modelica.Blocks.Logical.And and1[n_Seg-2] annotation (Placement(transformation(extent={{-70,-54},{-90,-34}})));
 
@@ -73,7 +76,7 @@ equation
 
   for i in 1:(n_Seg-1) loop
     connect(vol[i].ports[3], vol[i + 1].ports[1]);
-    T_lim[i].k = T_start_lower + i*delta_T;//considering linear dist of temp
+    //T_lim[i].k = T_start_lower + i*delta_T;//considering linear dist of temp
     connect(switch1[i].y,valveLayers[i].opening);
     connect(const_close.y,switch1[i].u3);
     connect(const_open.y,switch1[i].u1);

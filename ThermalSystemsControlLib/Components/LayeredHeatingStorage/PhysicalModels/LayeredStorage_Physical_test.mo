@@ -1,6 +1,6 @@
 within ThermalSystemsControlLib.Components.LayeredHeatingStorage.PhysicalModels;
 model LayeredStorage_Physical_test
-  extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
+  //extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   parameter SI.Volume V = 1 "Storage volume";
   parameter Integer n_Seg=3   "Number of volume segments (min. 5)";
@@ -28,7 +28,7 @@ model LayeredStorage_Physical_test
   Modelica.Fluid.Interfaces.FluidPort_a port_feed(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{90,90},{110,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_charge(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{90,-106},{110,-86}})));
 
-  Interfaces.LayeredStorageState localState annotation (Placement(transformation(extent={{-8,100},{12,120}})));
+  //Interfaces.LayeredStorageState localState annotation (Placement(transformation(extent={{-8,100},{12,120}})));
   Modelica.Fluid.Valves.ValveLinear valveLayers_upper(
     redeclare package Medium = Medium,
     dp_nominal=1,
@@ -109,9 +109,9 @@ model LayeredStorage_Physical_test
   Modelica.Blocks.Sources.Constant T_lim_mid(k=333.15)
                                              annotation (Placement(transformation(extent={{72,8},{60,20}})));
 equation
-  localState.fLowerTemperature = vol_temperature_lower.T;
-  localState.fMidTemperature = vol_temperature_mid.T;
-  localState.fUpperTemperature = vol_temperature_upper.T;
+  //localState.fLowerTemperature = vol_temperature_lower.T;
+  //localState.fMidTemperature = vol_temperature_mid.T;
+  //localState.fUpperTemperature = vol_temperature_upper.T;
 
 // connections controlling charge/discharge modes
   connect(valveDischarge.port_b, port_discharge) annotation (Line(points={{66,-50},{98,-50}}, color={0,127,255}));

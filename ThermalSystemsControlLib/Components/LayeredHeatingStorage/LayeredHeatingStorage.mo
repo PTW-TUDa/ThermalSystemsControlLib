@@ -1,6 +1,6 @@
 within ThermalSystemsControlLib.Components.LayeredHeatingStorage;
 model LayeredHeatingStorage
-  extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
+  //extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   parameter SI.Volume V = 1 "Storage volume";
   parameter Integer n_Seg=7   "Number of volume segments";
