@@ -73,7 +73,7 @@ model LayeredStorage_Physical_test
     use_portsData=false,
     portsData={4},
     V=V/n_Seg,
-    nPorts=4) annotation (Placement(transformation(
+    nPorts=5) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-30})));
@@ -108,6 +108,16 @@ model LayeredStorage_Physical_test
   Modelica.Blocks.Logical.GreaterEqual greaterEqual_mid annotation (Placement(transformation(extent={{50,12},{34,28}})));
   Modelica.Blocks.Sources.Constant T_lim_mid(k=333.15)
                                              annotation (Placement(transformation(extent={{72,8},{60,20}})));
+  Modelica.Fluid.Pipes.StaticPipe pipe(
+    redeclare package Medium = Medium,
+    allowFlowReversal=false,
+    length=0.2,
+    diameter=0.1) annotation (Placement(transformation(extent={{-4,-102},{16,-82}})));
+  Modelica.Fluid.Pipes.StaticPipe pipe1(
+    redeclare package Medium = Medium,
+    allowFlowReversal=false,
+    length=0.2,
+    diameter=0.1) annotation (Placement(transformation(extent={{4,-60},{24,-40}})));
 equation
   //localState.fLowerTemperature = vol_temperature_lower.T;
   //localState.fMidTemperature = vol_temperature_mid.T;
@@ -124,12 +134,11 @@ equation
   connect(notMode.y, booleanToReal_discharge.u) annotation (Line(points={{61.2,0},{56,0},{56,-12.6},{55,-12.6}}, color={255,0,255}));
   connect(vol_upper.ports[1], vol_temperature_upper.port) annotation (Line(points={{-70,48.5},{-70,64}},          color={0,127,255}));
   connect(volume_mid.ports[1], vol_temperature_mid.port) annotation (Line(points={{-70,2.5},{-70,14},{-56,14}}, color={0,127,255}));
-  connect(volume_lower.ports[1], vol_temperature_lower.port) annotation (Line(points={{-70,-31.5},{-52,-31.5},{-52,-26}}, color={0,127,255}));
+  connect(volume_lower.ports[1], vol_temperature_lower.port) annotation (Line(points={{-70,-31.6},{-52,-31.6},{-52,-26}}, color={0,127,255}));
   connect(volume_mid.ports[2], vol_upper.ports[2]) annotation (Line(points={{-70,3.5},{-70,49.5}},            color={0,127,255}));
-  connect(volume_lower.ports[2], volume_mid.ports[3]) annotation (Line(points={{-70,-30.5},{-64,-30.5},{-64,4.5},{-70,4.5}}, color={0,127,255}));
+  connect(volume_lower.ports[2], volume_mid.ports[3]) annotation (Line(points={{-70,-30.8},{-64,-30.8},{-64,4.5},{-70,4.5}}, color={0,127,255}));
   connect(valveLayers_upper.port_b, port_feed) annotation (Line(points={{-28,50},{-24,50},{-24,96},{84,96},{84,100},{100,100}}, color={0,127,255}));
   connect(valveLayers_upper.port_a, vol_upper.ports[3]) annotation (Line(points={{-48,50},{-58,50},{-58,50.5},{-70,50.5}}, color={0,127,255}));
-  connect(vol_upper.ports[4], valveDischarge.port_a) annotation (Line(points={{-70,51.5},{-70,48},{-100,48},{-100,-50},{46,-50}}, color={0,127,255}));
   connect(and1.y, switch_mid.u2) annotation (Line(points={{9.3,21},{-0.6,21}}, color={255,0,255}));
   connect(switch_upper.u2, greaterEqual_upper.y) annotation (Line(points={{-2.6,67},{-2.6,66},{5.2,66}}, color={255,0,255}));
   connect(switch_lower.u2, lessThreshold_lower.y) annotation (Line(points={{1.2,-20},{11.4,-20}}, color={255,0,255}));
@@ -145,10 +154,9 @@ equation
   connect(switch_upper.y, valveLayers_upper.opening) annotation (Line(points={{-18.7,67},{-38,67},{-38,58}}, color={0,0,127}));
   connect(valveLayers_mid.port_a, volume_mid.ports[4]) annotation (Line(points={{-44,6},{-62,6},{-62,5.5},{-70,5.5}}, color={0,127,255}));
   connect(valveLayers_mid.port_b, port_feed) annotation (Line(points={{-24,6},{-18,6},{-18,56},{-24,56},{-24,96},{84,96},{84,100},{100,100}}, color={0,127,255}));
-  connect(valveLayers_lower.port_a, volume_lower.ports[3]) annotation (Line(points={{-38,-32},{-38,-38},{-64,-38},{-64,-32},{-70,-32},{-70,-29.5}}, color={0,127,255}));
+  connect(valveLayers_lower.port_a, volume_lower.ports[3]) annotation (Line(points={{-38,-32},{-38,-38},{-64,-38},{-64,-32},{-70,-32},{-70,-30}},   color={0,127,255}));
   connect(valveLayers_lower.port_b, port_feed) annotation (Line(points={{-18,-32},{-8,-32},{-8,6},{-18,6},{-18,56},{-24,56},{-24,96},{84,96},{84,100},{100,100}}, color={0,127,255}));
-  connect(volume_lower.ports[4], valveLayers_lower.port_a) annotation (Line(points={{-70,-28.5},{-70,-32},{-38,-32}}, color={0,127,255}));
-  connect(valveLayers_lower.port_b, valveCharge.port_a) annotation (Line(points={{-18,-32},{42,-32},{42,-96},{48,-96}}, color={0,127,255}));
+  connect(volume_lower.ports[4], valveLayers_lower.port_a) annotation (Line(points={{-70,-29.2},{-70,-32},{-38,-32}}, color={0,127,255}));
   connect(switch_lower.y, valveLayers_lower.opening) annotation (Line(points={{-12.6,-20},{-28,-20},{-28,-24}}, color={0,0,127}));
   connect(feedTemperature, lessThreshold_lower.u) annotation (Line(points={{118,60},{64,60},{64,2},{34,2},{34,-20},{25.2,-20}}, color={0,0,127}));
   connect(greaterEqual_mid.y, and1.u1) annotation (Line(points={{33.2,20},{34,21},{25.4,21}}, color={255,0,255}));
@@ -156,6 +164,10 @@ equation
   connect(greaterEqual_mid.u1, feedTemperature) annotation (Line(points={{51.6,20},{86,20},{86,60},{118,60}}, color={0,0,127}));
   connect(feedTemperature, lessThreshold_mid.u) annotation (Line(points={{118,60},{64,60},{64,2},{34,2},{34,-3.2},{24,-3.2}}, color={0,0,127}));
   connect(greaterEqual_mid.u2, T_lim_mid.y) annotation (Line(points={{51.6,13.6},{51.6,14},{59.4,14}}, color={0,0,127}));
+  connect(pipe.port_b, valveCharge.port_a) annotation (Line(points={{16,-92},{42,-92},{42,-96},{48,-96}}, color={0,127,255}));
+  connect(volume_lower.ports[5], pipe.port_a) annotation (Line(points={{-70,-28.4},{-70,-32},{-64,-32},{-64,-38},{-42,-38},{-42,-92},{-4,-92}}, color={0,127,255}));
+  connect(pipe1.port_b, valveDischarge.port_a) annotation (Line(points={{24,-50},{46,-50}}, color={0,127,255}));
+  connect(vol_upper.ports[4], pipe1.port_a) annotation (Line(points={{-70,51.5},{-112,51.5},{-112,-50},{4,-50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Simple buffer storage model using one-diemensional finite volume discretization.</p>
