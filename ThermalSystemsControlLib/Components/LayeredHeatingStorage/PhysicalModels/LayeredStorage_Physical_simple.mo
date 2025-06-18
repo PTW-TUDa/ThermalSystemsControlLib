@@ -95,7 +95,7 @@ model LayeredStorage_Physical_simple
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-46,-14})));
-  Modelica.Blocks.Sources.RealExpression realExp_mid3(y=T_start_upper)           annotation (Placement(transformation(extent={{-128,72},{-114,88}})));
+  Modelica.Blocks.Sources.RealExpression realExp_mid3(y=vol_temperature_mid.T)   annotation (Placement(transformation(extent={{-128,72},{-114,88}})));
   Modelica.Fluid.Valves.ValveLinear valveLinear_discharge(
     redeclare package Medium = Medium,
     allowFlowReversal=true,
@@ -123,6 +123,16 @@ model LayeredStorage_Physical_simple
         rotation=270,
         origin={118,8})));
   Modelica.Blocks.Interfaces.BooleanInput mode annotation (Placement(transformation(extent={{140,60},{100,100}})));
+  Modelica.Blocks.Math.RealToBoolean realToBoolean1(threshold=1)
+                                                                annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={-44,54})));
+  Modelica.Blocks.MathBoolean.Not not2 annotation (Placement(transformation(
+        extent={{-4,-4},{4,4}},
+        rotation=90,
+        origin={-44,70})));
+  Modelica.Blocks.Logical.And and1 annotation (Placement(transformation(extent={{-46,80},{-36,90}})));
 equation
   connect(valveLinear_mid.port_b, volume_mid.ports[1]) annotation (Line(points={{60,0},{64,0},{64,-32},{56,-32},{56,-33.5},{44,-33.5}}, color={0,127,255}));
   connect(feed, valveLinear_mid.port_a) annotation (Line(points={{-106,0},{40,0}}, color={0,127,255}));
@@ -163,7 +173,6 @@ equation
   connect(realToBoolean.y, not1.u) annotation (Line(points={{-46,-7.4},{-46,0.4}}, color={255,0,255}));
   connect(realToBoolean.u, switch_lower.y) annotation (Line(points={{-46,-21.2},{-46,-30},{-20,-30},{-20,-48},{-25,-48}}, color={0,0,127}));
   connect(realExp_mid3.y, greaterEqual.u2) annotation (Line(points={{-113.3,80},{-94,80},{-94,79.4},{-77.6,79.4}}, color={0,0,127}));
-  connect(greaterEqual.y, switch_upper.u2) annotation (Line(points={{-59.2,85},{-32,85},{-32,84},{-24,84}}, color={255,0,255}));
   connect(valveLinear_discharge.port_a, pipe_discharge.port_b) annotation (Line(points={{100,4},{100,24}}, color={0,127,255}));
   connect(valveLinear_discharge.port_b, discharge) annotation (Line(points={{100,-16},{100,-40}}, color={0,127,255}));
   connect(pipe_charge.port_b, valveLinear_charge.port_a) annotation (Line(points={{88,-70},{96,-70},{96,-72},{97,-72}}, color={0,127,255}));
@@ -172,5 +181,10 @@ equation
   connect(booleanToReal_discharge.y, valveLinear_discharge.opening) annotation (Line(points={{118,1.4},{118,-6},{108,-6}}, color={0,0,127}));
   connect(mode, booleanToReal_discharge.u) annotation (Line(points={{120,80},{120,15.2},{118,15.2}}, color={255,0,255}));
   connect(mode, booleanToReal_charge.u) annotation (Line(points={{120,80},{120,46},{136,46},{136,-56.8}}, color={255,0,255}));
+  connect(not2.u, realToBoolean1.y) annotation (Line(points={{-44,64.4},{-44,60.6}}, color={255,0,255}));
+  connect(switch_mid.y, realToBoolean1.u) annotation (Line(points={{45,28},{48,28},{48,44},{-40,44},{-40,42},{-44,42},{-44,46.8}}, color={0,0,127}));
+  connect(greaterEqual.y, and1.u1) annotation (Line(points={{-59.2,85},{-47,85}}, color={255,0,255}));
+  connect(and1.y, switch_upper.u2) annotation (Line(points={{-35.5,85},{-35.5,84},{-24,84}}, color={255,0,255}));
+  connect(not2.y, and1.u2) annotation (Line(points={{-44,74.8},{-44,74},{-47,74},{-47,81}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end LayeredStorage_Physical_simple;
