@@ -52,7 +52,7 @@ model IdealConsumer_DefinedMassFlow_ByValve
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-28,0})));
-  parameter Valves.PhysicalModels.Records.TwoWayValveProperties deviceData;
+  replaceable parameter ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.TwoWayValveProperties deviceData constrainedby ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.TwoWayValveProperties annotation (choicesAllMatching=true);
   Modelica.Fluid.Valves.ValveLinear valveLinear(
     redeclare package Medium = Medium,
     dp_nominal=deviceData.dp_nominal,
