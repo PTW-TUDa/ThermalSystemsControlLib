@@ -13,7 +13,7 @@ model TestLayeredStorage
     nPorts=1) annotation (Placement(transformation(extent={{-82,-70},{-62,-50}})));
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k=false) annotation (Placement(transformation(extent={{84,20},{64,40}})));
-  Modelica.Blocks.Sources.Constant const(k=323) annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+  Modelica.Blocks.Sources.Constant const(k=343) annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 equation
   connect(layeredStorage_Physical_simple.charge, boundary.ports[1]) annotation (Line(points={{31.3,-29.34},{31.3,-53},{60,-53}},     color={0,127,255}));
   connect(layeredStorage_Physical_simple.discharge, boundary.ports[2]) annotation (Line(points={{32,-10.2},{54,-10.2},{54,-51},{60,-51}},     color={0,127,255}));

@@ -1,25 +1,21 @@
 within ThermalSystemsControlLib.Applications.ETA_Factory.HeatingStorageSystems;
 model TestLayeredStorage_complex
   extends ThermalSystemsControlLib.BaseClasses.Icons.Test_Icon;
-  inner Modelica.Fluid.System system annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Fluid.Sources.FixedBoundary boundary(redeclare package Medium = Medium, nPorts=2) annotation (Placement(transformation(extent={{-76,-58},{-56,-38}})));
+  inner Modelica.Fluid.System system annotation (Placement(transformation(extent={{-100,-100},{-60,-60}})));
+  Modelica.Fluid.Sources.FixedBoundary boundary(redeclare package Medium = Medium, nPorts=1) annotation (Placement(transformation(extent={{74,-88},{54,-68}})));
   Modelica.Fluid.Sources.MassFlowSource_T boundary1(
     redeclare package Medium = Medium,
+    use_T_in=true,
     m_flow=1,
-    nPorts=1) annotation (Placement(transformation(extent={{-82,56},{-62,76}})));
+    nPorts=1) annotation (Placement(transformation(extent={{66,66},{46,86}})));
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
-  Modelica.Blocks.Sources.Ramp ramp(
-    height=50,
-    duration=50,
-    offset=330,
-    startTime=50) annotation (Placement(transformation(extent={{-94,8},{-74,28}})));
-  Components.LayeredHeatingStorage.PhysicalModels.LayeredStorage_Physical_test layeredStorage_Physical_test annotation (Placement(transformation(extent={{38,-22},{-8,28}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant annotation (Placement(transformation(extent={{-94,-24},{-74,-4}})));
+  Modelica.Blocks.Sources.BooleanConstant mode(k=true) annotation (Placement(transformation(extent={{94,-8},{74,12}})));
+  Components.LayeredHeatingStorage.LayeredHeatingStorage layeredHeatingStorage annotation (Placement(transformation(extent={{-34,-34},{34,36}})));
+  Modelica.Blocks.Sources.Constant input_Temp(k=328) annotation (Placement(transformation(extent={{100,70},{80,90}})));
 equation
-  connect(boundary1.ports[1], layeredStorage_Physical_test.port_feed) annotation (Line(points={{-62,66},{-8,66},{-8,28}}, color={0,127,255}));
-  connect(ramp.y, layeredStorage_Physical_test.feedTemperature) annotation (Line(points={{-73,18},{-12.14,18}}, color={0,0,127}));
-  connect(layeredStorage_Physical_test.port_discharge, boundary.ports[1]) annotation (Line(points={{-7.54,-9.5},{-46,-9.5},{-46,-49},{-56,-49}}, color={0,127,255}));
-  connect(layeredStorage_Physical_test.port_charge, boundary.ports[2]) annotation (Line(points={{-8,-21},{-8,-47},{-56,-47}}, color={0,127,255}));
-  connect(booleanConstant.y, layeredStorage_Physical_test.mode) annotation (Line(points={{-73,-14},{-48,-14},{-48,3},{-12.14,3}}, color={255,0,255}));
+  connect(layeredHeatingStorage.port_b, boundary1.ports[1]) annotation (Line(points={{34,36},{34,76},{46,76}}, color={0,127,255}));
+  connect(layeredHeatingStorage.port_a, boundary.ports[1]) annotation (Line(points={{34,-34},{34,-78},{54,-78}}, color={0,127,255}));
+  connect(layeredHeatingStorage.mode, mode.y) annotation (Line(points={{41.48,1},{66,1},{66,2},{73,2}}, color={255,0,255}));
+  connect(input_Temp.y, boundary1.T_in) annotation (Line(points={{79,80},{68,80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end TestLayeredStorage_complex;

@@ -1,5 +1,6 @@
 within ThermalSystemsControlLib.Components.LayeredHeatingStorage.PhysicalModels;
 model LayeredStorage_Physical_simple
+  extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper(displayUnit="K")=353.15
                                                                       "Start value of upper temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower(displayUnit="K")=313.15
@@ -32,6 +33,7 @@ model LayeredStorage_Physical_simple
     use_T_start=true,
     T_start=T_start_lower,
     use_portsData=false,
+    use_HeatTransfer=false,
     V=1,
     nPorts=4) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -86,11 +88,10 @@ model LayeredStorage_Physical_simple
   Modelica.Blocks.MathBoolean.Not not1 annotation (Placement(transformation(
         extent={{-4,-4},{4,4}},
         rotation=90,
-        origin={-46,6})));
+        origin={-56,6})));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation (Placement(transformation(extent={{-76,78},{-60,92}})));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual1 annotation (Placement(transformation(extent={{-82,-8},{-68,4}})));
   Modelica.Blocks.Sources.RealExpression realExp_mid1(y=vol_temperature_lower.T) annotation (Placement(transformation(extent={{-136,-14},{-122,2}})));
-  Modelica.Blocks.MathBoolean.And and3(nu=3) annotation (Placement(transformation(extent={{-40,24},{-28,36}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=1) annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
@@ -133,7 +134,16 @@ model LayeredStorage_Physical_simple
         rotation=90,
         origin={-44,70})));
   Modelica.Blocks.Logical.And and1 annotation (Placement(transformation(extent={{-46,80},{-36,90}})));
+  Modelica.Blocks.Logical.And and2 annotation (Placement(transformation(extent={{-38,26},{-28,36}})));
+  Modelica.Blocks.Logical.And and3 annotation (Placement(transformation(extent={{-52,14},{-42,24}})));
+
+  //local state
+  Interfaces.LayeredStorageState localState annotation (Placement(transformation(extent={{-8,100},{12,120}})));
+
 equation
+  localState.fLowerTemperature = vol_temperature_lower.T;
+  localState.fMidTemperature = vol_temperature_mid.T;
+  localState.fUpperTemperature = vol_temperature_upper.T;
   connect(valveLinear_mid.port_b, volume_mid.ports[1]) annotation (Line(points={{60,0},{64,0},{64,-32},{56,-32},{56,-33.5},{44,-33.5}}, color={0,127,255}));
   connect(feed, valveLinear_mid.port_a) annotation (Line(points={{-106,0},{40,0}}, color={0,127,255}));
   connect(switch_mid.y, valveLinear_mid.opening) annotation (Line(points={{45,28},{50,28},{50,8}}, color={0,0,127}));
@@ -166,11 +176,8 @@ equation
   connect(feedTemperature, greaterEqual1.u1) annotation (Line(points={{-117,59},{-90,59},{-90,-2},{-83.4,-2}}, color={0,0,127}));
   connect(feedTemperature, less_lower.u1) annotation (Line(points={{-117,59},{-90,59},{-90,-48},{-82,-48}}, color={0,0,127}));
   connect(realExp_mid1.y, greaterEqual1.u2) annotation (Line(points={{-121.3,-6},{-88,-6},{-88,-6.8},{-83.4,-6.8}}, color={0,0,127}));
-  connect(and3.y, switch_mid.u2) annotation (Line(points={{-27.1,30},{-18,30},{-18,-10},{22,-10},{22,28}}, color={255,0,255}));
-  connect(less_mid.y, and3.u[1]) annotation (Line(points={{-57.3,32},{-44,32},{-44,28.6},{-40,28.6}}, color={255,0,255}));
-  connect(greaterEqual1.y, and3.u[2]) annotation (Line(points={{-67.3,-2},{-56,-2},{-56,20},{-46,20},{-46,30},{-40,30}}, color={255,0,255}));
-  connect(not1.y, and3.u[3]) annotation (Line(points={{-46,10.8},{-46,31.4},{-40,31.4}}, color={255,0,255}));
-  connect(realToBoolean.y, not1.u) annotation (Line(points={{-46,-7.4},{-46,0.4}}, color={255,0,255}));
+  connect(realToBoolean.y, not1.u) annotation (Line(points={{-46,-7.4},{-46,-4},{-56,-4},{-56,0.4}},
+                                                                                   color={255,0,255}));
   connect(realToBoolean.u, switch_lower.y) annotation (Line(points={{-46,-21.2},{-46,-30},{-20,-30},{-20,-48},{-25,-48}}, color={0,0,127}));
   connect(realExp_mid3.y, greaterEqual.u2) annotation (Line(points={{-113.3,80},{-94,80},{-94,79.4},{-77.6,79.4}}, color={0,0,127}));
   connect(valveLinear_discharge.port_a, pipe_discharge.port_b) annotation (Line(points={{100,4},{100,24}}, color={0,127,255}));
@@ -186,5 +193,10 @@ equation
   connect(greaterEqual.y, and1.u1) annotation (Line(points={{-59.2,85},{-47,85}}, color={255,0,255}));
   connect(and1.y, switch_upper.u2) annotation (Line(points={{-35.5,85},{-35.5,84},{-24,84}}, color={255,0,255}));
   connect(not2.y, and1.u2) annotation (Line(points={{-44,74.8},{-44,74},{-47,74},{-47,81}}, color={255,0,255}));
+  connect(less_mid.y, and2.u1) annotation (Line(points={{-57.3,32},{-56,31},{-39,31}}, color={255,0,255}));
+  connect(greaterEqual1.y, and3.u1) annotation (Line(points={{-67.3,-2},{-64,-2},{-64,19},{-53,19}}, color={255,0,255}));
+  connect(and3.u2, not1.y) annotation (Line(points={{-53,15},{-52,15},{-52,12},{-56,12},{-56,10.8}}, color={255,0,255}));
+  connect(and3.y, and2.u2) annotation (Line(points={{-41.5,19},{-41.5,24},{-39,24},{-39,27}}, color={255,0,255}));
+  connect(and2.y, switch_mid.u2) annotation (Line(points={{-27.5,31},{12,31},{12,28},{22,28}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end LayeredStorage_Physical_simple;
