@@ -3,14 +3,12 @@ model LayeredStorage_Physical
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   parameter SI.Volume V = 1 "Storage volume";
-  parameter Integer n_Seg=5   "Number of volume segments (min. 5)";
+  parameter Integer n_Seg=7   "Number of volume segments (min. 5)";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=353.15
                                                                       "Start value of upper temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=313.15
                                                                       "Start value of lower temperature";
-  parameter Real delta_T = (T_start_upper-T_start_lower)/n_Seg;
 
-  //Real relative_height[:] = linspace(1, 0, n_Seg); // relative height used for temperature initalization
   parameter Real T_start_values[n_Seg] = linspace(T_start_lower, T_start_upper, n_Seg);
 
   Modelica.Fluid.Vessels.ClosedVolume vol[n_Seg](
@@ -25,7 +23,7 @@ model LayeredStorage_Physical
   Modelica.Fluid.Sensors.Temperature vol_temperature[n_Seg](redeclare each package Medium = Medium)
                                                                            annotation (Placement(transformation(extent={{-8,32},{12,52}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_feed(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{90,90},{110,110}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_feed(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{-116,-10},{-96,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_charge(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{90,-106},{110,-86}})));
 
   Interfaces.LayeredStorageState localState annotation (Placement(transformation(extent={{-8,100},{12,120}})));
@@ -35,17 +33,9 @@ model LayeredStorage_Physical
     each m_flow_nominal = 1,
     each allowFlowReversal = true) annotation (Placement(transformation(extent={{54,50},{74,70}})));
 
-  Modelica.Blocks.Interfaces.RealInput feedTemperature annotation (Placement(transformation(extent={{138,40},{98,80}})));
+  Modelica.Blocks.Interfaces.RealInput feedTemperature annotation (Placement(transformation(extent={{-140,62},{-100,102}})));
 
 // Layering sistem control
-  Modelica.Blocks.Logical.Switch switch1[n_Seg] annotation (Placement(transformation(extent={{-76,40},{-96,60}})));
-  Modelica.Blocks.Sources.Constant const_close(k=0) annotation (Placement(transformation(extent={{-36,24},{-52,40}})));
-  Modelica.Blocks.Sources.Constant const_open(k=1) annotation (Placement(transformation(extent={{-38,52},{-54,68}})));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual[n_Seg-1] annotation (Placement(transformation(extent={{-36,-40},{-56,-20}})));
-  Modelica.Blocks.Sources.Constant T_lim[n_Seg-1]( each k=300)
-                                                              annotation (Placement(transformation(extent={{16,-76},{-4,-56}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold[n_Seg-1] annotation (Placement(transformation(extent={{-38,-74},{-58,-54}})));
-  Modelica.Blocks.Logical.And and1[n_Seg-2] annotation (Placement(transformation(extent={{-70,-54},{-90,-34}})));
 
 // Mode control (charge or discharge)
   Modelica.Fluid.Interfaces.FluidPort_b port_discharge(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{88,-60},{108,-40}})));
@@ -65,46 +55,46 @@ model LayeredStorage_Physical
         rotation=90,
         origin={55,-21})));
 
+  ValveControls.UpperControl upperControl annotation (Placement(transformation(extent={{-66,62},{-46,82}})));
+  ValveControls.MidControl midControl[n_Seg-2] annotation (Placement(transformation(extent={{-66,8},{-46,28}})));
+  ValveControls.LowerControl lowerControl annotation (Placement(transformation(extent={{-66,-50},{-46,-30}})));
 equation
   localState.fLowerTemperature = vol_temperature[2].T;
   localState.fMidTemperature = vol_temperature[integer(n_Seg/2)].T;
   localState.fUpperTemperature = vol_temperature[n_Seg-1].T;
 
-
-  connect(vol[1].ports[1], valveCharge.port_a);
+//upper layer connections
   connect(vol[n_Seg].ports[3], valveDischarge.port_a);
-
-  for i in 1:(n_Seg-1) loop
-    connect(vol[i].ports[3], vol[i + 1].ports[1]);
-    //T_lim[i].k = T_start_lower + i*delta_T;//considering linear dist of temp
-    connect(switch1[i].y,valveLayers[i].opening);
-    connect(const_close.y,switch1[i].u3);
-    connect(const_open.y,switch1[i].u1);
-    connect(lessThreshold[i].u, feedTemperature);
-    if i > 1 then
-        connect(greaterEqual[i-1].u1, feedTemperature);
-        connect(greaterEqual[i-1].u2, T_lim[i-1].y);
-        connect(and1[i-1].u1,greaterEqual[i-1].y);
-        connect(and1[i-1].u2,lessThreshold[i].y);
-        connect(switch1[i].u2, and1[i-1].y);
-    else connect(switch1[i].u2,lessThreshold[i].y);
+  connect(upperControl.opening, valveLayers[n_Seg].opening);
+  connect(feedTemperature, upperControl.feed_temp);
+  connect(vol_temperature[n_Seg-1].T, upperControl.threshold);
+  connect(midControl[n_Seg-2].opening, upperControl.lower_opening);
+//lower layer connections
+  connect(vol[1].ports[1], valveCharge.port_a);
+  connect(vol[1].ports[3],vol[2].ports[1]);
+  connect(lowerControl.opening, valveLayers[1].opening);
+  connect(vol_temperature[2].T, lowerControl.threshold);
+  connect(feedTemperature, lowerControl.feed_temp);
+//middle layers connections
+  for i in 2:(n_Seg-1) loop
+    connect(vol[i].ports[3],vol[i+1].ports[1]);
+    connect(feedTemperature, midControl[i-1].feed_temp);
+    connect(vol_temperature[i+1].T, midControl[i-1].threshold_upper);
+    connect(vol_temperature[i-1].T, midControl[i-1].threshold_lower);
+    connect(midControl[i-1].opening, valveLayers[i].opening);
+    if i == 2 then
+    connect(lowerControl.opening, midControl[i-1].lower_opening);
+    else connect(midControl[i-2].opening, midControl[i-1].lower_opening);
     end if;
-    lessThreshold[i].threshold = T_lim[i].y;
   end for;
 
+// all layers
   for j in 1:n_Seg loop
     connect(vol[j].ports[2],vol_temperature[j].port);
     connect(vol[j].ports[4],valveLayers[j].port_a);
     connect(valveLayers[j].port_b, port_feed);
   end for;
 
-// connections for the upper layer
-    connect(greaterEqual[n_Seg-1].u2, T_lim[n_Seg-1].y);
-    connect(switch1[n_Seg].y,valveLayers[n_Seg].opening);
-    connect(const_close.y,switch1[n_Seg].u3);
-    connect(const_open.y,switch1[n_Seg].u1);
-    connect(switch1[n_Seg].u2,greaterEqual[n_Seg-1].y);
-    connect(greaterEqual[n_Seg-1].u1, feedTemperature);
 
 // connections controlling charge/discharge modes
   connect(valveDischarge.port_b, port_discharge) annotation (Line(points={{66,-50},{98,-50}}, color={0,127,255}));
