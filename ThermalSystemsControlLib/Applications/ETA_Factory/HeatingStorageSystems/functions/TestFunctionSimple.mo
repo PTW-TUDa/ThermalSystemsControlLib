@@ -30,7 +30,7 @@ createPlot(id=3, position={0, 0, 1065, 407}, y={"layeredStorage_Physical.localSt
 
   simulateModel(
   "ThermalSystemsControlLib.Applications.ETA_Factory.HeatingStorageSystems.TestLayeredStorage",
-  stopTime=5000,
+  stopTime=1110,
   resultFile="TestLayeredStorage");
 
   annotation (__Dymola_Commands(file="plotsetup_7layers_simple.mos" "plotsetup_7layers_simple"));

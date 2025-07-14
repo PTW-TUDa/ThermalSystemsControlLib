@@ -2,11 +2,11 @@ within ThermalSystemsControlLib.Components.LayeredHeatingStorage.PhysicalModels;
 model LayeredStorage_Physical
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
-  parameter SI.Volume V = 1 "Storage volume";
+  parameter SI.Volume V = 7 "Storage volume";
   parameter Integer n_Seg=7   "Number of volume segments (min. 5)";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=353.15
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=331.026816
                                                                       "Start value of upper temperature";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=313.15
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=320.430426
                                                                       "Start value of lower temperature";
 
   parameter Real T_start_values[n_Seg] = linspace(T_start_lower, T_start_upper, n_Seg);
@@ -29,8 +29,8 @@ model LayeredStorage_Physical
   Interfaces.LayeredStorageState localState annotation (Placement(transformation(extent={{-8,100},{12,120}})));
   Modelica.Fluid.Valves.ValveLinear valveLayers[n_Seg](
     redeclare each package Medium = Medium,
-    each dp_nominal=1,
-    each m_flow_nominal = 1,
+    each dp_nominal=100000,
+    each m_flow_nominal=20/36,
     each allowFlowReversal = true) annotation (Placement(transformation(extent={{54,50},{74,70}})));
 
   Modelica.Blocks.Interfaces.RealInput feedTemperature annotation (Placement(transformation(extent={{-140,62},{-100,102}})));
@@ -42,24 +42,28 @@ model LayeredStorage_Physical
   Modelica.Blocks.Interfaces.BooleanInput mode "Value true for charge" annotation (Placement(transformation(extent={{138,-20},{98,20}})));
   Modelica.Fluid.Valves.ValveLinear valveCharge(
     redeclare package Medium = Medium,
-    dp_nominal=1,
-    m_flow_nominal=1) annotation (Placement(transformation(extent={{48,-106},{68,-86}})));
+    dp_nominal=100000,
+    m_flow_nominal=20/36)
+                      annotation (Placement(transformation(extent={{24,-106},{44,-86}})));
   Modelica.Fluid.Valves.ValveLinear valveDischarge(
     redeclare package Medium = Medium,
-    dp_nominal=1,
-    m_flow_nominal=1) annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
+    dp_nominal=100000,
+    m_flow_nominal=20/36)
+                      annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal_charge annotation (Placement(transformation(extent={{58,14},{38,34}})));
   Modelica.Blocks.MathBoolean.Not notMode annotation (Placement(transformation(extent={{70,-4},{62,4}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal_discharge annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
-        origin={55,-21})));
+        origin={41,-19})));
 
   ValveControls.UpperControl upperControl annotation (Placement(transformation(extent={{-66,62},{-46,82}})));
   ValveControls.MidControl midControl[n_Seg-2] annotation (Placement(transformation(extent={{-66,8},{-46,28}})));
   ValveControls.LowerControl lowerControl annotation (Placement(transformation(extent={{-66,-50},{-46,-30}})));
+  Modelica.Fluid.Sensors.TemperatureTwoPort temp_VL(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{68,-60},{88,-40}})));
+  Modelica.Fluid.Sensors.TemperatureTwoPort temp_RL(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{62,-106},{82,-86}})));
 equation
-  localState.fLowerTemperature = vol_temperature[2].T;
+  localState.fLowerTemperature = vol_temperature[1].T;
   localState.fMidTemperature = vol_temperature[integer(n_Seg/2)].T;
   localState.fUpperTemperature = vol_temperature[n_Seg-1].T;
 
@@ -97,13 +101,17 @@ equation
 
 
 // connections controlling charge/discharge modes
-  connect(valveDischarge.port_b, port_discharge) annotation (Line(points={{66,-50},{98,-50}}, color={0,127,255}));
-  connect(valveCharge.port_b, port_charge) annotation (Line(points={{68,-96},{100,-96}}, color={0,127,255}));
   connect(booleanToReal_charge.u, mode) annotation (Line(points={{60,24},{88,24},{88,0},{118,0}}, color={255,0,255}));
-  connect(booleanToReal_charge.y, valveCharge.opening) annotation (Line(points={{37,24},{34,24},{34,-78},{58,-78},{58,-88}}, color={0,0,127}));
+  connect(booleanToReal_charge.y, valveCharge.opening) annotation (Line(points={{37,24},{34,24},{34,-88}},                   color={0,0,127}));
   connect(mode, notMode.u) annotation (Line(points={{118,0},{71.6,0}}, color={255,0,255}));
-  connect(booleanToReal_discharge.y, valveDischarge.opening) annotation (Line(points={{55,-28.7},{56,-28.7},{56,-42}}, color={0,0,127}));
-  connect(notMode.y, booleanToReal_discharge.u) annotation (Line(points={{61.2,0},{56,0},{56,-12.6},{55,-12.6}}, color={255,0,255}));
+  connect(booleanToReal_discharge.y, valveDischarge.opening) annotation (Line(points={{41,-26.7},{41,-32},{50,-32},{50,-42}},
+                                                                                                                       color={0,0,127}));
+  connect(notMode.y, booleanToReal_discharge.u) annotation (Line(points={{61.2,0},{41,0},{41,-10.6}},            color={255,0,255}));
+  connect(port_charge, temp_RL.port_b) annotation (Line(points={{100,-96},{82,-96}}, color={0,127,255}));
+  connect(valveCharge.port_b, temp_RL.port_a) annotation (Line(points={{44,-96},{62,-96}}, color={0,127,255}));
+  connect(port_discharge, temp_VL.port_b) annotation (Line(points={{98,-50},{88,-50}}, color={0,127,255}));
+  connect(temp_VL.port_a, valveDischarge.port_b) annotation (Line(points={{68,-50},{60,-50}}, color={0,127,255}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Simple buffer storage model using one-diemensional finite volume discretization.</p>
