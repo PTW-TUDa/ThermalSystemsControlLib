@@ -20,17 +20,15 @@ createPlot(id=2, position={469, -8, 572, 372}, y={"ramp.y", "layeredStorage_Phys
 "Temperature 4", "Temperature 5", "Temperature 6", "Temperature 7 (upper)"}, colors={{0,140,72}, {28,108,200}, {0,0,0}, {162,29,33}, {244,125,35}, {244,125,35},
 {238,46,47}, {238,46,47}}, patterns={LinePattern.Dot, LinePattern.Solid, LinePattern.Dash, LinePattern.Solid,
 LinePattern.Dash, LinePattern.Solid, LinePattern.Dash, LinePattern.Solid}, thicknesses={0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC", "degC", "degC", "degC", "degC"});
-createPlot(id=3, position={0, 0, 1065, 407}, y={"layeredStorage_Physical.localState.fUpperTemperature", "layeredStorage_Physical.localState.fMidTemperature",
- "layeredStorage_Physical.localState.fLowerTemperature", "layeredStorage_Physical.feedTemperature"},
- heading="Local storage", range={0.0, 10000.0, 300.0, 350.0}, grid=true,
- legends={"UpperTemperature", "Mid Temperature", "LowerTemperature", "Feed Temperature"},
- colors={{238,46,47}, {244,125,35}, {28,108,200}, {0,140,72}},
- patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash},
- thicknesses={0.5, 0.5, 0.25, 0.5}, timeUnit="s", displayUnits={"K", "K", "K", "K"});
+createPlot(id=3, position={0, 0, 1055, 372}, y={"layeredStorage_Physical.localState.fUpperTemperature", "layeredStorage_Physical.localState.fMidTemperature",
+ "layeredStorage_Physical.localState.fLowerTemperature", "layeredStorage_Physical.feedTemperature",
+ "Q_feed.V_flow"}, heading="Local storage", range={0.0, 58000.0, 312.0, 338.0}, grid=true, legends={"UpperTemperature", "Mid Temperature", "LowerTemperature", "Feed Temperature",
+""}, colors={{238,46,47}, {244,125,35}, {28,108,200}, {0,140,72}, {0,140,72}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash,
+LinePattern.Solid}, thicknesses={0.5, 0.5, 0.25, 0.5, 0.25}, range2={-0.0002, 0.0016}, axes={1, 1, 1, 1, 2}, timeUnit="s", displayUnits={"K", "K", "K", "K", "m3/s"});
 
   simulateModel(
   "ThermalSystemsControlLib.Applications.ETA_Factory.HeatingStorageSystems.TestLayeredStorage",
-  stopTime=1110,
+  stopTime=25200,
   resultFile="TestLayeredStorage");
 
   annotation (__Dymola_Commands(file="plotsetup_7layers_simple.mos" "plotsetup_7layers_simple"));

@@ -4,7 +4,7 @@ algorithm
 
 simulateModel(
   "ThermalSystemsControlLib.Applications.ETA_Factory.HeatingStorageSystems.TestLayeredStorage_complex",
-  stopTime=10000,
+  stopTime=40000,
   resultFile="TestLayeredStorage_complex");
 
 // Plot commands
