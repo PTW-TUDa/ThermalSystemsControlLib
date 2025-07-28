@@ -5,10 +5,13 @@ model BufferStorage_Physical
   parameter SI.Volume V = 1 "Storage volume";
   parameter Integer n_Seg = 5 "Number of volume segments (min. 5)";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper "Start value of upper temperature";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_mid "Start value of mid temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower "Start value of lower temperature";
 
-  //Real relative_height[:] = linspace(1, 0, n_Seg); // relative height used for temperature initalization
-  parameter Real T_start_values[n_Seg] = linspace(T_start_lower, T_start_upper, n_Seg);
+  //create array for init temps, splitted by mid temperature
+  parameter Real T_start_values_upper[integer(n_Seg/2)] = linspace(T_start_mid, T_start_upper, integer(n_Seg/2));
+  parameter Real T_start_values_lower[integer(n_Seg/2)+1] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2)+1);
+  parameter Real T_start_values[n_Seg] = cat(1, T_start_values_lower, T_start_values_upper);
 
   output Interfaces.BufferStorageState localState annotation (Placement(transformation(extent={{-10,100},{10,120}})));
 
@@ -20,7 +23,6 @@ model BufferStorage_Physical
     each nPorts=3,
     T_start = T_start_values)
         annotation (Placement(transformation(extent={{-8,0},{12,20}})));
-    //each T_start=T_start,
   Modelica.Fluid.Sensors.Temperature vol_temperature[n_Seg](redeclare each package Medium = Medium)
                                                                            annotation (Placement(transformation(extent={{-62,40},{-42,60}})));
 
@@ -32,9 +34,9 @@ model BufferStorage_Physical
 
 
 equation
-  localState.fLowerTemperature = vol_temperature[2].T;
+  localState.fLowerTemperature = vol_temperature[1].T;
   localState.fMidTemperature = vol_temperature[integer(n_Seg/2)].T;
-  localState.fUpperTemperature = vol_temperature[n_Seg-1].T;
+  localState.fUpperTemperature = vol_temperature[n_Seg].T;
 
 
   connect(vol[1].ports[1], port_a);
