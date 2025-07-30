@@ -3,7 +3,7 @@ model BufferStorage_Physical
   extends ThermalSystemsControlLib.BaseClasses.Icons.BufferStorage_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   parameter SI.Volume V = 1 "Storage volume";
-  parameter Integer n_Seg = 5 "Number of volume segments (min. 5)";
+  parameter Integer n_Seg = 5 "Number of volume segments (min. 5). Must be an odd number.";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper "Start value of upper temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_mid "Start value of mid temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower "Start value of lower temperature";
