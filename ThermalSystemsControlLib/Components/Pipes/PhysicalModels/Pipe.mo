@@ -4,7 +4,7 @@ model Pipe "Simple pipe considering pressure and temperature differences"
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   //##PARAMETERS##
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
-  parameter Boolean use_PressureLoss = true "= true to consider heat loss to ambient" annotation(Evaluate = true, choices(checkBox=true));
+  parameter Boolean use_PressureLoss = true "= true to consider pressure loss" annotation(Evaluate = true, choices(checkBox=true));
   parameter Boolean use_HeatLoss = false "= true to consider heat loss to ambient" annotation(Evaluate = true, choices(checkBox=true));
   parameter SI.Diameter length "Pipe length";
   parameter SI.Diameter diameter "Pipe diameter";

@@ -5,15 +5,17 @@ model BufferStorage
   parameter SI.Volume V = 1 "Storage volume";
   parameter Integer n_Seg = 7 "Number of volume segments";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=313.15
-                                                                      "Start value of temperature";
+                                                                      "Start value of lower temperature";
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start_mid=333.15 "Start value of mid temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=353.15
-                                                                      "Start value of temperature";
+                                                                      "Start value of upper temperature";
 
   PhysicalModels.BufferStorage_Physical BufferStorage(
     redeclare package Medium = Medium,
     V=V,
     n_Seg=n_Seg,
     T_start_upper=T_start_upper,
+    T_start_mid=T_start_mid,
     T_start_lower=T_start_lower)
                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
