@@ -13,7 +13,7 @@ partial model LayeredStorage_Icon
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-40,16},{40,-16}},
+          extent={{-42,16},{44,-16}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={85,170,255},
@@ -42,18 +42,6 @@ partial model LayeredStorage_Icon
           fillPattern=FillPattern.Sphere,
           fillColor={153,153,153}),
         Rectangle(
-          extent={{50,68},{40,-68}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={153,153,153},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-40,68},{-50,-68}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={153,153,153},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-50,68},{50,60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -72,20 +60,32 @@ partial model LayeredStorage_Icon
           fillColor={153,153,153},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-40,-16},{40,-38}},
+          extent={{-42,-14},{42,-38}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={36,138,254},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-40,-38},{40,-60}},
+          extent={{-42,38},{42,16}},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-42,-38},{42,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-40,38},{40,16}},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}),      Diagram(coordinateSystem(preserveAspectRatio=false)));
+          extent={{-40,68},{-50,-68}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={153,153,153},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{50,68},{40,-68}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={153,153,153},
+          fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end LayeredStorage_Icon;
