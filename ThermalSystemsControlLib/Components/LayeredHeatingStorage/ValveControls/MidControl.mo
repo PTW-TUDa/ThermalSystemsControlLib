@@ -16,6 +16,8 @@ model MidControl
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={2,-30})));
+
+
 equation
   connect(feed_temp, greaterEqual.u1) annotation (Line(points={{-120,80},{-52,80},{-52,46},{-50,46},{-50,6},{-40,6}},
                                                                                                     color={0,0,127}));

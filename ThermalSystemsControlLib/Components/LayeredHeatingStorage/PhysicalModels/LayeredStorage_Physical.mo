@@ -26,8 +26,10 @@ model LayeredStorage_Physical
     each use_portsData = false,
     each use_HeatTransfer=true,
     each V=V/n_Seg,
-    each nPorts=5,
-    T_start = T_start_values)
+    each nPorts=4,
+    T_start = T_start_values,
+    medium(
+    T( start=T_start_values, each fixed=true)))
         annotation (Placement(transformation(extent={{-8,0},{12,20}})));
     //each T_start=T_start,
   Modelica.Fluid.Sensors.Temperature vol_temperature[n_Seg](redeclare each package Medium = Medium)
@@ -38,9 +40,9 @@ model LayeredStorage_Physical
 
   Interfaces.LayeredStorageState localState annotation (Placement(transformation(extent={{-8,100},{12,120}})));
   Valves.PhysicalModels.TwoWayValve_Physical valve_feed [n_Seg](redeclare package Medium = Medium, redeclare ThermalSystemsControlLib.Components.Valves.PhysicalModels.Records.TwoWayValveProperties deviceData(
-      dp_nominal(displayUnit="Pa") = 1,
-      m_flow_nominal=1,
-      riseTime=60))     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+      each dp_nominal(displayUnit="Pa") = 1,
+      each m_flow_nominal=1,
+      each riseTime=60))     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-32,50})));
 

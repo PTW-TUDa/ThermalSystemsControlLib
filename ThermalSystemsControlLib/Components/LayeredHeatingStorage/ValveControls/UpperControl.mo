@@ -10,6 +10,8 @@ model UpperControl
   Modelica.Blocks.Logical.And and1 annotation (Placement(transformation(extent={{4,-10},{24,10}})));
   Modelica.Blocks.Logical.Not not1 annotation (Placement(transformation(extent={{-34,-18},{-14,2}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.5) annotation (Placement(transformation(extent={{-82,-70},{-62,-50}})));
+
+
 equation
 
   connect(booleanToReal.y, opening) annotation (Line(points={{71,0},{110,0}}, color={0,0,127}));

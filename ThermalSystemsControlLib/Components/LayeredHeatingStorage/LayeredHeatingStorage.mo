@@ -27,7 +27,9 @@ model LayeredHeatingStorage
       dp_nominal(displayUnit="Pa") = 1,
       m_flow_nominal=1,
       riseTime=60,
-      V_int=0.01))                      annotation (Placement(transformation(
+      V_int=0.01),
+      volume(medium(
+      T( start=T_start_mid, fixed=true))))                      annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,-54})));
@@ -37,7 +39,9 @@ model LayeredHeatingStorage
       dp_nominal(displayUnit="Pa") = 1,
       m_flow_nominal=1,
       riseTime=60,
-      V_int=0.01))                      annotation (Placement(transformation(
+      V_int=0.01),
+      volume(medium(
+      T( start=T_start_mid, fixed=true))))                      annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-40,0})));
@@ -45,7 +49,9 @@ model LayeredHeatingStorage
       dp_nominal(displayUnit="Pa") = 1,
       m_flow_nominal=1,
       riseTime=60,
-      V_int=0.01))                      annotation (Placement(transformation(
+      V_int=0.01),
+      volume(medium(
+      T( start=T_start_mid, fixed=true))))                      annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={28,64})));
