@@ -21,6 +21,7 @@ model TestLayeredStorage "Testing ready-to-integrate layered storage"
   Modelica.Blocks.Sources.Constant const(k=273 + 55)
                                                 annotation (Placement(transformation(extent={{124,70},{104,90}})));
   Components.LayeredHeatingStorage.LayeredHeatingStorage layeredHeatingStorage(
+    n_Seg=4,
     T_start_upper=T_start_upper,
     T_start_mid=T_start_mid,
     T_start_lower=T_start_lower) annotation (Placement(transformation(extent={{-34,-26},{20,30}})));
@@ -36,6 +37,5 @@ equation
   connect(ramp.y, boundary1.m_flow_in) annotation (Line(points={{99,114},{66,114},{66,84}}, color={0,0,127}));
   connect(boundary1.ports[1], temp_feed.port_b) annotation (Line(points={{46,76},{30,76},{30,66}}, color={0,127,255}));
   connect(temp_feed.port_a, layeredHeatingStorage.port_a) annotation (Line(points={{30,46},{30,10},{32,10},{32,-26},{20,-26}}, color={0,127,255}));
-  connect(temp_feed.T, layeredHeatingStorage.feed_temp) annotation (Line(points={{19,56},{-54,56},{-54,2},{-39.4,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end TestLayeredStorage;

@@ -3,7 +3,7 @@ model LayeredStorage_Physical
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
   parameter SI.Volume V = 7 "Storage volume";
-  parameter Integer n_Seg=7   "Number of volume segments (min. 5)";
+  parameter Integer n_Seg=6   "Number of volume segments (min. 5)";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=331.15
                                                                       "Start value of upper temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_mid=328.15
@@ -13,8 +13,13 @@ model LayeredStorage_Physical
 
 
   parameter Real T_start_values_upper[integer(n_Seg/2)] = linspace(T_start_mid, T_start_upper, integer(n_Seg/2));
-  parameter Real T_start_values_lower[integer(n_Seg/2)+1] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2)+1);
-  parameter Real T_start_values[n_Seg] = cat(1, T_start_values_lower, T_start_values_upper);
+  parameter Real T_start_values_lower_odd [integer(n_Seg/2)+1] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2)+1);
+  parameter Real T_start_values_lower_even [integer(n_Seg/2)] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2));
+  parameter Real T_start_values[n_Seg] =
+    if n_Seg/2 == integer(n_Seg/2) then
+      cat(1, T_start_values_lower_even, T_start_values_upper)
+    else
+      cat(1, T_start_values_lower_odd, T_start_values_upper);
 
   Modelica.Fluid.Vessels.ClosedVolume vol[n_Seg](
     redeclare each package Medium = Medium,

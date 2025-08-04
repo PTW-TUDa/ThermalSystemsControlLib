@@ -3,7 +3,7 @@ model LayeredHeatingStorage
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   parameter SI.Volume V = 1 "Storage volume";
-  parameter Integer n_Seg=7   "Number of volume segments";
+  parameter Integer n_Seg=6   "Number of volume segments";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper=334.15
                                                                       "Start value of upper temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_mid=325.15
@@ -16,6 +16,7 @@ model LayeredHeatingStorage
 
   Modelica.Blocks.Interfaces.BooleanInput mode annotation (Placement(transformation(extent={{138,-20},{98,20}})));
   PhysicalModels.LayeredStorage_Physical layeredStorage_Physical(
+    V=7,
     n_Seg=n_Seg,
     T_start_upper= T_start_upper,
     T_start_lower=T_start_lower,
