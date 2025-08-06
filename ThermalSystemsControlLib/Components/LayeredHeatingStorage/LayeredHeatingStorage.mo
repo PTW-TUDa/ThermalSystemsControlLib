@@ -16,7 +16,7 @@ model LayeredHeatingStorage
 
   Modelica.Blocks.Interfaces.BooleanInput mode annotation (Placement(transformation(extent={{138,-20},{98,20}})));
   PhysicalModels.LayeredStorage_Physical layeredStorage_Physical(
-    V=7,
+    V=V,
     n_Seg=n_Seg,
     T_start_upper= T_start_upper,
     T_start_lower=T_start_lower,
@@ -27,9 +27,7 @@ model LayeredHeatingStorage
       dp_nominal(displayUnit="Pa") = 1,
       m_flow_nominal=1,
       riseTime=60,
-      V_int=0.01),
-      volume(medium(
-      T( start=T_start_mid, fixed=true))))                      annotation (Placement(transformation(
+      V_int=0.01))                      annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={40,-54})));
@@ -39,9 +37,7 @@ model LayeredHeatingStorage
       dp_nominal(displayUnit="Pa") = 1,
       m_flow_nominal=1,
       riseTime=60,
-      V_int=0.01),
-      volume(medium(
-      T( start=T_start_mid, fixed=true))))                      annotation (Placement(transformation(
+      V_int=0.01))                      annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-40,0})));
@@ -49,9 +45,7 @@ model LayeredHeatingStorage
       dp_nominal(displayUnit="Pa") = 1,
       m_flow_nominal=1,
       riseTime=60,
-      V_int=0.01),
-      volume(medium(
-      T( start=T_start_mid, fixed=true))))                      annotation (Placement(transformation(
+      V_int=0.01))                      annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={28,64})));

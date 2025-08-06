@@ -27,11 +27,8 @@ model LayeredStorage_Physical
     each use_HeatTransfer=true,
     each V=V/n_Seg,
     each nPorts=4,
-    T_start = T_start_values,
-    medium(
-    T( start=T_start_values, each fixed=true)))
+    T_start = T_start_values)
         annotation (Placement(transformation(extent={{-8,0},{12,20}})));
-    //each T_start=T_start,
   Modelica.Fluid.Sensors.Temperature vol_temperature[n_Seg](redeclare each package Medium = Medium)
                                                                            annotation (Placement(transformation(extent={{-8,32},{12,52}})));
 
@@ -71,7 +68,7 @@ model LayeredStorage_Physical
       riseTime=60))
                    annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
   Valves.PhysicalModels.TwoWayValve_Physical valve_discharge(redeclare package Medium = Medium, deviceData(
-      dp_nominal=0.1,
+      dp_nominal(displayUnit="Pa") = 1,
       m_flow_nominal=1,
       riseTime=60)) annotation (Placement(transformation(extent={{40,70},{60,90}})));
 equation
