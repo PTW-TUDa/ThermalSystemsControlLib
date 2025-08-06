@@ -45,9 +45,9 @@ model ThreeWayValve_Physical "Simple three way valve consisting of two linear va
         origin={0,80})));
   Modelica.Blocks.Math.Feedback feedback annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
-  connect(valveLinear.port_b, volume.ports[1]) annotation (Line(points={{-40,-20},{-2.66667,-20}},             color={0,127,255}));
+  connect(valveLinear.port_b, volume.ports[1]) annotation (Line(points={{-40,-20},{-1.33333,-20}},             color={0,127,255}));
   connect(volume.ports[2], valveLinear1.port_b) annotation (Line(points={{0,-20},{0,-60}},                                   color={0,127,255}));
-  connect(volume.ports[3], port_b) annotation (Line(points={{2.66667,-20},{52,-20},{52,0},{100,0}},
+  connect(volume.ports[3], port_b) annotation (Line(points={{1.33333,-20},{52,-20},{52,0},{100,0}},
                                                                                   color={0,127,255}));
   connect(port_a, valveLinear.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,-20},{-60,-20}}, color={0,127,255}));
   connect(valveLinear1.port_a,port_a1)  annotation (Line(points={{0,-80},{0,-100}},                             color={0,127,255}));
