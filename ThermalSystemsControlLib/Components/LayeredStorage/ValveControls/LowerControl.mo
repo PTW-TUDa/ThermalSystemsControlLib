@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage.ValveControls;
+within ThermalSystemsControlLib.Components.LayeredStorage.ValveControls;
 model LowerControl
   extends ThermalSystemsControlLib.BaseClasses.Icons.Automation_Icon;
   Modelica.Blocks.Interfaces.RealInput feed_temp annotation (Placement(transformation(extent={{-140,60},{-100,100}})));

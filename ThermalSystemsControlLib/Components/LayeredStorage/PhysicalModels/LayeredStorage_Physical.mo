@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage.PhysicalModels;
+within ThermalSystemsControlLib.Components.LayeredStorage.PhysicalModels;
 model LayeredStorage_Physical
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater constrainedby Modelica.Media.Interfaces.PartialMedium annotation (__Dymola_choicesAllMatching=true);
@@ -10,7 +10,6 @@ model LayeredStorage_Physical
                                                                       "Start value of middle temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=320.15
                                                                       "Start value of lower temperature";
-
 
   parameter Real T_start_values_upper[integer(n_Seg/2)] = linspace(T_start_mid, T_start_upper, integer(n_Seg/2));
   parameter Real T_start_values_lower_odd [integer(n_Seg/2)+1] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2)+1);
@@ -107,7 +106,6 @@ equation
     connect(vol[j].ports[4],valve_feed[j].port_a1);
     connect(valve_feed[j].port_b, port_feed);
   end for;
-
 
 // connections controlling charge/discharge modes
   connect(booleanToReal_charge.u, mode) annotation (Line(points={{62,-42},{88,-42},{88,0},{118,0}},

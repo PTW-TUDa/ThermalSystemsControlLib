@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage.ValveControls;
+within ThermalSystemsControlLib.Components.LayeredStorage.ValveControls;
 model MidControl
   extends ThermalSystemsControlLib.BaseClasses.Icons.Automation_Icon;
   Modelica.Blocks.Interfaces.RealInput feed_temp annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -16,7 +16,6 @@ model MidControl
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={2,-30})));
-
 
 equation
   connect(feed_temp, greaterEqual.u1) annotation (Line(points={{-120,80},{-52,80},{-52,46},{-50,46},{-50,6},{-40,6}},

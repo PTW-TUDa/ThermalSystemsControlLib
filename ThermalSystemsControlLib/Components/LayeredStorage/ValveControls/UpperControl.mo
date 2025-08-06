@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage.ValveControls;
+within ThermalSystemsControlLib.Components.LayeredStorage.ValveControls;
 model UpperControl
   extends ThermalSystemsControlLib.BaseClasses.Icons.Automation_Icon;
   Modelica.Blocks.Interfaces.RealInput feed_temp annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -10,7 +10,6 @@ model UpperControl
   Modelica.Blocks.Logical.And and1 annotation (Placement(transformation(extent={{4,-10},{24,10}})));
   Modelica.Blocks.Logical.Not not1 annotation (Placement(transformation(extent={{-34,-18},{-14,2}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.5) annotation (Placement(transformation(extent={{-82,-70},{-62,-50}})));
-
 
 equation
 

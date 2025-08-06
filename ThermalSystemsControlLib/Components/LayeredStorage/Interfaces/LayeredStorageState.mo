@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage.Interfaces;
+within ThermalSystemsControlLib.Components.LayeredStorage.Interfaces;
 connector LayeredStorageState
   Real fUpperTemperature;
   Real fMidTemperature;

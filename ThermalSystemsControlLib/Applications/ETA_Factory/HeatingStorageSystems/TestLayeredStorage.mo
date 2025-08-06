@@ -20,7 +20,7 @@ model TestLayeredStorage "Testing ready-to-integrate layered storage"
                                                        annotation (Placement(transformation(extent={{100,-8},{80,12}})));
   Modelica.Blocks.Sources.Constant const(k=273 + 55)
                                                 annotation (Placement(transformation(extent={{124,70},{104,90}})));
-  Components.LayeredHeatingStorage.LayeredHeatingStorage layeredHeatingStorage(
+  Components.LayeredStorage.LayeredHeatingStorage layeredHeatingStorage(
     n_Seg=7,
     T_start_upper=T_start_upper,
     T_start_mid=T_start_mid,

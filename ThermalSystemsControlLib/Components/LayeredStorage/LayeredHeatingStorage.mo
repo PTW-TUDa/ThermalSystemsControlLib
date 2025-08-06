@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage;
+within ThermalSystemsControlLib.Components.LayeredStorage;
 model LayeredHeatingStorage
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;

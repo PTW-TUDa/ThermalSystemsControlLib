@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage;
+within ThermalSystemsControlLib.Components.LayeredStorage;
 package Interfaces
   extends ThermalSystemsControlLib.BaseClasses.Icons.Interface_Icon_Package;
 end Interfaces;

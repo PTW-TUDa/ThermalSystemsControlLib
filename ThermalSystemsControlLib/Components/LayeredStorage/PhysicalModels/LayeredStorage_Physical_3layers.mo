@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage.PhysicalModels;
+within ThermalSystemsControlLib.Components.LayeredStorage.PhysicalModels;
 model LayeredStorage_Physical_3layers
   extends ThermalSystemsControlLib.BaseClasses.Icons.LayeredStorage_Icon;
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_upper(displayUnit="K")=353.15

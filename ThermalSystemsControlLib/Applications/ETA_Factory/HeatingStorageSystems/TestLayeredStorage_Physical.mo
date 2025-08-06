@@ -25,7 +25,7 @@ model TestLayeredStorage_Physical "Testing isolated layered storage"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-48,-42})));
-  Components.LayeredHeatingStorage.PhysicalModels.LayeredStorage_Physical layeredStorage_Physical(
+  Components.LayeredStorage.PhysicalModels.LayeredStorage_Physical layeredStorage_Physical(
     T_start_upper=T_start_upper,
     T_start_mid=T_start_mid,
     T_start_lower=T_start_lower) annotation (Placement(transformation(extent={{-22,-22},{26,24}})));

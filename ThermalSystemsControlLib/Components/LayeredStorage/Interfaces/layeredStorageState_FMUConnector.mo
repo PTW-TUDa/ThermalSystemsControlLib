@@ -1,4 +1,4 @@
-within ThermalSystemsControlLib.Components.LayeredHeatingStorage.Interfaces;
+within ThermalSystemsControlLib.Components.LayeredStorage.Interfaces;
 model layeredStorageState_FMUConnector
   extends ThermalSystemsControlLib.BaseClasses.Icons.Interface_Icon;
   output Real fUpperTemperature;
