@@ -1,11 +1,11 @@
 ﻿//##Path must be changed!##
-openModel("C:/Users/Giovanna Fusco/Documents/Hiwi/thermalsystemscontrollib/ThermalSystemsControlLib/package.mo");
+openModel("C:/thermalsystemscontrollib/ThermalSystemsControlLib/package.mo");
 
 //Set correct working directory to prevent generating temporary simulation files in repository
-cd("C:/Users/Giovanna Fusco/Documents/Hiwi/thermalsystemscontrollib/WorkingDirectory");
+cd("C:/WorkingDirectory");
 
 //Set environment variable to library
-Modelica.Utilities.System.setEnvironmentVariable("env_tscl","C:/Users/Giovanna Fusco/Documents/Hiwi/thermalsystemscontrollib/ThermalSystemsControlLib",false);
+Modelica.Utilities.System.setEnvironmentVariable("env_tscl","C:/thermalsystemscontrollib/ThermalSystemsControlLib",false);
 
 //Disable storing as one file for version management
 Advanced.DefaultStoreAsOneFile = false;

@@ -22,7 +22,7 @@ model HNHT_Only
   Interfaces.thermalNetworkState_FMUConnector localState annotation (Placement(transformation(extent={{80,80},{100,100}})));
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
                                      T_start=T_start)  annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Systems.HNHT.VSIStorageSystem VSIStorageSystem(T_start=T_start_ActiveStorage) annotation (Placement(transformation(extent={{22,72},{42,52}})));
+  Systems.HNHT.VSIStorageSystem VSIStorageSystem(T_start=T_start_ActiveStorage) annotation (Placement(transformation(extent={{20,72},{40,52}})));
   Components.Pipes.PhysicalModels.Pipe pipe(
     use_HeatLoss=false,
     length=7.95,
@@ -181,11 +181,11 @@ equation
   connect(boundary.ports[1], pipe11.port_a) annotation (Line(points={{160,-30},{150,-30},{150,-20},{140,-20}}, color={0,127,255}));
   connect(CondensingBoilerSystem.port_a, pipe5.port_b) annotation (Line(points={{-80,-10},{-80,-20}}, color={0,127,255}));
   connect(CondensingBoilerSystem.port_b, pipe4.port_a) annotation (Line(points={{-80,10},{-80,20}}, color={0,127,255}));
-  connect(VSIStorageSystem.port_a2, pipe15.port_b) annotation (Line(points={{42,72},{42,80},{52,80}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_a2, pipe15.port_b) annotation (Line(points={{40,72},{40,80},{52,80}}, color={0,127,255}));
   connect(pipe15.port_a, BufferStorage.port_b) annotation (Line(points={{72,80},{72,60},{50,60},{50,20},{40,20},{40,10}}, color={0,127,255}));
-  connect(VSIStorageSystem.port_b1, pipe12.port_a) annotation (Line(points={{38,72},{38,80},{0,80}}, color={0,127,255}));
-  connect(VSIStorageSystem.port_b2, BufferStorage.port_a) annotation (Line(points={{42,52},{46,52},{46,-10},{40,-10}}, color={0,127,255}));
-  connect(VSIStorageSystem.port_a1, BufferStorage.port_a) annotation (Line(points={{38,52},{38,-10},{40,-10}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_b1, pipe12.port_a) annotation (Line(points={{36,72},{36,80},{0,80}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_b2, BufferStorage.port_a) annotation (Line(points={{40,52},{46,52},{46,-10},{40,-10}}, color={0,127,255}));
+  connect(VSIStorageSystem.port_a1, BufferStorage.port_a) annotation (Line(points={{36,52},{36,-10},{40,-10}}, color={0,127,255}));
   connect(pipe12.port_b, BufferStorage.port_b) annotation (Line(points={{-20,80},{-20,40},{40,40},{40,10}}, color={0,127,255}));
   connect(combiTimeTable.y[1], gain.u) annotation (Line(points={{96.5,7},{101.25,7},{101.25,7},{105.4,7}}, color={0,0,127}));
   connect(gain.y, CentralMachineHeatingSystem.fHeatFlowRate) annotation (Line(points={{112.3,7},{114.15,7},{114.15,7},{118,7}}, color={0,0,127}));
