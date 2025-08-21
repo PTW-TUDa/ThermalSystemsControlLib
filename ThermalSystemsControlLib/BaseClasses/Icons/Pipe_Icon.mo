@@ -4,7 +4,7 @@ partial class Pipe_Icon "Icon for Pipes"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
-          extent={{100,20},{-100,-100}},
+          extent={{100,0},{-100,-100}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={230,230,230},
