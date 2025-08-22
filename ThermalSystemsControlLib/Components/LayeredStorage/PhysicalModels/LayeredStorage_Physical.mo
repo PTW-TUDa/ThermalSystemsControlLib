@@ -11,14 +11,15 @@ model LayeredStorage_Physical
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower=320.15
                                                                       "Start value of lower temperature";
 
-  parameter Real T_start_values_upper[integer(n_Seg/2)] = linspace(T_start_mid, T_start_upper, integer(n_Seg/2));
-  parameter Real T_start_values_lower_odd [integer(n_Seg/2)+1] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2)+1);
-  parameter Real T_start_values_lower_even [integer(n_Seg/2)] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2));
   parameter Real T_start_values[n_Seg] =
-    if n_Seg/2 == integer(n_Seg/2) then
-      cat(1, T_start_values_lower_even, T_start_values_upper)
+    if mod(n_Seg,2) == 0 then
+      cat(1,
+          linspace(T_start_lower, T_start_mid, integer(n_Seg/2)),
+          linspace(T_start_mid,   T_start_upper, integer(n_Seg/2)))
     else
-      cat(1, T_start_values_lower_odd, T_start_values_upper);
+      cat(1,
+          linspace(T_start_lower, T_start_mid, integer(n_Seg/2+1)),
+          linspace(T_start_mid,   T_start_upper, integer(n_Seg/2)));
 
   Modelica.Fluid.Vessels.ClosedVolume vol[n_Seg](
     redeclare each package Medium = Medium,
