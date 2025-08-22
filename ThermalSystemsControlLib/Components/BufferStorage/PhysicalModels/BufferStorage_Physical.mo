@@ -8,10 +8,15 @@ model BufferStorage_Physical
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_mid "Start value of mid temperature";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start_lower "Start value of lower temperature";
 
-  //create array for init temps, splitted by mid temperature
-  parameter Real T_start_values_upper[integer(n_Seg/2)] = linspace(T_start_mid, T_start_upper, integer(n_Seg/2));
-  parameter Real T_start_values_lower[integer(n_Seg/2)+1] = linspace(T_start_lower, T_start_mid, integer(n_Seg/2)+1);
-  parameter Real T_start_values[n_Seg] = cat(1, T_start_values_lower, T_start_values_upper);
+  parameter Real T_start_values[n_Seg] =
+  if mod(n_Seg,2) == 0 then
+    cat(1,
+        linspace(T_start_lower, T_start_mid, integer(n_Seg/2)),
+        linspace(T_start_mid,   T_start_upper, integer(n_Seg/2)))
+  else
+    cat(1,
+        linspace(T_start_lower, T_start_mid, integer(n_Seg/2+1)),
+        linspace(T_start_mid,   T_start_upper, integer(n_Seg/2)));
 
   output Interfaces.BufferStorageState localState annotation (Placement(transformation(extent={{-10,100},{10,120}})));
 
@@ -35,7 +40,7 @@ model BufferStorage_Physical
 
 equation
   localState.fLowerTemperature = vol_temperature[1].T;
-  localState.fMidTemperature = vol_temperature[integer(n_Seg/2)].T;
+  localState.fMidTemperature = vol_temperature[integer(n_Seg/2)+1].T;
   localState.fUpperTemperature = vol_temperature[n_Seg].T;
 
 
