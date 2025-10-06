@@ -47,7 +47,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=u_min)            annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=u_min/2)          annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Modelica.Blocks.Interfaces.BooleanOutput bStatusOn "Connector of Boolean output signal" annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.BooleanInput bSetStatusOn annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -105,5 +105,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Centrifugal, pressure building pump using linear interpolation on pressure and power curves. This model uses two-dimensional tables to interpolate (linearly) the pressure difference and electrical power consumption depending on the operating point [0,1] and the volume flow rate. A limiter ensures that the operating point is always in the allowed range. The dynamic behavior is modeled using a PT1 element. Steady-state model without storing mass or energy. </p>
+<p>Due to the PT1 delay, bStatusOn is set to True, if u_min/2 is reached. This is particularly important, if the pump operates in the minimial operating point.</p>
 </html>"));
 end Pump_Physical;
