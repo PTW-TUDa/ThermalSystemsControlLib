@@ -26,7 +26,7 @@ model CHP_Physical
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-70,50})));
-  Modelica.Blocks.Math.Gain gain_P_gs_nom(k=deviceData.P_gas_nominal)
+  Modelica.Blocks.Math.Gain gain_P_gs_nom(k=deviceData.P_gas_nominal*deviceData.P_gas_calibration_factor)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-70,90})));
