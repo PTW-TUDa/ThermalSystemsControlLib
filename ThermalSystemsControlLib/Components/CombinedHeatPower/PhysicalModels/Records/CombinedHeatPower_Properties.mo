@@ -1,8 +1,9 @@
 within ThermalSystemsControlLib.Components.CombinedHeatPower.PhysicalModels.Records;
 record CombinedHeatPower_Properties "Basic parameter record for CHP models"
   extends ThermalSystemsControlLib.BaseClasses.Icons.Record_Icon;
-  parameter SI.Power P_el_nominal "Nominal electrical power ";
+  parameter SI.Power P_el_nominal "Nominal electrical power";
   parameter SI.Power P_gas_nominal "nominal gas consumption";
+  parameter Real P_gas_calibration_factor = 1 "correction factor for gas consumption";
   parameter Real f_effPth[:,:]
     "Efficiency table matrix for thermal power normalized to nominal gas power (grid u = first column, grid T_in = first row)";
   parameter Real u_min "Minimum operation point";
