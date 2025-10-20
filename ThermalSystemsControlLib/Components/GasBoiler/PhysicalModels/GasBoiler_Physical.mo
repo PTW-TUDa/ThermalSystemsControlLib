@@ -28,9 +28,10 @@ model GasBoiler_Physical
         origin={0,120})));
   Modelica.Blocks.Interfaces.RealOutput fOperatingPoint annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.BooleanOutput bStatusOn annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Tables.CombiTable2D Tableefficency_P_th1(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=deviceData.f_effPth,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Modelica.Blocks.Tables.CombiTable2Ds Tableefficency_P_th1(
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    table=deviceData.f_effPth,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -64,7 +65,7 @@ model GasBoiler_Physical
         origin={0,-10})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=deviceData.u_min) annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Math.Product product1 annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Modelica.Blocks.Math.Gain gain_P_gs_nom2(k=deviceData.P_gas_nominal)
+  Modelica.Blocks.Math.Gain gain_P_gs_nom2(k=deviceData.P_gas_nominal*deviceData.P_gas_calibration_factor)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-70,90})));
@@ -80,8 +81,8 @@ equation
   connect(prePow.port, volume1.heatPort) annotation (Line(points={{40,-90},{10,-90}},          color={191,0,0}));
   connect(prePow.Q_flow,gain_P_gs_nom1. y) annotation (Line(points={{60,-90},{70,-90},{70,-81}},     color={0,0,127}));
   connect(port_a, temperature1.port_a) annotation (Line(points={{-100,0},{-100,-100},{-80,-100}}, color={0,127,255}));
-  connect(temperature1.port_b, volume1.ports[1]) annotation (Line(points={{-60,-100},{2,-100}}, color={0,127,255}));
-  connect(volume1.ports[2], port_b) annotation (Line(points={{-2,-100},{100,-100},{100,0}}, color={0,127,255}));
+  connect(temperature1.port_b, volume1.ports[1]) annotation (Line(points={{-60,-100},{1,-100}}, color={0,127,255}));
+  connect(volume1.ports[2], port_b) annotation (Line(points={{-1,-100},{100,-100},{100,0}}, color={0,127,255}));
   connect(port_a,port_a)  annotation (Line(points={{-100,0},{-100,0}},                   color={0,127,255}));
   connect(conditionCheck.T_in, Tableefficency_P_th1.u2) annotation (Line(points={{-5,61},{-20,61},{-20,0},{-70,0},{-70,-40},{-60,-40},{-60,-56},{-42,-56}}, color={0,0,127}));
   connect(temperature1.T, Tableefficency_P_th1.u2) annotation (Line(points={{-70,-89},{-70,-40},{-60,-40},{-60,-56},{-42,-56}}, color={0,0,127}));

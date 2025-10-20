@@ -1,3 +1,5 @@
 IdealConsumer_VariableMassFlow
 Consumer_InherentHeatCapacity
 Consumer_ThermalResistanceOnly
+IdealConsumer_DefinedMassFlow
+IdealConsumer_DefinedMassFlow_ByValve

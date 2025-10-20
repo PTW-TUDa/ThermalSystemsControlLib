@@ -2,6 +2,7 @@ within ThermalSystemsControlLib.Components.GasBoiler.PhysicalModels.Records;
 record GasBoilerProperties
   extends ThermalSystemsControlLib.BaseClasses.Icons.Record_Icon;
   parameter SI.Power P_gas_nominal "nominal gas consumption";
+  parameter Real P_gas_calibration_factor = 1 "calibration factor for gas consumption";
   parameter Real f_effPth[:,:]
     "Efficiency table matrix for thermal power normalized to nominal gas power (grid u = first column, grid T_in = first row)";
   parameter Real u_min "Minimum operation point";

@@ -2,7 +2,7 @@ within ThermalSystemsControlLib.Components.Pumps.PhysicalModels;
 model Pump_Physical "Pressure building pump"
     extends ThermalSystemsControlLib.BaseClasses.Icons.Pump_Icon;
     extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
   outer Modelica.Fluid.System system;
 
   //## PARAMETERS ##
@@ -23,7 +23,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,10})));
-  Modelica.Blocks.Tables.CombiTable2D InterpolationTable_Pressure(
+  Modelica.Blocks.Tables.CombiTable2Ds InterpolationTable_Pressure(
     tableOnFile=true,
     tableName="f_dp",
     fileName=fileName,
@@ -32,7 +32,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-32,-30})));
-  Modelica.Blocks.Tables.CombiTable2D InterpolationTable_Power(
+  Modelica.Blocks.Tables.CombiTable2Ds InterpolationTable_Power(
     tableOnFile=true,
     tableName="f_power",
     fileName=fileName,
@@ -47,7 +47,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=u_min)            annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=u_min/2)          annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Modelica.Blocks.Interfaces.BooleanOutput bStatusOn "Connector of Boolean output signal" annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.BooleanInput bSetStatusOn annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -64,6 +64,7 @@ model Pump_Physical "Pressure building pump"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,78})));
+  Modelica.Blocks.Interfaces.RealOutput P_el "Connector of Real output signal" annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   parameter String pumpTypes[:,:] = ["Grundfos_Magna3_25_40";"Grundfos_Magna3_25_80";"Grundfos_Magna3_25_120";"Grundfos_Magna3_32_60F";"Grundfos_Magna3_32_120FN";"Grundfos_Magna3_40_40F";"Grundfos_Magna3_40_60F";"Grundfos_Magna3_40_80F";"Grundfos_Magna3_40_120F";"Grundfos_Magna3_40_150FN";"Grundfos_Magna3_50_80F";"Grundfos_Unilift_CC9_A1";"Heidelberger_CHP_Pump";"Heidelberger_Boiler_Pump"] "Choosable pump types - [:]";
   parameter String str = Modelica.Utilities.System.getEnvironmentVariable("env_tscl")+"/Resources/Data_Pumps/"+pumpTypes[pumpType,1]+".mat";
@@ -100,8 +101,10 @@ equation
   connect(switch.u1, limiter.y) annotation (Line(points={{-12,58},{0,58},{-1.9984e-15,67}}, color={0,0,127}));
   connect(limiter.u, fSetPoint) annotation (Line(points={{2.22045e-15,90},{2.22045e-15,105},{0,105},{0,120}}, color={0,0,127}));
   connect(switch.y, firstOrder.u) annotation (Line(points={{-20,35},{-20,30},{2.22045e-15,30},{2.22045e-15,22}}, color={0,0,127}));
+  connect(InterpolationTable_Power.y, P_el) annotation (Line(points={{41,-30},{96,-30},{96,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Centrifugal, pressure building pump using linear interpolation on pressure and power curves. This model uses two-dimensional tables to interpolate (linearly) the pressure difference and electrical power consumption depending on the operating point [0,1] and the volume flow rate. A limiter ensures that the operating point is always in the allowed range. The dynamic behavior is modeled using a PT1 element. Steady-state model without storing mass or energy. </p>
+<p>Due to the PT1 delay, bStatusOn is set to True, if u_min/2 is reached. This is particularly important, if the pump operates in the minimial operating point.</p>
 </html>"));
 end Pump_Physical;

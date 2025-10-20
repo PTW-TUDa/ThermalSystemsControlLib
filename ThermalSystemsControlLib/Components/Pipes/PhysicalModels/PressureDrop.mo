@@ -1,6 +1,6 @@
 within ThermalSystemsControlLib.Components.Pipes.PhysicalModels;
 model PressureDrop
-  extends ThermalSystemsControlLib.BaseClasses.Icons.Pipe_Icon;
+  extends ThermalSystemsControlLib.BaseClasses.Icons.PressureDrop_Icon;
   extends ThermalSystemsControlLib.BaseClasses.FluidBaseClasses.FluidTwoPort;
   outer Modelica.Fluid.System system;
 
